@@ -92,6 +92,7 @@ jobs:
 
             if [[ "$chart_dir" == "opcenter-core-shared" ]]; then
               namespace="$SHARED_NAMESPACE"
+              extra_values_args+=(--set storage.secret.accountkey="${{ secrets.ACCOUNTKEY }}")
             fi
 
             if [[ "$chart_dir" == "opcenter-core" ]]; then
