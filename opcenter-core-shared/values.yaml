@@ -30,4 +30,4 @@ storage:
   secret:
     create: false
     accountname: "opcentershare"
-    accountkey: "replace me in github secrets"
+    accountkey: ""
