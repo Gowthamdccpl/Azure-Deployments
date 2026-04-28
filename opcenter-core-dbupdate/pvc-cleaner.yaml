@@ -1,0 +1,20 @@
+﻿apiVersion: v1
+kind: Pod
+metadata:
+  name: pvc-cleaner
+  namespace: dev-opcenter
+spec:
+  nodeSelector:
+    kubernetes.io/os: windows
+  restartPolicy: Never
+  containers:
+  - name: pvc-cleaner
+    image: mcr.microsoft.com/windows/servercore:ltsc2022
+    command: ["cmd", "/c", "rmdir /S /Q C:\\opcenter-metadata\\namespace\\2410\\mdb && echo DONE"]
+    volumeMounts:
+    - mountPath: '\opcenter-metadata'
+      name: opcenter-metadata
+  volumes:
+  - name: opcenter-metadata
+    persistentVolumeClaim:
+      claimName: opcenter-metadata-pvc-dev-opcenter

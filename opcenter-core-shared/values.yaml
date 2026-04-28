@@ -1,0 +1,33 @@
+
+cloudProvider: "Azure"
+
+database:
+  host: opcenter-sql-server.database.windows.net     # Database server hostname or IP address
+  port: 1433           
+  
+
+odsDatabase:
+  host: opcenter-sql-server.database.windows.net                       
+  port: 1433
+  
+
+licenseServer:
+  host: 20.219.84.197               
+  port: 29000
+  
+
+saltLicenseServer:
+  host: 20.219.84.197   
+  port: 29000              
+  
+
+ldapServer: 
+  host:              
+  port:
+
+storage:
+  
+  secret:
+    create: false
+    accountname: "opcentershare"
+    accountkey: "replace me in github secrets"

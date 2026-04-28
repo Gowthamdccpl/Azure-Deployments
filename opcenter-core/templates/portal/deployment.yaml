@@ -1,0 +1,233 @@
+# Copyright Siemens 2024
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portal
+  labels:
+    {{- include "opcenter-core.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.portal.autoscaling.enabled }}
+  replicas: {{ .Values.portal.replicaCount }}
+  {{- end }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 50%
+  selector:
+    matchLabels:
+      {{- include "opcenter-core.portal.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        prometheus.io/path: /metrics
+        prometheus.io/port: "50505"
+        prometheus.io/scheme: http
+        prometheus.io/scrape: "true"
+        {{- with .Values.portal.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      labels:
+        {{- include "opcenter-core.portal.selectorLabels" . | nindent 8 }}
+        {{- with .Values.portal.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.portal.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      serviceAccountName: portal
+
+      securityContext:
+        {{- toYaml .Values.portal.podSecurityContext | nindent 8 }}
+
+      initContainers:
+        - name: fix-appsettings
+          image: mcr.microsoft.com/windows/servercore:ltsc2022
+          command: ["powershell", "-Command"]
+          securityContext:
+            windowsOptions:
+              runAsUserName: "ContainerAdministrator"
+          args:
+            - |
+              $paths = @(
+                'C:\opcenter-metadata\namespace\2410\portal\appsettings.json'
+              )
+
+              # Fix Endpoints.config - remove :443 from security services URLs
+              $endpointsFile = 'C:\opcenter-metadata\namespace\2410\portal\Endpoints.config'
+              if (Test-Path $endpointsFile) {
+                Write-Output "Patching Endpoints.config..."
+                $epContent = Get-Content $endpointsFile -Raw
+                $epContent = $epContent -replace 'http://security-services:443/CamstarSecurityServices/', 'http://security-services/CamstarSecurityServices/'
+                Set-Content -Path $endpointsFile -Value $epContent -NoNewline
+                Write-Output "Endpoints.config patched successfully!"
+              } else {
+                Write-Output "Endpoints.config NOT FOUND"
+              }
+
+              foreach ($path in $paths) {
+                Write-Output "Checking: $path"
+                if (Test-Path $path) {
+                  Write-Output "Found: $path"
+                  try {
+                    $content = Get-Content $path -Raw
+                    Write-Output "Original content length: $($content.Length)"
+                    Write-Output "=== Original Content (first 500 chars) ==="
+                    Write-Output $content.Substring(0, [Math]::Min(500, $content.Length))
+
+                    # Patch URL patterns FIRST
+                    $content = $content -replace 'https://localhost', 'http://security-services'
+
+                    # Patch Port as a STRING ("443" -> "80")
+                    $content = $content -replace '"Port"\s*:\s*"443"', '"Port": "80"'
+                    
+                    # Patch Port as a NUMBER (just in case)
+                    $content = $content -replace '"Port"\s*:\s*443(?!\d)', '"Port": 80'
+
+                    # Patch Host (in case it says localhost)
+                    $content = $content -replace '"Host"\s*:\s*"localhost"', '"Host": "security-services"'
+                    
+                    # Patch UseSSL
+                    $content = $content -replace '"UseSSL"\s*:\s*true', '"UseSSL": false'
+                    
+                    # Patch Scheme
+                    $content = $content -replace '"Scheme"\s*:\s*"https"', '"Scheme": "http"'
+
+                    Set-Content -Path $path -Value $content -NoNewline
+                    Write-Output "Patched successfully!"
+                    
+                    $newContent = Get-Content $path -Raw
+                    Write-Output "New content length: $($newContent.Length)"
+                    Write-Output "=== Patched Content (first 500 chars) ==="
+                    Write-Output $newContent.Substring(0, [Math]::Min(500, $newContent.Length))
+                  } catch {
+                    Write-Error "Error patching $path : $_"
+                  }
+                } else {
+                  Write-Output "File NOT FOUND: $path"
+                }
+              }
+          volumeMounts:
+            - name: opcenter-metadata
+              mountPath: C:\opcenter-metadata
+
+      containers:
+        - name: portal
+          securityContext:
+            {{- toYaml .Values.portal.securityContext | nindent 12 }}
+
+          image: "{{ .Values.portal.image.repository }}:{{ .Values.portal.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.portal.image.pullPolicy }}
+
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+
+          startupProbe:
+            httpGet:
+              path: "/CamstarPortal"
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            failureThreshold: 30
+            timeoutSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: "/CamstarPortal"
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 10
+
+          env:
+            - name: OPCORE_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: opcenter-db-secrets
+                  key: OPCORE_DB_PASSWORD
+
+            - name: OPCORE_DB_SCHEMA
+              valueFrom:
+                secretKeyRef:
+                  name: opcenter-db-secrets
+                  key: OPCORE_DB_SCHEMA
+
+            - name: OPCORE_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: opcenter-db-secrets
+                  key: OPCORE_DB_USERNAME
+
+            - name: OPCORE_CONTAINER_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+
+            - name: OPCORE_CONTAINER_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+
+            {{- if .Values.portal.extraEnv }}
+            {{ toYaml .Values.portal.extraEnv | nindent 12 }}
+            {{- end }}
+
+          envFrom:
+            - configMapRef:
+                name: opcenter-config
+            - configMapRef:
+                name: opcenter-deploy-config
+
+            {{- if .Values.portal.extraEnvFrom }}
+            {{ toYaml .Values.portal.extraEnvFrom | nindent 12 }}
+            {{- end }}
+
+          resources:
+            {{- toYaml .Values.portal.resources | nindent 12 }}
+
+          volumeMounts:
+            {{- if eq .Values.cloudProvider "Azure" }}
+            - name: opcenter-metadata
+              mountPath: \opcenter-metadata
+            - name: opcenter-metadata
+              mountPath: \CamstarPortal\User
+              subPath: {{ .Values.config.metadataPath }}\portal\User
+            {{- end }}
+
+            {{- if .Values.portal.extraVolumeMounts }}
+            {{ toYaml .Values.portal.extraVolumeMounts | nindent 12 }}
+            {{- end }}
+
+      # FIXED: volumes moved OUTSIDE container
+      volumes:
+        {{- if eq .Values.cloudProvider "Azure" }}
+        - name: opcenter-metadata
+          persistentVolumeClaim:
+            claimName: opcenter-metadata-pvc-{{ .Release.Namespace }}
+        {{- end }}
+
+        {{- if .Values.portal.extraVolumes }}
+        {{ toYaml .Values.portal.extraVolumes | nindent 8 }}
+        {{- end }}
+
+      nodeSelector:
+        "kubernetes.io/os": windows
+        "kubernetes.azure.com/os-sku": Windows2022
+        {{- with .Values.portal.nodeSelectors }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+
+      {{- with .Values.portal.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      {{- with .Values.portal.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

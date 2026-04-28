@@ -1,0 +1,179 @@
+# Copyright Siemens 2024
+# Default values for opcenter-core.
+
+nameOverride: ""
+fullnameOverride: ""
+
+cloudProvider: Azure
+
+# --------------------------
+# Database Configuration
+# --------------------------
+database:
+  type: SQLServer
+  host: hostname
+  username: ""
+  password: ""
+  schema: ""
+  name: ""
+  port: 1433
+  maxRowsetSize: 15000
+
+defaultDomain: "kube-dev-server-01"
+
+storage:
+  fileShare: opcenter
+
+config:
+  metadataPath: namespace\2410
+
+# --------------------------
+# Connect MOM Settings
+# --------------------------
+connectMOM:
+  enabled: false
+  certificatePath: certificates\connectMOM
+  passphrase: Passphrase
+  username: ""
+  password: ""
+  useSSL: true
+  serverName: ""
+  serverIP: ""
+  clientName: ""
+  createSecret: true
+
+# --------------------------
+# Connect SAP BO Settings
+# --------------------------
+connectSAPBO:
+  serverName: ""
+  serverIP: ""
+  certificatePath: certificates\connectSAPBO
+  certPassword: ""
+  username: ""
+  password: ""
+
+# --------------------------
+# App Server Settings
+# --------------------------
+appServer:
+  image:
+    repository: openterrepo.azurecr.io/app-server
+    tag: "2504.0002"
+    pullPolicy: Always
+
+  imagePullSecrets:
+    - name: acr-secret
+
+  connectMOM:
+    enabled: false
+    image:
+      repository: openterrepo.azurecr.io/app-server-with-connect
+      tag: "2504.0002"
+      pullPolicy: Always
+    imagePullSecrets:
+      - name: acr-secret
+
+  connectServiceAccount:
+    enabled: false
+    username: ""
+    password: ""
+
+  connectRestApi:
+    username: ""
+    password: ""
+
+  ingress:
+    host: "135.237.39.251.nip.io"   # OK to keep empty
+    tls: false
+
+# --------------------------
+# Portal Settings
+# --------------------------
+portal:
+  image:
+    repository: openterrepo.azurecr.io/portal
+    tag: "2504.0002"
+    pullPolicy: Always
+
+  imagePullSecrets:
+    - name: acr-secret
+
+  ingress:
+    host: "portal.135.237.39.251.nip.io"   # OK to empty (will update DNS later)
+    tls: false
+
+  extraEnv:
+    - name: OPCORE_IsContainer
+      value: "true"
+    - name: OPCORE_TelemetryAppName
+      value: "Portal"
+    - name: OPCORE_EnableTelemetry
+      value: "true"
+    - name: OPCORE_TelemetryConnectionString
+      value: "InstrumentationKey=xxxxxxxxxxx;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/"
+    - name: OPCORE_TelemetryDLLErrorLogging
+      value: "false"
+    - name: OPCORE_TelemetryDLLLogFolderPath
+      value: ""
+    - name: OPCORE_WCF_TelemetryAppName
+      value: "WCF"
+    - name: OPCORE_WCF_EnableTelemetry
+      value: "true"
+    - name: OPCORE_WCF_TelemetryConnectionString
+      value: "InstrumentationKey=xxxxxxxxxxx;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/"
+    - name: OPCORE_WCF_TelemetryDLLErrorLogging
+      value: "false"
+    - name: OPCORE_WCF_TelemetryDLLLogFolderPath
+      value: ""
+
+# --------------------------
+# Notification Service
+# --------------------------
+notificationService:
+  image:
+    repository: openterrepo.azurecr.io/deployment-service
+    tag: "2504.0002"
+    pullPolicy: Always
+
+  imagePullSecrets:
+    - name: acr-secret
+
+# --------------------------
+# Security Services
+# --------------------------
+securityServices:
+  image:
+    repository: openterrepo.azurecr.io/security-services
+    tag: "2504.0002"
+    pullPolicy: Always
+
+  imagePullSecrets:
+    - name: acr-secret
+
+  extraEnv:
+    - name: OPCORE_IsContainer
+      value: "true"
+    - name: OPCORE_TelemetryAppName
+      value: "Security Services"
+    - name: OPCORE_EnableTelemetry
+      value: "true"
+    - name: OPCORE_TelemetryConnectionString
+      value: "InstrumentationKey=xxxxxxxxxxx;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/"
+    - name: OPCORE_TelemetryDLLErrorLogging
+      value: "false"
+    - name: OPCORE_TelemetryDLLLogFolderPath
+      value: ""
+
+# --------------------------
+# Inline SPC
+# --------------------------
+inlinespc:
+  enabled: false
+  licenseServerUrl: 29000@salt-license-server.shared.svc.cluster.local
+  image:
+    repository: openterrepo.azurecr.io/deployment-service:2504.0002
+    tag: "2504.0002"
+    pullPolicy: Always
+  imagePullSecrets:
+    - name: acr-secret

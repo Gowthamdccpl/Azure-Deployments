@@ -1,0 +1,42 @@
+# Copyright Siemens 2024
+#
+# Default values for opcenter-core.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+cloudProvider: "Azure"
+updateType: create # create, metadata-only, metadata-and-generate
+
+image:
+  repository: openterrepo.azurecr.io/dbupdate
+  tag: "2504.0002"
+  pullPolicy: Always
+
+
+imagePullSecrets:
+  - name: acr-secret
+
+metadataPath: namespace\2410
+stagingPath: staging\2410\ootb
+sourcePath: ""
+sharedNamespace: shared
+
+configuration: # Override properties from the SiteInfo.mdb
+   totalNumOfSites: 1
+   warningThreshold: 50000
+   siteIdentifier: 1
+   siteName: Site1
+
+odsDatabase: # type: Oracle, SQLServer
+   enabled: false
+   type: SQLServer
+  
+   # database credentials.
+   host: sqlhostname
+   schema: ""
+   username: ""
+   password: ""
+   name: ""
+  
+   # port: Database listener port. Typically 1433 for SQL Server and 1521 for Oracle.
+   port: 1433

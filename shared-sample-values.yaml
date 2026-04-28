@@ -1,0 +1,19 @@
+# Copyright Siemens 2024
+# Sample values for opcenter-core shared components.
+# cloudProvider: Azure, AWS
+cloudProvider: "Azure"
+database:
+   host: 172.1.1.1
+   port: 1433
+odsDatabase:
+   enabled: false
+   host: 172.1.1.2
+   port: 1433
+licenseServer:
+   host: 172.1.1.3
+ldapServer:
+   host: 172.1.1.4
+storage:
+   secret:
+    accountname: mystorageaccountname
+    accountkey: abcdefgabcdegh1234567890
