@@ -93,12 +93,20 @@ jobs:
         run: |
           set -euo pipefail
 
+          # Maps chart folder → exact release name on the cluster (from: helm list --all-namespaces)
+          declare -A RELEASE_NAMES=(
+            ["opcenter-core-shared"]="opcenter-shared"
+            ["opcenter-core-config"]="opcenter-core-config"
+            ["opcenter-core-dbupdate"]="opcenter-core-db"
+            ["opcenter-core"]="opcenter-core"
+          )
+
           while IFS= read -r chart_dir; do
             [[ -z "$chart_dir" ]] && continue
 
             echo "Deploying: $chart_dir"
 
-            release_name="$(awk -F ': *' '$1 == "name" { print $2; exit }' "$chart_dir/Chart.yaml")"
+            release_name="${RELEASE_NAMES[$chart_dir]}"
             values_file="$chart_dir/values.yaml"
             namespace="$OPCENTER_NAMESPACE"
             extra_values_args=()
@@ -130,7 +138,6 @@ jobs:
                 '  nodeSelectors:' \
                 "    \"$WINDOWS_NODE_SELECTOR_KEY\": \"$WINDOWS_NODE_SELECTOR_VALUE\"" \
                 > "$windows_values_file"
-
               extra_values_args+=(--values "$windows_values_file")
             fi
 
