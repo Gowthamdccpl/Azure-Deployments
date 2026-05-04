@@ -114,7 +114,7 @@ jobs:
             if [[ "$chart_dir" == "opcenter-core" ]]; then
               windows_values_file="$RUNNER_TEMP/opcenter-core-windows-node-selector.yaml"
 
-              cat > "$windows_values_file" <<EOF
+cat > "$windows_values_file" <<EOF
 appServer:
   nodeSelectors:
     "$WINDOWS_NODE_SELECTOR_KEY": "$WINDOWS_NODE_SELECTOR_VALUE"
