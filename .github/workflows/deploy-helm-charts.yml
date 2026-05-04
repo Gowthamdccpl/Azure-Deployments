@@ -57,17 +57,14 @@ jobs:
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             echo "Manual run → deploying all charts"
             changed_files="$(git ls-files)"
-
           elif [[ -z "${{ github.event.before }}" || "${{ github.event.before }}" == "0000000000000000000000000000000000000000" ]]; then
-            echo "First commit or missing 'before' → using HEAD"
+            echo "Fallback → using HEAD"
             changed_files="$(git diff-tree --no-commit-id --name-only -r HEAD)"
-
           else
             echo "Push event → detecting changes"
             changed_files="$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}")"
           fi
 
-          echo "Changed files:"
           echo "$changed_files"
 
           chart_dirs=(
@@ -99,7 +96,7 @@ jobs:
           while IFS= read -r chart_dir; do
             [[ -z "$chart_dir" ]] && continue
 
-            echo "Deploying chart: $chart_dir"
+            echo "Deploying: $chart_dir"
 
             release_name="$(awk -F ': *' '$1 == "name" { print $2; exit }' "$chart_dir/Chart.yaml")"
             values_file="$chart_dir/values.yaml"
@@ -112,28 +109,27 @@ jobs:
             fi
 
             if [[ "$chart_dir" == "opcenter-core" ]]; then
-              windows_values_file="$RUNNER_TEMP/opcenter-core-windows-node-selector.yaml"
-
-cat > "$windows_values_file" <<EOF
-appServer:
-  nodeSelectors:
-    "$WINDOWS_NODE_SELECTOR_KEY": "$WINDOWS_NODE_SELECTOR_VALUE"
-appServerSf:
-  nodeSelectors:
-    "$WINDOWS_NODE_SELECTOR_KEY": "$WINDOWS_NODE_SELECTOR_VALUE"
-portal:
-  nodeSelectors:
-    "$WINDOWS_NODE_SELECTOR_KEY": "$WINDOWS_NODE_SELECTOR_VALUE"
-notificationService:
-  nodeSelectors:
-    "$WINDOWS_NODE_SELECTOR_KEY": "$WINDOWS_NODE_SELECTOR_VALUE"
-securityServices:
-  nodeSelectors:
-    "$WINDOWS_NODE_SELECTOR_KEY": "$WINDOWS_NODE_SELECTOR_VALUE"
-inlinespc:
-  nodeSelectors:
-    "$WINDOWS_NODE_SELECTOR_KEY": "$WINDOWS_NODE_SELECTOR_VALUE"
-EOF
+              windows_values_file="$RUNNER_TEMP/opcenter-core-windows.yaml"
+              printf '%s\n' \
+                'appServer:' \
+                '  nodeSelectors:' \
+                "    \"$WINDOWS_NODE_SELECTOR_KEY\": \"$WINDOWS_NODE_SELECTOR_VALUE\"" \
+                'appServerSf:' \
+                '  nodeSelectors:' \
+                "    \"$WINDOWS_NODE_SELECTOR_KEY\": \"$WINDOWS_NODE_SELECTOR_VALUE\"" \
+                'portal:' \
+                '  nodeSelectors:' \
+                "    \"$WINDOWS_NODE_SELECTOR_KEY\": \"$WINDOWS_NODE_SELECTOR_VALUE\"" \
+                'notificationService:' \
+                '  nodeSelectors:' \
+                "    \"$WINDOWS_NODE_SELECTOR_KEY\": \"$WINDOWS_NODE_SELECTOR_VALUE\"" \
+                'securityServices:' \
+                '  nodeSelectors:' \
+                "    \"$WINDOWS_NODE_SELECTOR_KEY\": \"$WINDOWS_NODE_SELECTOR_VALUE\"" \
+                'inlinespc:' \
+                '  nodeSelectors:' \
+                "    \"$WINDOWS_NODE_SELECTOR_KEY\": \"$WINDOWS_NODE_SELECTOR_VALUE\"" \
+                > "$windows_values_file"
 
               extra_values_args+=(--values "$windows_values_file")
             fi
