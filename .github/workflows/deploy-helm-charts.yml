@@ -21,7 +21,7 @@ env:
   SHARED_NAMESPACE: shared
   OPCENTER_NAMESPACE: dev-opcenter
   WINDOWS_NODE_SELECTOR_KEY: kubernetes.azure.com/agentpool
-  WINDOWS_NODE_SELECTOR_VALUE: win22
+  WINDOWS_NODE_SELECTOR_VALUE: window
 
 jobs:
   deploy:
