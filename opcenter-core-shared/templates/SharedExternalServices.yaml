@@ -94,25 +94,37 @@ subsets:
 {{- if .Values.odsDatabase.port}}
 {{- if .Values.odsDatabase.host }}
 ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: ods-db
+# spec:
+#   ports:
+#     - protocol: TCP
+#       port: {{ .Values.odsDatabase.port }}
+#       targetPort: {{ .Values.odsDatabase.port }}
+# ---
+# apiVersion: v1
+# kind: Endpoints
+# metadata:
+#   name: ods-db
+# subsets:
+#   - addresses:
+#       - ip: {{ .Values.odsDatabase.host }}
+#     ports:
+#       - port: {{ .Values.odsDatabase.port }}
+
 apiVersion: v1
 kind: Service
 metadata:
   name: ods-db
 spec:
+  type: ExternalName
+  externalName: {{ .Values.odsDatabase.host }}
   ports:
     - protocol: TCP
       port: {{ .Values.odsDatabase.port }}
       targetPort: {{ .Values.odsDatabase.port }}
----
-apiVersion: v1
-kind: Endpoints
-metadata:
-  name: ods-db
-subsets:
-  - addresses:
-      - ip: {{ .Values.odsDatabase.host }}
-    ports:
-      - port: {{ .Values.odsDatabase.port }}
 ---
 {{- end}}
 {{- end}}
