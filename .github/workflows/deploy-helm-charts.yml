@@ -11,6 +11,8 @@ on:
       - "opcenter-core-shared/**"
       - ".github/workflows/deploy-helm-charts.yml"
 
+  workflow_dispatch:   # 👈 ADD THIS     
+
 concurrency:
   group: helm-deploy-main
   cancel-in-progress: false
