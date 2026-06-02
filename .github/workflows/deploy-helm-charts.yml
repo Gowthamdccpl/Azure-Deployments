@@ -69,6 +69,27 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+
+      - name: Terraform init
+        working-directory: terraform
+        env:
+          ARM_USE_CLI: true
+        run: terraform init -input=false
+
+      - name: Terraform apply
+        working-directory: terraform
+        env:
+          ARM_USE_CLI: true
+          TF_VAR_acr_name: ${{ vars.ACR_NAME }}
+          TF_VAR_storage_account_name: ${{ vars.STORAGE_ACCOUNT_NAME }}
+          TF_VAR_windows_admin_username: ${{ vars.WINDOWS_ADMIN_USERNAME }}
+          TF_VAR_windows_admin_password: ${{ secrets.WINDOWS_ADMIN_PASSWORD }}
+        run: terraform apply -input=false -auto-approve
+
       - name: Set up Helm
         uses: azure/setup-helm@v4
         with:
@@ -79,9 +100,13 @@ jobs:
         run: |
           set -euo pipefail
 
-          mkdir -p "$HOME/.kube"
-          echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > "$HOME/.kube/config"
-          chmod 600 "$HOME/.kube/config"
+          resource_group_name="$(terraform -chdir=terraform output -raw resource_group_name)"
+          aks_name="$(terraform -chdir=terraform output -raw aks_name)"
+
+          az aks get-credentials \
+            --resource-group "$resource_group_name" \
+            --name "$aks_name" \
+            --overwrite-existing
 
       - name: Preserve existing metadata PV and PVC
         id: preserve_storage
