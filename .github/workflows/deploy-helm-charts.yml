@@ -14,12 +14,13 @@ on:
           - destroy
   push:
     branches:
-      - main
+      - master
     paths:
       - "opcenter-core/**"
       - "opcenter-core-config/**"
       - "opcenter-core-dbupdate/**"
       - "opcenter-core-shared/**"
+      - "terraform/**"
       - ".github/workflows/deploy-helm-charts.yml"
 
 concurrency:
