@@ -28,6 +28,9 @@ ldapServer:
 storage:
   
   secret:
-    create: false
-    accountname: "opcentershare"
-    accountkey: ""
+    create: true
+    # accountname: "opcentershare"
+
+    # accountkey: ""
+    # accountkey: ""
+

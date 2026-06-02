@@ -1,6 +1,17 @@
-name: Deploy changed Helm charts
+name: Helm deploy to Azure
 
 on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "Deployment action"
+        required: true
+        default: deploy
+        type: choice
+        options:
+          - deploy
+          - redeploy
+          - destroy
   push:
     branches:
       - main
@@ -11,28 +22,51 @@ on:
       - "opcenter-core-shared/**"
       - ".github/workflows/deploy-helm-charts.yml"
 
-  workflow_dispatch:
-
 concurrency:
-  group: helm-deploy-main
+  group: helm-main-azure
   cancel-in-progress: false
+
+permissions:
+  contents: read
 
 env:
   SHARED_NAMESPACE: shared
   OPCENTER_NAMESPACE: dev-opcenter
+  OPCENTER_METADATA_PVC: opcenter-metadata-pvc-dev-opcenter
   WINDOWS_NODE_SELECTOR_KEY: kubernetes.azure.com/agentpool
   WINDOWS_NODE_SELECTOR_VALUE: window
+  SOURCE_STORAGE_ACCOUNT_NAME: linepilotdbbackup
+  SOURCE_CONTAINER_NAME: opcenter-files
+  DEST_FILE_SHARE_NAME: opcentershare
 
 jobs:
-  deploy:
-    name: Deploy changed charts
+  approve_redeploy:
+    name: Manual approval before Helm uninstall
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'redeploy' }}
+    environment:
+      name: production-approval
+
+    steps:
+      - name: Approval granted
+        run: echo "Approved to uninstall existing Helm releases before redeploy."
+
+  helm_deploy:
+    name: Helm deploy
+    runs-on: ubuntu-latest
+    needs:
+      - approve_redeploy
+    if: |
+      always() &&
+      (
+        github.event_name == 'push' ||
+        github.event.inputs.action == 'deploy' ||
+        needs.approve_redeploy.result == 'success'
+      )
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Set up Helm
         uses: azure/setup-helm@v4
@@ -42,82 +76,260 @@ jobs:
       - name: Configure Kubernetes access
         shell: bash
         run: |
+          set -euo pipefail
+
           mkdir -p "$HOME/.kube"
           echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > "$HOME/.kube/config"
           chmod 600 "$HOME/.kube/config"
 
-      - name: Detect changed charts
-        id: changed-charts
+      - name: Preserve existing metadata PV and PVC
+        id: preserve_storage
         shell: bash
         run: |
           set -euo pipefail
 
-          echo "Event: ${{ github.event_name }}"
+          pvc_backup="$RUNNER_TEMP/${OPCENTER_METADATA_PVC}.json"
+          pv_backup="$RUNNER_TEMP/${OPCENTER_METADATA_PVC}-pv.json"
 
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            echo "Manual run → deploying all charts"
-            changed_files="$(git ls-files)"
-          elif [[ -z "${{ github.event.before }}" || "${{ github.event.before }}" == "0000000000000000000000000000000000000000" ]]; then
-            echo "Fallback → using HEAD"
-            changed_files="$(git diff-tree --no-commit-id --name-only -r HEAD)"
-          else
-            echo "Push event → detecting changes"
-            changed_files="$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}")"
+          if ! kubectl get pvc "$OPCENTER_METADATA_PVC" -n "$OPCENTER_NAMESPACE"; then
+            echo "Existing PVC $OPCENTER_METADATA_PVC was not found in namespace $OPCENTER_NAMESPACE."
+            echo "preserved=false" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
 
-          echo "$changed_files"
+          pvc_phase="$(kubectl get pvc "$OPCENTER_METADATA_PVC" -n "$OPCENTER_NAMESPACE" -o jsonpath='{.status.phase}')"
+          if [[ "$pvc_phase" != "Bound" ]]; then
+            echo "Existing PVC $OPCENTER_METADATA_PVC is $pvc_phase, expected Bound."
+            exit 1
+          fi
+
+          pv_name="$(kubectl get pvc "$OPCENTER_METADATA_PVC" -n "$OPCENTER_NAMESPACE" -o jsonpath='{.spec.volumeName}')"
+
+          kubectl get pvc "$OPCENTER_METADATA_PVC" -n "$OPCENTER_NAMESPACE" -o json \
+            | jq 'del(
+                .metadata.annotations["kubectl.kubernetes.io/last-applied-configuration"],
+                .metadata.creationTimestamp,
+                .metadata.resourceVersion,
+                .metadata.uid,
+                .metadata.managedFields,
+                .metadata.finalizers,
+                .metadata.ownerReferences,
+                .status
+              )' > "$pvc_backup"
+
+          if [[ -n "$pv_name" ]]; then
+            kubectl get pv "$pv_name" -o json \
+              | jq 'del(
+                  .metadata.annotations["kubectl.kubernetes.io/last-applied-configuration"],
+                  .metadata.creationTimestamp,
+                  .metadata.resourceVersion,
+                  .metadata.uid,
+                  .metadata.managedFields,
+                  .metadata.finalizers,
+                  .metadata.ownerReferences,
+                  .spec.claimRef,
+                  .status
+                )' > "$pv_backup"
+          fi
+
+          echo "preserved=true" >> "$GITHUB_OUTPUT"
+          echo "pv_backup=$pv_backup" >> "$GITHUB_OUTPUT"
+          echo "pvc_backup=$pvc_backup" >> "$GITHUB_OUTPUT"
+
+      - name: Uninstall existing releases
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'redeploy' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          release_names=(
+            "opcenter-core"
+            "opcenter-core-db"
+            "opcenter-core-dbupdate"
+            "opcenter-core-config"
+            "dev-opcenter-config"
+            "opcenter-shared"
+            "opcenter-core-shared"
+          )
+
+          namespaces=(
+            "$OPCENTER_NAMESPACE"
+            "$OPCENTER_NAMESPACE"
+            "$OPCENTER_NAMESPACE"
+            "$OPCENTER_NAMESPACE"
+            "$OPCENTER_NAMESPACE"
+            "$SHARED_NAMESPACE"
+            "$SHARED_NAMESPACE"
+          )
+
+          for i in "${!release_names[@]}"; do
+            release_name="${release_names[$i]}"
+            namespace="${namespaces[$i]}"
+
+            if helm status "$release_name" -n "$namespace" >/dev/null 2>&1; then
+              helm uninstall "$release_name" -n "$namespace" --wait --timeout 10m
+            else
+              echo "Release $release_name not found in namespace $namespace; skipping uninstall."
+            fi
+          done
+
+      - name: Restore existing metadata PV and PVC
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'redeploy' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ "${{ steps.preserve_storage.outputs.preserved }}" != "true" ]]; then
+            echo "No existing metadata PVC was preserved, so the fresh deploy cannot continue."
+            exit 1
+          fi
+
+          pv_backup="${{ steps.preserve_storage.outputs.pv_backup }}"
+          pvc_backup="${{ steps.preserve_storage.outputs.pvc_backup }}"
+
+          if [[ -s "$pv_backup" ]]; then
+            kubectl apply -f "$pv_backup"
+          fi
+
+          kubectl apply -f "$pvc_backup"
+
+      - name: Copy source blob files to Azure file share
+        id: copy_storage_files
+        shell: bash
+        env:
+          SOURCE_CONTAINER_SAS_TOKEN: ${{ secrets.SOURCE_CONTAINER_SAS_TOKEN }}
+          DEST_STORAGE_ACCOUNT_NAME: ${{ vars.DEST_STORAGE_ACCOUNT_NAME }}
+        run: |
+          set -euo pipefail
+
+          if [[ -z "$SOURCE_CONTAINER_SAS_TOKEN" ]]; then
+            echo "GitHub Actions secret SOURCE_CONTAINER_SAS_TOKEN is required."
+            exit 1
+          fi
+
+          source_sas_token="${SOURCE_CONTAINER_SAS_TOKEN#\?}"
+          dest_storage_account="$DEST_STORAGE_ACCOUNT_NAME"
+          dest_file_share="$DEST_FILE_SHARE_NAME"
+          resource_group_name=""
+
+          if [[ -z "$dest_storage_account" && -d terraform ]]; then
+            dest_storage_account="$(terraform -chdir=terraform output -raw storage_account_name 2>/dev/null || true)"
+          fi
+
+          if [[ -d terraform ]]; then
+            resource_group_name="$(terraform -chdir=terraform output -raw resource_group_name 2>/dev/null || true)"
+            terraform_file_share="$(terraform -chdir=terraform output -raw file_share_name 2>/dev/null || true)"
+            if [[ -n "$terraform_file_share" ]]; then
+              dest_file_share="$terraform_file_share"
+            fi
+          fi
+
+          if [[ -z "$dest_storage_account" ]]; then
+            echo "Destination storage account name was not found."
+            echo "Set repository variable DEST_STORAGE_ACCOUNT_NAME or make Terraform outputs available before this step."
+            exit 1
+          fi
+
+          if [[ -z "$resource_group_name" ]]; then
+            echo "Terraform output resource_group_name is required to fetch the destination storage account key."
+            exit 1
+          fi
+
+          dest_storage_account_key="$(az storage account keys list \
+            --resource-group "$resource_group_name" \
+            --account-name "$dest_storage_account" \
+            --query '[0].value' \
+            -o tsv)"
+
+          seed_dir="$RUNNER_TEMP/$SOURCE_CONTAINER_NAME"
+          rm -rf "$seed_dir"
+          mkdir -p "$seed_dir"
+
+          az storage blob download-batch \
+            --account-name "$SOURCE_STORAGE_ACCOUNT_NAME" \
+            --sas-token "$source_sas_token" \
+            --source "$SOURCE_CONTAINER_NAME" \
+            --destination "$seed_dir" \
+            --only-show-errors
+
+          az storage file upload-batch \
+            --account-name "$dest_storage_account" \
+            --account-key "$dest_storage_account_key" \
+            --destination "$dest_file_share" \
+            --source "$seed_dir" \
+            --only-show-errors
+
+          echo "storage_account_name=$dest_storage_account" >> "$GITHUB_OUTPUT"
+          echo "::add-mask::$dest_storage_account_key"
+          echo "storage_account_key=$dest_storage_account_key" >> "$GITHUB_OUTPUT"
+          echo "file_share_name=$dest_file_share" >> "$GITHUB_OUTPUT"
+
+      - name: Deploy shared chart
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          chart_dir="opcenter-core-shared"
+          release_name="opcenter-shared"
+          namespace="$SHARED_NAMESPACE"
+          values_file="$chart_dir/updated-${chart_dir}-values.yaml"
+
+          if [[ ! -f "$values_file" ]]; then
+            values_file="$chart_dir/values.yaml"
+          fi
+
+          helm lint "$chart_dir" \
+            --values "$values_file" \
+            --set storage.secret.create=true \
+            --set storage.secret.accountname="${{ steps.copy_storage_files.outputs.storage_account_name }}" \
+            --set storage.secret.accountkey="${{ steps.copy_storage_files.outputs.storage_account_key }}"
+
+          helm upgrade --install "$release_name" "$chart_dir" \
+            -n "$namespace" \
+            --create-namespace \
+            --values "$values_file" \
+            --set storage.secret.create=true \
+            --set storage.secret.accountname="${{ steps.copy_storage_files.outputs.storage_account_name }}" \
+            --set storage.secret.accountkey="${{ steps.copy_storage_files.outputs.storage_account_key }}" \
+            --wait \
+            --timeout 10m
+
+      - name: Deploy application charts
+        shell: bash
+        run: |
+          set -euo pipefail
 
           chart_dirs=(
-            "opcenter-core-shared"
             "opcenter-core-config"
             "opcenter-core-dbupdate"
             "opcenter-core"
           )
 
-          changed_charts=()
-          for chart_dir in "${chart_dirs[@]}"; do
-            if grep -qE "^${chart_dir}/" <<< "$changed_files"; then
-              changed_charts+=("$chart_dir")
-            fi
-          done
-
-          {
-            echo "charts<<EOF"
-            printf "%s\n" "${changed_charts[@]}"
-            echo "EOF"
-          } >> "$GITHUB_OUTPUT"
-
-      - name: Deploy changed charts
-        if: steps.changed-charts.outputs.charts != ''
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          # Maps chart folder → exact release name on the cluster (from: helm list --all-namespaces)
-          declare -A RELEASE_NAMES=(
-            ["opcenter-core-shared"]="opcenter-shared"
-            ["opcenter-core-config"]="opcenter-core-config"
-            ["opcenter-core-dbupdate"]="opcenter-core-db"
-            ["opcenter-core"]="opcenter-core"
+          release_names=(
+            "opcenter-core-config"
+            "opcenter-core-db"
+            "opcenter-core"
           )
 
-          while IFS= read -r chart_dir; do
-            [[ -z "$chart_dir" ]] && continue
+          namespaces=(
+            "$OPCENTER_NAMESPACE"
+            "$OPCENTER_NAMESPACE"
+            "$OPCENTER_NAMESPACE"
+          )
 
-            echo "Deploying: $chart_dir"
-
-            release_name="${RELEASE_NAMES[$chart_dir]}"
-            values_file="$chart_dir/values.yaml"
-            namespace="$OPCENTER_NAMESPACE"
+          for i in "${!chart_dirs[@]}"; do
+            chart_dir="${chart_dirs[$i]}"
+            release_name="${release_names[$i]}"
+            namespace="${namespaces[$i]}"
+            values_file="$chart_dir/updated-${chart_dir}-values.yaml"
             extra_values_args=()
 
-            if [[ "$chart_dir" == "opcenter-core-shared" ]]; then
-              namespace="$SHARED_NAMESPACE"
-              extra_values_args+=(--set storage.secret.accountkey="${{ secrets.ACCOUNTKEY }}")
+            if [[ ! -f "$values_file" ]]; then
+              values_file="$chart_dir/values.yaml"
             fi
 
             if [[ "$chart_dir" == "opcenter-core" ]]; then
-              windows_values_file="$RUNNER_TEMP/opcenter-core-windows.yaml"
+              windows_values_file="$RUNNER_TEMP/opcenter-core-azure-windows-node-selectors.yaml"
               printf '%s\n' \
                 'appServer:' \
                 '  nodeSelectors:' \
@@ -141,18 +353,84 @@ jobs:
               extra_values_args+=(--values "$windows_values_file")
             fi
 
-            helm lint "$chart_dir"
+            helm lint "$chart_dir" --values "$values_file" "${extra_values_args[@]}"
 
             helm upgrade --install "$release_name" "$chart_dir" \
-              --namespace "$namespace" \
+              -n "$namespace" \
               --create-namespace \
               --values "$values_file" \
               "${extra_values_args[@]}" \
               --wait \
               --timeout 10m
+          done
 
-          done <<< "${{ steps.changed-charts.outputs.charts }}"
+  approve_destroy:
+    name: Manual approval before destroy
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'destroy' }}
+    environment:
+      name: production-approval
 
-      - name: No chart changes
-        if: steps.changed-charts.outputs.charts == ''
-        run: echo "No Helm chart directory changes detected."
+    steps:
+      - name: Approval granted
+        run: echo "Approved to uninstall Helm releases."
+
+  destroy:
+    name: Helm uninstall
+    runs-on: ubuntu-latest
+    needs: approve_destroy
+    if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'destroy' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: latest
+
+      - name: Configure Kubernetes access
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p "$HOME/.kube"
+          echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > "$HOME/.kube/config"
+          chmod 600 "$HOME/.kube/config"
+
+      - name: Uninstall Helm releases
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          release_names=(
+            "opcenter-core"
+            "opcenter-core-db"
+            "opcenter-core-dbupdate"
+            "opcenter-core-config"
+            "dev-opcenter-config"
+            "opcenter-shared"
+            "opcenter-core-shared"
+          )
+
+          namespaces=(
+            "$OPCENTER_NAMESPACE"
+            "$OPCENTER_NAMESPACE"
+            "$OPCENTER_NAMESPACE"
+            "$OPCENTER_NAMESPACE"
+            "$OPCENTER_NAMESPACE"
+            "$SHARED_NAMESPACE"
+            "$SHARED_NAMESPACE"
+          )
+
+          for i in "${!release_names[@]}"; do
+            release_name="${release_names[$i]}"
+            namespace="${namespaces[$i]}"
+
+            if helm status "$release_name" -n "$namespace" >/dev/null 2>&1; then
+              helm uninstall "$release_name" -n "$namespace" --wait --timeout 10m
+            else
+              echo "Release $release_name not found in namespace $namespace; skipping uninstall."
+            fi
+          done
