@@ -27,7 +27,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
 resource "azurerm_kubernetes_cluster_node_pool" "windows" {
   name                  = var.windows_pool_name
   kubernetes_cluster_id = azurerm_kubernetes_cluster.aks.id
-  vm_size               = "Standard_D4s_v3"
+  vm_size               = "Standard_D2s_v3"
   node_count            = 1
   os_type               = "Windows"
 }
