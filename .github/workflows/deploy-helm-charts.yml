@@ -171,13 +171,13 @@ jobs:
           # ACR
           acr_id="$(az acr show --name "$TF_VAR_acr_name" --resource-group "terraform-resource-group" --query id -o tsv 2>/dev/null || true)"
           if [[ -n "$acr_id" ]]; then
-            import_if_missing "azurerm_container_registry.acr" "$acr_id"
+            import_if_missing "module.acr.azurerm_container_registry.acr" "$acr_id"
           fi
 
           # Storage account
           sa_id="$(az storage account show --name "$TF_VAR_storage_account_name" --resource-group "terraform-resource-group" --query id -o tsv 2>/dev/null || true)"
           if [[ -n "$sa_id" ]]; then
-            import_if_missing "azurerm_storage_account.sa" "$sa_id"
+            import_if_missing "module.storage.azurerm_storage_account.storage" "$sa_id"
           fi
 
           # SQL Server
@@ -189,7 +189,7 @@ jobs:
           # AKS
           aks_id="$(az aks show --name "terraform-aks" --resource-group "terraform-resource-group" --query id -o tsv 2>/dev/null || true)"
           if [[ -n "$aks_id" ]]; then
-            import_if_missing "azurerm_kubernetes_cluster.aks" "$aks_id"
+            import_if_missing "module.aks.azurerm_kubernetes_cluster.aks" "$aks_id"
           fi
 
       - name: Terraform plan
