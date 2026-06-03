@@ -40,17 +40,17 @@ variable "windows_admin_password" {
   sensitive = true
 }
 
-variable "sql_resource_group_name" {
-  type    = string
-  default = "terraform-resource-group"
-}
+# variable "sql_resource_group_name" {
+#   type    = string
+#   default = "terraform-resource-group"
+# }
 
-variable "sql_server_name" {
-  type    = string
-  default = "opcenter-sql-server"
-}
+# variable "sql_server_name" {
+#   type    = string
+#   default = "opcenter-sql-server"
+# }
 
-variable "sql_database_name" {
-  type    = string
-  default = "opcenter-sql"
-}
+# variable "sql_database_name" {
+#   type    = string
+#   default = "opcenter-sql"
+# }

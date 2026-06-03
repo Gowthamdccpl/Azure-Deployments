@@ -13,12 +13,12 @@ module "storage" {
   file_share_name      = var.file_share_name
 }
 
-module "sql" {
-  source                  = "./modules/sql"
-  sql_resource_group_name = var.sql_resource_group_name
-  sql_server_name         = var.sql_server_name
-  sql_database_name       = var.sql_database_name
-}
+# module "sql" {
+#   source                  = "./modules/sql"
+#   sql_resource_group_name = var.sql_resource_group_name
+#   sql_server_name         = var.sql_server_name
+#   sql_database_name       = var.sql_database_name
+# }
 
 module "aks" {
   source                 = "./modules/aks"
