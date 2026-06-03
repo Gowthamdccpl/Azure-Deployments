@@ -96,12 +96,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-
+          set -x
           az group create \
             --name    "$TF_STATE_RESOURCE_GROUP" \
             --location "South India" \
-            --output none \
-            2>/dev/null || true
+            --output json
+            
 
           az storage account create \
             --name                "$TF_STATE_STORAGE_ACCOUNT" \
@@ -110,15 +110,13 @@ jobs:
             --sku                 Standard_LRS \
             --kind                StorageV2 \
             --min-tls-version     TLS1_2 \
-            --output none \
-            2>/dev/null || true
+            --output json
 
           az storage container create \
             --name                "$TF_STATE_CONTAINER" \
             --account-name        "$TF_STATE_STORAGE_ACCOUNT" \
             --auth-mode           login \
-            --output none \
-            2>/dev/null || true
+            --output json
 
           echo "Backend storage ready: $TF_STATE_STORAGE_ACCOUNT / $TF_STATE_CONTAINER"
 
