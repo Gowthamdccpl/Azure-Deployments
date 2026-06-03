@@ -73,24 +73,38 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_wrapper: false
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Terraform init
         working-directory: terraform
         env:
           ARM_USE_CLI: true
-          TF_STATE_RESOURCE_GROUP_NAME: ${{ vars.TF_STATE_RESOURCE_GROUP_NAME }}
-          TF_STATE_STORAGE_ACCOUNT_NAME: ${{ vars.TF_STATE_STORAGE_ACCOUNT_NAME }}
-          TF_STATE_CONTAINER_NAME: ${{ vars.TF_STATE_CONTAINER_NAME }}
+          TF_STATE_RESOURCE_GROUP_NAME: ${{ secrets.TFSTATE_RG }}
+          TF_STATE_STORAGE_ACCOUNT_NAME: ${{ secrets.TFSTATE_STORAGE_ACCOUNT }}
+          TF_STATE_CONTAINER_NAME: ${{ secrets.TFSTATE_CONTAINER }}
           TF_STATE_KEY: ${{ vars.TF_STATE_KEY }}
           TF_STATE_STORAGE_ACCOUNT_KEY: ${{ secrets.TF_STATE_STORAGE_ACCOUNT_KEY }}
+        shell: bash
         run: |
           set -euo pipefail
 
-          if [[ -z "$TF_STATE_RESOURCE_GROUP_NAME" || -z "$TF_STATE_STORAGE_ACCOUNT_NAME" || -z "$TF_STATE_CONTAINER_NAME" || -z "$TF_STATE_STORAGE_ACCOUNT_KEY" ]]; then
-            echo "Terraform Azure backend settings are missing."
-            echo "Set repository variables TF_STATE_RESOURCE_GROUP_NAME, TF_STATE_STORAGE_ACCOUNT_NAME, TF_STATE_CONTAINER_NAME."
-            echo "Set repository secret TF_STATE_STORAGE_ACCOUNT_KEY."
+          if [[ -z "${TF_STATE_RESOURCE_GROUP_NAME:-}" || -z "${TF_STATE_STORAGE_ACCOUNT_NAME:-}" || -z "${TF_STATE_CONTAINER_NAME:-}" ]]; then
+            echo "Terraform Azure backend secrets TFSTATE_RG, TFSTATE_STORAGE_ACCOUNT, TFSTATE_CONTAINER must be set."
             exit 1
+          fi
+
+          if [[ -z "${TF_STATE_STORAGE_ACCOUNT_KEY:-}" ]]; then
+            TF_STATE_STORAGE_ACCOUNT_KEY="$(az storage account keys list \
+              --resource-group "$TF_STATE_RESOURCE_GROUP_NAME" \
+              --account-name "$TF_STATE_STORAGE_ACCOUNT_NAME" \
+              --query '[0].value' -o tsv)"
+            if [[ -z "$TF_STATE_STORAGE_ACCOUNT_KEY" ]]; then
+              echo "Failed to fetch storage account key for $TF_STATE_STORAGE_ACCOUNT_NAME"
+              exit 1
+            fi
           fi
 
           terraform init \
