@@ -26,16 +26,10 @@ on:
         required: false
         default: ""
         type: string
+
   push:
     branches:
       - master
-    paths:
-      - "terraform/**"
-      - "opcenter-core/**"
-      - "opcenter-core-config/**"
-      - "opcenter-core-dbupdate/**"
-      - "opcenter-core-shared/**"
-      - ".github/workflows/deploy-helm-charts-azure.yml"
 
 concurrency:
   group: terraform-helm-main-azure
