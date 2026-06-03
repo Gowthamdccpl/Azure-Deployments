@@ -30,8 +30,8 @@ module "aks" {
   windows_admin_password = var.windows_admin_password
 }
 
-resource "azurerm_role_assignment" "acr_pull" {
-  principal_id         = module.aks.kubelet_object_id
-  role_definition_name = "AcrPull"
-  scope                = module.acr.acr_id
-}
+# resource "azurerm_role_assignment" "acr_pull" {
+#   principal_id         = module.aks.kubelet_object_id
+#   role_definition_name = "AcrPull"
+#   scope                = module.acr.acr_id
+# }
