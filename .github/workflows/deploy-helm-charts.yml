@@ -28,7 +28,7 @@ on:
         type: string
   push:
     branches:
-      - main
+      - master
     paths:
       - "terraform/**"
       - "opcenter-core/**"
