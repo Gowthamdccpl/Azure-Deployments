@@ -31,4 +31,8 @@ resource "azurerm_kubernetes_cluster_node_pool" "windows" {
   vm_size               = "Standard_D2s_v3"
   node_count            = 1
   os_type               = "Windows"
+
+  windows_profile {
+    outbound_nat_enabled = true
+  }
 }
