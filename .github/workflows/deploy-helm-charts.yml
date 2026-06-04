@@ -50,9 +50,9 @@ env:
   OPCENTER_NAMESPACE:       dev-opcenter
   SHARED_METADATA_PVC:      opcenter-metadata-pvc-shared
   OPCENTER_METADATA_PVC:    opcenter-metadata-pvc-dev-opcenter
-  WINDOWS_NODE_SELECTOR_OS_KEY:    kubernetes.io/os
-  WINDOWS_NODE_SELECTOR_OS_VALUE:  windows
-  WINDOWS_NODE_SELECTOR_BUILD_KEY: node.kubernetes.io/windows-build
+  WINDOWS_NODE_SELECTOR_OS_KEY:      kubernetes.io/os
+  WINDOWS_NODE_SELECTOR_OS_VALUE:    windows
+  WINDOWS_NODE_SELECTOR_BUILD_KEY:   node.kubernetes.io/windows-build
   WINDOWS_NODE_SELECTOR_BUILD_VALUE: "10.0.20348"
 
 jobs:
@@ -68,14 +68,11 @@ jobs:
       github.event.inputs.action == 'redeploy'
 
     outputs:
-      aks_cluster_name:        ${{ steps.tf_outputs.outputs.aks_cluster_name }}
-      resource_group_name:     ${{ steps.tf_outputs.outputs.resource_group_name }}
-      # sql_server_fqdn:         ${{ steps.tf_outputs.outputs.sql_server_fqdn }}
-      # sql_database_name:       ${{ steps.tf_outputs.outputs.sql_database_name }}
-      storage_account_name:    ${{ steps.tf_outputs.outputs.storage_account_name }}
-      file_share_name:         ${{ steps.tf_outputs.outputs.file_share_name }}
-      acr_login_server:        ${{ steps.tf_outputs.outputs.acr_login_server }}
-      kv_name:                 ${{ steps.tf_outputs.outputs.kv_name }}
+      aks_cluster_name:     ${{ steps.tf_outputs.outputs.aks_cluster_name }}
+      resource_group_name:  ${{ steps.tf_outputs.outputs.resource_group_name }}
+      storage_account_name: ${{ steps.tf_outputs.outputs.storage_account_name }}
+      file_share_name:      ${{ steps.tf_outputs.outputs.file_share_name }}
+      kv_name:              ${{ steps.tf_outputs.outputs.kv_name }}
 
     steps:
       - name: Checkout repository
@@ -97,11 +94,11 @@ jobs:
         run: |
           set -euo pipefail
           set -x
+
           az group create \
-            --name    "$TF_STATE_RESOURCE_GROUP" \
+            --name     "$TF_STATE_RESOURCE_GROUP" \
             --location "South India" \
             --output json
-            
 
           az storage account create \
             --name                "$TF_STATE_STORAGE_ACCOUNT" \
@@ -113,9 +110,9 @@ jobs:
             --output json
 
           az storage container create \
-            --name                "$TF_STATE_CONTAINER" \
-            --account-name        "$TF_STATE_STORAGE_ACCOUNT" \
-            --auth-mode           login \
+            --name         "$TF_STATE_CONTAINER" \
+            --account-name "$TF_STATE_STORAGE_ACCOUNT" \
+            --auth-mode    login \
             --output json
 
           echo "Backend storage ready: $TF_STATE_STORAGE_ACCOUNT / $TF_STATE_CONTAINER"
@@ -137,12 +134,12 @@ jobs:
         working-directory: ${{ env.TF_DIR }}
         run: terraform validate
 
-      # ── Import existing partial resources (idempotent) ─────────────────
+      # ── Import existing partial resources (idempotent) ────────────────────
+      # NOTE: ACR import removed — opcenteracr is managed outside Terraform
       - name: Import existing partial resources
         working-directory: ${{ env.TF_DIR }}
         shell: bash
         env:
-          TF_VAR_acr_name:               ${{ vars.ACR_NAME }}
           TF_VAR_storage_account_name:   ${{ vars.STORAGE_ACCOUNT_NAME }}
           TF_VAR_windows_admin_username: ${{ vars.WINDOWS_ADMIN_USERNAME }}
           TF_VAR_windows_admin_password: ${{ secrets.WINDOWS_ADMIN_PASSWORD }}
@@ -168,12 +165,6 @@ jobs:
             import_if_missing "azurerm_resource_group.rg" "$rg_id"
           fi
 
-          # ACR
-          acr_id="$(az acr show --name "$TF_VAR_acr_name" --resource-group "terraform-resource-group" --query id -o tsv 2>/dev/null || true)"
-          if [[ -n "$acr_id" ]]; then
-            import_if_missing "module.acr.azurerm_container_registry.acr" "$acr_id"
-          fi
-
           # Storage account
           sa_id="$(az storage account show --name "$TF_VAR_storage_account_name" --resource-group "terraform-resource-group" --query id -o tsv 2>/dev/null || true)"
           if [[ -n "$sa_id" ]]; then
@@ -195,7 +186,6 @@ jobs:
       - name: Terraform plan
         working-directory: ${{ env.TF_DIR }}
         env:
-          TF_VAR_acr_name:               ${{ vars.ACR_NAME }}
           TF_VAR_storage_account_name:   ${{ vars.STORAGE_ACCOUNT_NAME }}
           TF_VAR_windows_admin_username: ${{ vars.WINDOWS_ADMIN_USERNAME }}
           TF_VAR_windows_admin_password: ${{ secrets.WINDOWS_ADMIN_PASSWORD }}
@@ -213,13 +203,10 @@ jobs:
         run: |
           set -euo pipefail
 
-          echo "aks_cluster_name=$(terraform output -raw aks_cluster_name)"             >> "$GITHUB_OUTPUT"
-          echo "resource_group_name=$(terraform output -raw resource_group_name)"       >> "$GITHUB_OUTPUT"
-          # echo "sql_server_fqdn=$(terraform output -raw sql_server_fqdn)"               >> "$GITHUB_OUTPUT"
-          # echo "sql_database_name=$(terraform output -raw sql_database_name)"           >> "$GITHUB_OUTPUT"
-          echo "storage_account_name=$(terraform output -raw storage_account_name)"     >> "$GITHUB_OUTPUT"
-          echo "file_share_name=$(terraform output -raw file_share_name)"               >> "$GITHUB_OUTPUT"
-          echo "acr_login_server=$(terraform output -raw acr_login_server)"             >> "$GITHUB_OUTPUT"
+          echo "aks_cluster_name=$(terraform output -raw aks_cluster_name)"         >> "$GITHUB_OUTPUT"
+          echo "resource_group_name=$(terraform output -raw resource_group_name)"   >> "$GITHUB_OUTPUT"
+          echo "storage_account_name=$(terraform output -raw storage_account_name)" >> "$GITHUB_OUTPUT"
+          echo "file_share_name=$(terraform output -raw file_share_name)"           >> "$GITHUB_OUTPUT"
           echo "kv_name=$(terraform output -raw key_vault_name 2>/dev/null || echo '')" >> "$GITHUB_OUTPUT"
 
   # ─────────────────────────────────────────────────────────────
@@ -271,6 +258,47 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      # ── Grant AKS AcrPull on existing ACR (idempotent) ───────────────────
+      # opcenteracr lives in Dccpl-migration and is NOT managed by Terraform
+      - name: Grant AKS AcrPull on existing ACR
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          aks_rg="${{ needs.terraform_apply.outputs.resource_group_name }}"
+          aks_name="${{ needs.terraform_apply.outputs.aks_cluster_name }}"
+
+          acr_scope="$(az acr show \
+            --name opcenteracr \
+            --resource-group Dccpl-migration \
+            --query id --output tsv)"
+
+          kubelet_object_id="$(az aks show \
+            --resource-group "$aks_rg" \
+            --name "$aks_name" \
+            --query identityProfile.kubeletidentity.objectId \
+            --output tsv)"
+
+          existing_assignment="$(az role assignment list \
+            --assignee "$kubelet_object_id" \
+            --scope "$acr_scope" \
+            --role "AcrPull" \
+            --query "[0].id" \
+            --output tsv 2>/dev/null || true)"
+
+          if [[ -n "$existing_assignment" ]]; then
+            echo "AcrPull already granted to AKS kubelet identity — skipping."
+            exit 0
+          fi
+
+          az role assignment create \
+            --assignee-object-id      "$kubelet_object_id" \
+            --assignee-principal-type ServicePrincipal \
+            --role                    AcrPull \
+            --scope                   "$acr_scope"
+
+          echo "AcrPull granted successfully ✅"
+
       # ── Copy Blob → Azure File Share ──────────────────────────────────────
       - name: Copy Blob container files to Azure File Share
         shell: bash
@@ -282,7 +310,6 @@ jobs:
         run: |
           set -euo pipefail
 
-          # Check if file share already has files
           file_count="$(az storage file list \
             --account-name "$STORAGE_ACCOUNT_NAME" \
             --share-name   "$FILE_SHARE_NAME" \
@@ -302,8 +329,21 @@ jobs:
           source_key="$(az storage account keys list --account-name "linepilotdbbackup" --query '[0].value' --output tsv)"
           dest_key="$(az storage account keys list --account-name "$STORAGE_ACCOUNT_NAME" --query '[0].value' --output tsv)"
 
-          source_sas="$(az storage container generate-sas --account-name "linepilotdbbackup" --account-key "$source_key" --name "opcenter-files" --permissions rl --expiry "$expiry" --output tsv)"
-          dest_sas="$(az storage share generate-sas --account-name "$STORAGE_ACCOUNT_NAME" --account-key "$dest_key" --name "$FILE_SHARE_NAME" --permissions rwdl --expiry "$expiry" --output tsv)"
+          source_sas="$(az storage container generate-sas \
+            --account-name "linepilotdbbackup" \
+            --account-key  "$source_key" \
+            --name         "opcenter-files" \
+            --permissions  rl \
+            --expiry       "$expiry" \
+            --output tsv)"
+
+          dest_sas="$(az storage share generate-sas \
+            --account-name "$STORAGE_ACCOUNT_NAME" \
+            --account-key  "$dest_key" \
+            --name         "$FILE_SHARE_NAME" \
+            --permissions  rwdl \
+            --expiry       "$expiry" \
+            --output tsv)"
 
           source_url="https://linepilotdbbackup.blob.core.windows.net/opcenter-files"
           if [[ -n "$BLOB_SEED_PREFIX" ]]; then
@@ -318,7 +358,7 @@ jobs:
           echo "Copying from blob to file share…"
           azcopy copy "${source_url}?${source_sas}" "${dest_url}?${dest_sas}" --recursive=true
 
-      # ── AKS credentials ──────────────────────────────────────────────────
+      # ── AKS credentials ───────────────────────────────────────────────────
       - name: Configure AKS Kubernetes access
         shell: bash
         run: |
@@ -329,7 +369,7 @@ jobs:
             --name           "${{ needs.terraform_apply.outputs.aks_cluster_name }}" \
             --overwrite-existing
 
-      # ── SMB CSI driver ───────────────────────────────────────────────────
+      # ── SMB CSI driver ────────────────────────────────────────────────────
       - name: Install SMB CSI driver
         shell: bash
         run: |
@@ -353,15 +393,13 @@ jobs:
           STORAGE_ACCOUNT_NAME: ${{ needs.terraform_apply.outputs.storage_account_name }}
           FILE_SHARE_NAME:      ${{ needs.terraform_apply.outputs.file_share_name }}
           SQL_SERVER_FQDN:      ${{ vars.SQL_SERVER_FQDN }}
-          SQL_DATABASE_NAME:    ${{ vars.SQL_DATABASE_NAME }} 
+          SQL_DATABASE_NAME:    ${{ vars.SQL_DATABASE_NAME }}
           KV_NAME:              ${{ needs.terraform_apply.outputs.kv_name }}
           WINDOWS_ADMIN_USER:   ${{ vars.WINDOWS_ADMIN_USERNAME }}
           WINDOWS_ADMIN_PASS:   ${{ secrets.WINDOWS_ADMIN_PASSWORD }}
         run: |
           set -euo pipefail
 
-          # Retrieve SQL credentials from Key Vault (if provisioned),
-          # otherwise fall back to the Windows admin credentials.
           if [[ -n "$KV_NAME" ]]; then
             sql_username="$(az keyvault secret show --vault-name "$KV_NAME" --name "opcenter-db-username" --query value -o tsv 2>/dev/null || echo "$WINDOWS_ADMIN_USER")"
             sql_password="$(az keyvault secret show --vault-name "$KV_NAME" --name "opcenter-db-password" --query value -o tsv 2>/dev/null || echo "$WINDOWS_ADMIN_PASS")"
@@ -468,7 +506,7 @@ jobs:
                 )' > "$pv_backup"
           fi
 
-          echo "preserved=true"   >> "$GITHUB_OUTPUT"
+          echo "preserved=true"         >> "$GITHUB_OUTPUT"
           echo "pv_backup=$pv_backup"   >> "$GITHUB_OUTPUT"
           echo "pvc_backup=$pvc_backup" >> "$GITHUB_OUTPUT"
 
@@ -681,7 +719,7 @@ jobs:
           set -euo pipefail
 
           az group create \
-            --name    "$TF_STATE_RESOURCE_GROUP" \
+            --name     "$TF_STATE_RESOURCE_GROUP" \
             --location "South India" \
             --output none \
             2>/dev/null || true
@@ -731,7 +769,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          helm uninstall opcenter-core         -n "$OPCENTER_NAMESPACE" --wait --timeout 10m || true
+          helm uninstall opcenter-core          -n "$OPCENTER_NAMESPACE" --wait --timeout 10m || true
           helm uninstall opcenter-core-dbupdate -n "$OPCENTER_NAMESPACE" --wait --timeout 10m || true
           helm uninstall dev-opcenter-config    -n "$OPCENTER_NAMESPACE" --wait --timeout 10m || true
           helm uninstall opcenter-shared        -n "$SHARED_NAMESPACE"   --wait --timeout 10m || true
@@ -739,7 +777,6 @@ jobs:
       - name: Terraform destroy
         working-directory: ${{ env.TF_DIR }}
         env:
-          TF_VAR_acr_name:               ${{ vars.ACR_NAME }}
           TF_VAR_storage_account_name:   ${{ vars.STORAGE_ACCOUNT_NAME }}
           TF_VAR_windows_admin_username: ${{ vars.WINDOWS_ADMIN_USERNAME }}
           TF_VAR_windows_admin_password: ${{ secrets.WINDOWS_ADMIN_PASSWORD }}
