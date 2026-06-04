@@ -283,12 +283,13 @@ jobs:
           set -euo pipefail
 
           source_sas="$(az storage container generate-sas \
-            --account-name "$STORAGE_ACCOUNT_NAME" \
+            --account-name "linepilotdbbackup" \                 
             --name         "opcenter-files" \
             --permissions  rl \
             --expiry       "$(date -u -d '+2 hours' '+%Y-%m-%dT%H:%MZ')" \
             --auth-mode    key \
             --output       tsv)"
+
 
           dest_sas="$(az storage share generate-sas \
             --account-name "$STORAGE_ACCOUNT_NAME" \
@@ -298,7 +299,7 @@ jobs:
             --auth-mode    key \
             --output       tsv)"
 
-          source_url="https://${STORAGE_ACCOUNT_NAME}.blob.core.windows.net/opcenter-files"
+          source_url="https://linepilotdbbackup.blob.core.windows.net/opcenter-files"
           if [[ -n "$BLOB_SEED_PREFIX" ]]; then
             source_url="${source_url}/${BLOB_SEED_PREFIX}"
           fi
