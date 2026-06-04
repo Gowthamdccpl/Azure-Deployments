@@ -35,5 +35,5 @@ output "windows_pool_name" {
 }
 
 output "key_vault_name" {
-  value = ""  # Update with actual key vault module output if available
+  value = "" # Update with actual key vault module output if available
 }
