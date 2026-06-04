@@ -1,10 +1,3 @@
-module "acr" {
-  source   = "./modules/acr"
-  rg_name  = azurerm_resource_group.rg.name
-  location = azurerm_resource_group.rg.location
-  acr_name = var.acr_name
-}
-
 module "storage" {
   source               = "./modules/storage"
   rg_name              = azurerm_resource_group.rg.name
@@ -29,13 +22,6 @@ module "aks" {
   windows_admin_username = var.windows_admin_username
   windows_admin_password = var.windows_admin_password
 }
-
-# resource "azurerm_role_assignment" "acr_pull" {
-#   principal_id         = module.aks.kubelet_object_id
-#   role_definition_name = "AcrPull"
-#   scope                = module.acr.acr_id
-# }
-
 
 data "azurerm_client_config" "current" {}
 
