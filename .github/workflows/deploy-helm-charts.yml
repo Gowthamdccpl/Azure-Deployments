@@ -398,6 +398,10 @@ jobs:
 
           storage:
             fileShare: "//${STORAGE_ACCOUNT_NAME}.file.core.windows.net/${FILE_SHARE_NAME}"
+            secret:
+              create: true
+              accountname: "$STORAGE_ACCOUNT_NAME"
+              accountkey:  "$storage_key"
 
           Fsx:
             createSecret: true
