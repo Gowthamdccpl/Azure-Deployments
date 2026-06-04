@@ -282,22 +282,11 @@ jobs:
         run: |
           set -euo pipefail
 
-          source_sas="$(az storage container generate-sas \
-            --account-name "linepilotdbbackup" \                 
-            --name         "opcenter-files" \
-            --permissions  rl \
-            --expiry       "$(date -u -d '+2 hours' '+%Y-%m-%dT%H:%MZ')" \
-            --auth-mode    key \
-            --output       tsv)"
+          expiry="$(date -u -d '+2 hours' '+%Y-%m-%dT%H:%MZ')"
 
+          source_sas="$(az storage container generate-sas --account-name "linepilotdbbackup" --name "opcenter-files" --permissions rl --expiry "$expiry" --auth-mode key --output tsv)"
 
-          dest_sas="$(az storage share generate-sas \
-            --account-name "$STORAGE_ACCOUNT_NAME" \
-            --name         "$FILE_SHARE_NAME" \
-            --permissions  rwdl \
-            --expiry       "$(date -u -d '+2 hours' '+%Y-%m-%dT%H:%MZ')" \
-            --auth-mode    key \
-            --output       tsv)"
+          dest_sas="$(az storage share generate-sas --account-name "$STORAGE_ACCOUNT_NAME" --name "$FILE_SHARE_NAME" --permissions rwdl --expiry "$expiry" --auth-mode key --output tsv)"
 
           source_url="https://linepilotdbbackup.blob.core.windows.net/opcenter-files"
           if [[ -n "$BLOB_SEED_PREFIX" ]]; then
@@ -310,10 +299,7 @@ jobs:
           fi
 
           echo "Copying from blob to file share…"
-          azcopy copy \
-            "${source_url}?${source_sas}" \
-            "${dest_url}?${dest_sas}" \
-            --recursive=true
+          azcopy copy "${source_url}?${source_sas}" "${dest_url}?${dest_sas}" --recursive=true
 
       # ── AKS credentials ──────────────────────────────────────────────────
       - name: Configure AKS Kubernetes access
