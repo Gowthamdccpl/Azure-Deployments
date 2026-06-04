@@ -282,11 +282,28 @@ jobs:
         run: |
           set -euo pipefail
 
+          # Check if file share already has files
+          file_count="$(az storage file list \
+            --account-name "$STORAGE_ACCOUNT_NAME" \
+            --share-name   "$FILE_SHARE_NAME" \
+            --auth-mode    key \
+            --query        "length(@)" \
+            --output       tsv)"
+
+          if [[ "$file_count" -gt 0 ]]; then
+            echo "File share already has $file_count items — skipping copy."
+            exit 0
+          fi
+
+          echo "File share is empty — copying files from blob container..."
+
           expiry="$(date -u -d '+2 hours' '+%Y-%m-%dT%H:%MZ')"
 
-          source_sas="$(az storage container generate-sas --account-name "linepilotdbbackup" --name "opcenter-files" --permissions rl --expiry "$expiry" --auth-mode key --output tsv)"
+          source_key="$(az storage account keys list --account-name "linepilotdbbackup" --query '[0].value' --output tsv)"
+          dest_key="$(az storage account keys list --account-name "$STORAGE_ACCOUNT_NAME" --query '[0].value' --output tsv)"
 
-          dest_sas="$(az storage share generate-sas --account-name "$STORAGE_ACCOUNT_NAME" --name "$FILE_SHARE_NAME" --permissions rwdl --expiry "$expiry" --auth-mode key --output tsv)"
+          source_sas="$(az storage container generate-sas --account-name "linepilotdbbackup" --account-key "$source_key" --name "opcenter-files" --permissions rl --expiry "$expiry" --output tsv)"
+          dest_sas="$(az storage share generate-sas --account-name "$STORAGE_ACCOUNT_NAME" --account-key "$dest_key" --name "$FILE_SHARE_NAME" --permissions rwdl --expiry "$expiry" --output tsv)"
 
           source_url="https://linepilotdbbackup.blob.core.windows.net/opcenter-files"
           if [[ -n "$BLOB_SEED_PREFIX" ]]; then
