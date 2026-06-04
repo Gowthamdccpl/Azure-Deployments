@@ -9,6 +9,12 @@ resource "azurerm_kubernetes_cluster" "aks" {
     name       = "system"
     node_count = 1
     vm_size    = "Standard_DS2_v2"
+
+    upgrade_settings {                          # ← add this block
+    drain_timeout_in_minutes      = 0
+    max_surge                     = "10%"
+    node_soak_duration_in_minutes = 0
+  }
   }
 
   identity {
@@ -34,5 +40,11 @@ resource "azurerm_kubernetes_cluster_node_pool" "windows" {
 
   windows_profile {
     outbound_nat_enabled = true
+  }
+
+  upgrade_settings {                          # ← add this block
+    drain_timeout_in_minutes      = 0
+    max_surge                     = "10%"
+    node_soak_duration_in_minutes = 0
   }
 }

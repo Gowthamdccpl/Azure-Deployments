@@ -23,8 +23,8 @@ spec:
   mountOptions:
   - dir_mode=0755
   - file_mode=0755
-  - uid=1000
-  - gid=1000
+  # - uid=1000
+  # - gid=1000
   - mfsymlinks
   - nobrl
 {{ end }}
