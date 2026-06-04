@@ -1,4 +1,4 @@
-output "aks_name" {
+output "aks_cluster_name" {
   value = module.aks.aks_name
 }
 
@@ -32,4 +32,8 @@ output "file_share_name" {
 
 output "windows_pool_name" {
   value = module.aks.windows_pool_name
+}
+
+output "key_vault_name" {
+  value = ""  # Update with actual key vault module output if available
 }
