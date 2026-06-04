@@ -422,8 +422,6 @@ securityServices:     # security service pod configuration.............
       value: "false"
     - name: OPCORE_TelemetryDLLLogFolderPath
       value: ""
-    - name: OPCORE_IsContainer
-      value: "true"
     - name: OPCORE_LICENSE_SERVER
       value: "29000@salt-license-server.shared.svc.cluster.local"
     - name: OPCORE_LM_SERVICE_URL
