@@ -35,3 +35,12 @@ module "aks" {
 #   role_definition_name = "AcrPull"
 #   scope                = module.acr.acr_id
 # }
+
+
+data "azurerm_client_config" "current" {}
+
+resource "azurerm_role_assignment" "aks_user" {
+  scope                = module.aks.aks_id
+  role_definition_name = "Azure Kubernetes Service Cluster Admin Role"
+  principal_id         = data.azurerm_client_config.current.object_id
+}
