@@ -279,31 +279,38 @@ jobs:
           FILE_SHARE_NAME:      ${{ needs.terraform_apply.outputs.file_share_name }}
           BLOB_SEED_PREFIX:     ${{ github.event.inputs.blob_seed_prefix || '' }}
           SEED_SUBDIRECTORY:    ${{ github.event.inputs.file_share_seed_subdirectory || '' }}
-          SOURCE_CONTAINER_SAS: ${{ secrets.SOURCE_CONTAINER_SAS_TOKEN }}
         run: |
           set -euo pipefail
+
+          source_sas="$(az storage container generate-sas \
+            --account-name "$STORAGE_ACCOUNT_NAME" \
+            --name         "opcenter-files" \
+            --permissions  rl \
+            --expiry       "$(date -u -d '+2 hours' '+%Y-%m-%dT%H:%MZ')" \
+            --auth-mode    key \
+            --output       tsv)"
 
           dest_sas="$(az storage share generate-sas \
             --account-name "$STORAGE_ACCOUNT_NAME" \
             --name         "$FILE_SHARE_NAME" \
             --permissions  rwdl \
-            --expiry        "$(date -u -d '+2 hours' '+%Y-%m-%dT%H:%MZ')" \
-            --auth-mode     key \
-            --output        tsv)"
-
-          dest_url="https://${STORAGE_ACCOUNT_NAME}.file.core.windows.net/${FILE_SHARE_NAME}"
-          if [[ -n "$SEED_SUBDIRECTORY" ]]; then
-            dest_url="${dest_url}/${SEED_SUBDIRECTORY}"
-          fi
+            --expiry       "$(date -u -d '+2 hours' '+%Y-%m-%dT%H:%MZ')" \
+            --auth-mode    key \
+            --output       tsv)"
 
           source_url="https://${STORAGE_ACCOUNT_NAME}.blob.core.windows.net/opcenter-files"
           if [[ -n "$BLOB_SEED_PREFIX" ]]; then
             source_url="${source_url}/${BLOB_SEED_PREFIX}"
           fi
 
+          dest_url="https://${STORAGE_ACCOUNT_NAME}.file.core.windows.net/${FILE_SHARE_NAME}"
+          if [[ -n "$SEED_SUBDIRECTORY" ]]; then
+            dest_url="${dest_url}/${SEED_SUBDIRECTORY}"
+          fi
+
           echo "Copying from blob to file share…"
           azcopy copy \
-            "${source_url}?${SOURCE_CONTAINER_SAS}" \
+            "${source_url}?${source_sas}" \
             "${dest_url}?${dest_sas}" \
             --recursive=true
 
