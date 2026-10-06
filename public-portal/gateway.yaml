@@ -1,0 +1,138 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: opcenter-public-gateway
+  namespace: dev-opcenter
+data:
+  Caddyfile: |
+    {
+      admin localhost:2019
+      acme_ca https://acme-v02.api.letsencrypt.org/directory
+    }
+    :8081 {
+      respond /healthz 200
+    }
+    aks-portal.dccpl-opcenter-cloud.com {
+      redir / /CamstarPortal/ 302
+      @portal path /CamstarPortal /CamstarPortal/*
+      handle @portal {
+        reverse_proxy https://portal-https:443 {
+          header_up Host {host}
+          transport http {
+            tls_server_name portal.dev-opcenter.svc.cluster.local
+            tls_trust_pool file /etc/backend-trust/ca.pem
+          }
+        }
+      }
+      handle {
+        respond 404
+      }
+    }
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: opcenter-public-gateway-data
+  namespace: dev-opcenter
+spec:
+  accessModes: [ReadWriteOnce]
+  storageClassName: managed-csi
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: portal-https
+  namespace: dev-opcenter
+spec:
+  selector:
+    app.kubernetes.io/name: opcenter-core-portal
+    app.kubernetes.io/instance: opcenter-core-portal
+  ports:
+    - name: https
+      port: 443
+      targetPort: 443
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opcenter-public-gateway
+  namespace: dev-opcenter
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: opcenter-public-gateway
+  template:
+    metadata:
+      labels:
+        app: opcenter-public-gateway
+    spec:
+      nodeSelector:
+        kubernetes.io/os: linux
+      automountServiceAccountToken: false
+      containers:
+        - name: caddy
+          image: caddy:2.11.2-alpine
+          ports:
+            - name: http
+              containerPort: 80
+            - name: https
+              containerPort: 443
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              memory: 512Mi
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8081
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8081
+            initialDelaySeconds: 15
+          volumeMounts:
+            - name: config
+              mountPath: /etc/caddy
+            - name: data
+              mountPath: /data
+            - name: trust
+              mountPath: /etc/backend-trust
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: opcenter-public-gateway
+        - name: data
+          persistentVolumeClaim:
+            claimName: opcenter-public-gateway-data
+        - name: trust
+          secret:
+            secretName: opcenter-portal-backend-tls
+            items:
+              - key: ca.pem
+                path: ca.pem
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: opcenter-public-gateway
+  namespace: dev-opcenter
+spec:
+  type: LoadBalancer
+  selector:
+    app: opcenter-public-gateway
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+    - name: https
+      port: 443
+      targetPort: https

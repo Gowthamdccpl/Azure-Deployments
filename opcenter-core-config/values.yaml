@@ -19,11 +19,20 @@ database:
   type: SQLServer
   
   # User, password, schema and database name.
-  username: "Gowtham"
+  # username: "Gowtham"
+  # password: "Password1234"
+  # schema: "dbo"
+  # database: "opcenter-sql"
+  # name: ""
+   
+  username: "admin"
   password: "Password1234"
-  schema: "dbo"
-  database: "opcenter-sql"
-  name: ""
+  schema: "schema1"
+  database: "opcentersql2"
+  # This is rendered as OPCORE_DB_NAME for the runtime services.
+  name: "opcentersql2"
+
+
   
   # port: Database listener port. Typically 1433 for SQL Server and 1521 for Oracle. 
   port: 1433

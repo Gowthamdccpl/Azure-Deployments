@@ -53,15 +53,16 @@ spec:
           args:
             - |
               $paths = @(
-                'C:\opcenter-metadata\namespace\2410\portal\appsettings.json'
+                'C:\opcenter-metadata\{{ .Values.config.metadataPath }}\portal\appsettings.json'
               )
 
               # Fix Endpoints.config - remove :443 from security services URLs
-              $endpointsFile = 'C:\opcenter-metadata\namespace\2410\portal\Endpoints.config'
+              $endpointsFile = 'C:\opcenter-metadata\{{ .Values.config.metadataPath }}\portal\Endpoints.config'
               if (Test-Path $endpointsFile) {
                 Write-Output "Patching Endpoints.config..."
                 $epContent = Get-Content $endpointsFile -Raw
                 $epContent = $epContent -replace 'http://security-services:443/CamstarSecurityServices/', 'http://security-services/CamstarSecurityServices/'
+                $epContent = $epContent -replace 'http://app-server/CamstarWCFServices/', 'http://portal/CamstarWCFServices/'
                 Set-Content -Path $endpointsFile -Value $epContent -NoNewline
                 Write-Output "Endpoints.config patched successfully!"
               } else {
@@ -80,6 +81,12 @@ spec:
 
                     # Patch URL patterns FIRST
                     $content = $content -replace 'https://localhost', 'http://security-services'
+
+                    # This deployment hosts Camstar WCF services in the portal pod.
+                    # The app-server image does not include the CamstarWCFServices
+                    # IIS application, so routing these calls to app-server returns
+                    # IIS 500.0 / 0x8007007e during login.
+                    $content = $content -replace 'http://app-server/CamstarWCFServices/', 'http://portal/CamstarWCFServices/'
 
                     # Patch Port as a STRING ("443" -> "80")
                     $content = $content -replace '"Port"\s*:\s*"443"', '"Port": "80"'
@@ -121,6 +128,10 @@ spec:
 
           image: "{{ .Values.portal.image.repository }}:{{ .Values.portal.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.portal.image.pullPolicy }}
+          {{- with .Values.portal.lifecycle }}
+          lifecycle:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
 
           ports:
             - name: http
@@ -193,9 +204,9 @@ spec:
           volumeMounts:
             {{- if eq .Values.cloudProvider "Azure" }}
             - name: opcenter-metadata
-              mountPath: \opcenter-metadata
+              mountPath: C:\opcenter-metadata
             - name: opcenter-metadata
-              mountPath: \CamstarPortal\User
+              mountPath: C:\CamstarPortal\User
               subPath: {{ .Values.config.metadataPath }}\portal\User
             {{- end }}
 

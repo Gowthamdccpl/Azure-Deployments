@@ -12,25 +12,31 @@ odsDatabase:
   
 
 licenseServer:
-  host: 20.219.84.197               
+  host: 20.219.84.197  
+  # host: 10.2.0.5            
   port: 29000
   
 
 saltLicenseServer:
   host: 20.219.84.197   
+  # host: 10.2.0.5
   port: 29000              
   
 
 ldapServer: 
-  host:              
-  port:
+  host: 20.219.84.197
+  port: 389
 
 storage:
   
-  secret:
-    create: true
-    # accountname: "opcentershare"
+  # secret:
+  #   create: true
+  #   accountname: "opcentershare"
 
     # accountkey: ""
     # accountkey: ""
+  secret:
+    create: false
+    accountname: "opcentershare"
+    accountkey: ""
 
