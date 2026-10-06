@@ -142,16 +142,13 @@ jobs:
           SOURCE_BLOB_PREFIX: ${{ vars.SEED_SOURCE_BLOB_PREFIX }}
           DESTINATION_SUBDIRECTORY: ${{ vars.SEED_DESTINATION_SUBDIRECTORY }}
           SOURCE_CONTAINER_SAS_TOKEN: ${{ secrets.SOURCE_CONTAINER_SAS_TOKEN }}
+          DEST_STORAGE_ACCOUNT_KEY: ${{ secrets.ACCOUNTKEY }}
           DEST_STORAGE_ACCOUNT: ${{ needs.terraform_apply.outputs.storage_account_name }}
           DEST_FILE_SHARE: ${{ needs.terraform_apply.outputs.file_share_name }}
-          DEST_RESOURCE_GROUP: ${{ needs.terraform_apply.outputs.resource_group_name }}
         run: |
           set -euo pipefail
           : "${SOURCE_CONTAINER_SAS_TOKEN:?Set secret SOURCE_CONTAINER_SAS_TOKEN}"
-          DEST_STORAGE_ACCOUNT_KEY="$(az storage account keys list \
-            --account-name "$DEST_STORAGE_ACCOUNT" \
-            --resource-group "$DEST_RESOURCE_GROUP" \
-            --query '[0].value' --output tsv)"
+          : "${DEST_STORAGE_ACCOUNT_KEY:?Set secret ACCOUNTKEY to the destination Storage Account key}"
           echo "::add-mask::$DEST_STORAGE_ACCOUNT_KEY"
 
           # A populated share indicates a prior seed/deployment; never overlay it automatically.
@@ -192,6 +189,7 @@ jobs:
         env:
           STORAGE_ACCOUNT_NAME: ${{ needs.terraform_apply.outputs.storage_account_name }}
           FILE_SHARE_NAME: ${{ needs.terraform_apply.outputs.file_share_name }}
+          STORAGE_ACCOUNT_KEY: ${{ secrets.ACCOUNTKEY }}
         run: |
           set -euo pipefail
           : "${SQL_SERVER_FQDN:?SQL server FQDN is required}"
@@ -201,8 +199,8 @@ jobs:
           : "${SQL_DATABASE_PASSWORD:?Set secret SQL_DATABASE_PASSWORD}"
           : "${WINDOWS_ADMIN_USERNAME:?Set repository variable WINDOWS_ADMIN_USERNAME}"
           : "${WINDOWS_ADMIN_PASSWORD:?Set secret WINDOWS_ADMIN_PASSWORD}"
-          storage_key="$(az storage account keys list --account-name "$STORAGE_ACCOUNT_NAME" --query '[0].value' -o tsv)"
-          echo "::add-mask::$storage_key"
+          : "${STORAGE_ACCOUNT_KEY:?Set secret ACCOUNTKEY to the destination Storage Account key}"
+          echo "::add-mask::$STORAGE_ACCOUNT_KEY"
           echo "::add-mask::$WINDOWS_ADMIN_PASSWORD"
           echo "::add-mask::$SQL_DATABASE_PASSWORD"
           cat > "$RUNNER_TEMP/shared-values.yaml" <<EOF
@@ -216,7 +214,7 @@ jobs:
             secret:
               create: true
               accountname: "$STORAGE_ACCOUNT_NAME"
-              accountkey: "$storage_key"
+              accountkey: "$STORAGE_ACCOUNT_KEY"
           EOF
           cat > "$RUNNER_TEMP/config-values.yaml" <<EOF
           database:
