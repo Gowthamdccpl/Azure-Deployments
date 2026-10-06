@@ -1,0 +1,45 @@
+portal:
+  extraVolumes:
+    - name: backend-tls
+      secret:
+        secretName: opcenter-portal-backend-tls
+        items:
+          - key: portal.pfx
+            path: portal.pfx
+          - key: password
+            path: password
+  extraVolumeMounts:
+    - name: backend-tls
+      mountPath: 'C:\opcenter-backend-tls'
+      readOnly: true
+  lifecycle:
+    postStart:
+      exec:
+        command:
+          - powershell
+          - -NoProfile
+          - -Command
+          - |
+            $ErrorActionPreference = 'Stop'
+
+            # The vendor configuration names this HTTPS binding
+            # DefaultBindingSSL but ships it with security mode None. WCF then
+            # exposes the REST endpoint only for HTTP, causing GetMenuItems to
+            # return 404 when the portal is accessed through HTTPS. The image
+            # rewrites web.config during its own initialization, so allow that
+            # initialization to finish before applying the correction.
+            Start-Sleep -Seconds 60
+            $webConfigPath = 'C:\CamstarPortal\web.config'
+            [xml]$webConfig = Get-Content $webConfigPath -Raw
+            $webBinding = $webConfig.configuration.'system.serviceModel'.bindings.webHttpBinding.binding |
+              Where-Object { $_.name -eq 'DefaultBindingSSL' }
+            if (!$webBinding) { throw 'DefaultBindingSSL webHttpBinding missing' }
+            $webBinding.security.mode = 'Transport'
+            $webConfig.Save($webConfigPath)
+
+            Import-Module WebAdministration
+            $password = ConvertTo-SecureString ([IO.File]::ReadAllText('C:\opcenter-backend-tls\password')) -AsPlainText -Force
+            $cert = Import-PfxCertificate -FilePath 'C:\opcenter-backend-tls\portal.pfx' -CertStoreLocation Cert:\LocalMachine\My -Password $password
+            $binding = Get-WebBinding -Protocol https | Where-Object { $_.bindingInformation -match ':443:' }
+            if (!$binding) { throw 'Portal HTTPS binding missing' }
+            $binding.AddSslCertificate($cert.Thumbprint, 'My')

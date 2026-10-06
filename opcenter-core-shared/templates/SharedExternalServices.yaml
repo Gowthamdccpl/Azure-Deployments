@@ -48,18 +48,23 @@ spec:
       port: 28001
       targetPort: 28001
 ---
-apiVersion: v1
-kind: Endpoints
+apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
 metadata:
   name: license-server
-subsets:
+  labels:
+    kubernetes.io/service-name: license-server
+addressType: IPv4
+endpoints:
   - addresses:
-      - ip: {{ .Values.licenseServer.host }}
-    ports:
-      - port: 28000
-        name: primary
-      - port: 28001
-        name: ugslmd
+      - {{ .Values.licenseServer.host | quote }}
+ports:
+  - port: 28000
+    name: primary
+    protocol: TCP
+  - port: 28001
+    name: ugslmd
+    protocol: TCP
 ---
 {{- end}}
 {{- if .Values.ldapServer.host }}
@@ -78,18 +83,23 @@ spec:
       port: 636
       targetPort: 636
 ---
-apiVersion: v1
-kind: Endpoints
+apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
 metadata:
   name: ldap-server
-subsets:
+  labels:
+    kubernetes.io/service-name: ldap-server
+addressType: IPv4
+endpoints:
   - addresses:
-      - ip: {{ .Values.ldapServer.host }}
-    ports:
-      - port: 389
-        name: ldap
-      - port: 636
-        name: ldaps
+      - {{ .Values.ldapServer.host | quote }}
+ports:
+  - port: 389
+    name: ldap
+    protocol: TCP
+  - port: 636
+    name: ldaps
+    protocol: TCP
 {{- end}}
 {{- if .Values.odsDatabase.port}}
 {{- if .Values.odsDatabase.host }}
@@ -144,17 +154,22 @@ spec:
       port: 29001
       targetPort: 29001
 ---
-apiVersion: v1
-kind: Endpoints
+apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
 metadata:
   name: salt-license-server
-subsets:
+  labels:
+    kubernetes.io/service-name: salt-license-server
+addressType: IPv4
+endpoints:
   - addresses:
-      - ip: {{ .Values.saltLicenseServer.host }}
-    ports:
-      - port: 29000
-        name: primary
-      - port: 29001
-        name: saltd
+      - {{ .Values.saltLicenseServer.host | quote }}
+ports:
+  - port: 29000
+    name: primary
+    protocol: TCP
+  - port: 29001
+    name: saltd
+    protocol: TCP
 ---
 {{- end}}

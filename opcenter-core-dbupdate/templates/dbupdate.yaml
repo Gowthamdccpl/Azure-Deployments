@@ -144,7 +144,7 @@ spec:
         {{- if eq .Values.cloudProvider "Azure" }}
         volumeMounts:
         - name: opcenter-metadata
-          mountPath: \opcenter-metadata
+          mountPath: C:\opcenter-metadata
         {{ end -}}
         {{- if .Values.extraVolumeMounts -}}
           {{ toYaml .Values.extraVolumeMounts | nindent 8 }}

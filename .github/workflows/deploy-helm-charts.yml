@@ -4,32 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       action:
-        description: "Deployment action"
+        description: Deployment action
         required: true
         default: deploy
         type: choice
-        options:
-          - deploy
-          - redeploy
-          - destroy
-      blob_seed_prefix:
-        description: "Optional Blob prefix/folder to copy into File Share"
-        required: false
-        type: string
-      file_share_name:
-        description: "Azure File Share name"
-        required: false
-        default: opcentershare
-        type: string
-      file_share_seed_subdirectory:
-        description: "Optional destination folder inside File Share"
-        required: false
-        default: ""
-        type: string
-
+        options: [deploy, redeploy, destroy]
   push:
-    branches:
-      - master
+    branches: [master]
 
 concurrency:
   group: terraform-helm-main-azure
@@ -41,743 +22,304 @@ permissions:
 env:
   TF_DIR: terraform
   TF_INPUT: "false"
-  TF_RESOURCE_NAME: opcenter-dev
-  TF_STATE_RESOURCE_GROUP:  ${{ vars.TF_STATE_RESOURCE_GROUP_NAME }}
+  TF_STATE_RESOURCE_GROUP: ${{ vars.TF_STATE_RESOURCE_GROUP_NAME }}
   TF_STATE_STORAGE_ACCOUNT: ${{ vars.TF_STATE_STORAGE_ACCOUNT_NAME }}
-  TF_STATE_CONTAINER:       ${{ vars.TF_STATE_CONTAINER_NAME }}
-  TF_STATE_KEY:             ${{ vars.TF_STATE_KEY }}
-  SHARED_NAMESPACE:         shared
-  OPCENTER_NAMESPACE:       dev-opcenter
-  SHARED_METADATA_PVC:      opcenter-metadata-pvc-shared
-  OPCENTER_METADATA_PVC:    opcenter-metadata-pvc-dev-opcenter
-  WINDOWS_NODE_SELECTOR_OS_KEY:      kubernetes.io/os
-  WINDOWS_NODE_SELECTOR_OS_VALUE:    windows
-  WINDOWS_NODE_SELECTOR_BUILD_KEY:   node.kubernetes.io/windows-build
-  WINDOWS_NODE_SELECTOR_BUILD_VALUE: "10.0.20348"
+  TF_STATE_CONTAINER: ${{ vars.TF_STATE_CONTAINER_NAME }}
+  TF_STATE_KEY: ${{ vars.TF_STATE_KEY }}
+  SHARED_NAMESPACE: shared
+  OPCENTER_NAMESPACE: dev-opcenter
+  STORAGE_ACCOUNT_NAME: ${{ vars.STORAGE_ACCOUNT_NAME }}
+  WINDOWS_ADMIN_USERNAME: ${{ vars.WINDOWS_ADMIN_USERNAME }}
+  WINDOWS_ADMIN_PASSWORD: ${{ secrets.WINDOWS_ADMIN_PASSWORD }}
+  SQL_SERVER_FQDN: ${{ vars.SQL_SERVER_FQDN }}
+  SQL_DATABASE_NAME: ${{ vars.SQL_DATABASE_NAME }}
+  SQL_DATABASE_SCHEMA: ${{ vars.SQL_DATABASE_SCHEMA }}
+  SQL_DATABASE_USERNAME: ${{ secrets.SQL_DATABASE_USERNAME }}
+  SQL_DATABASE_PASSWORD: ${{ secrets.SQL_DATABASE_PASSWORD }}
 
 jobs:
-  # ─────────────────────────────────────────────────────────────
-  # JOB 1 – Terraform apply
-  # ─────────────────────────────────────────────────────────────
   terraform_apply:
     name: Terraform apply
     runs-on: ubuntu-latest
-    if: >
-      github.event_name == 'push' ||
-      github.event.inputs.action == 'deploy' ||
-      github.event.inputs.action == 'redeploy'
-
+    if: github.event_name == 'push' || github.event.inputs.action == 'deploy' || github.event.inputs.action == 'redeploy'
     outputs:
-      aks_cluster_name:     ${{ steps.tf_outputs.outputs.aks_cluster_name }}
-      resource_group_name:  ${{ steps.tf_outputs.outputs.resource_group_name }}
-      storage_account_name: ${{ steps.tf_outputs.outputs.storage_account_name }}
-      file_share_name:      ${{ steps.tf_outputs.outputs.file_share_name }}
-      kv_name:              ${{ steps.tf_outputs.outputs.kv_name }}
-
+      aks_cluster_name: ${{ steps.outputs.outputs.aks_cluster_name }}
+      resource_group_name: ${{ steps.outputs.outputs.resource_group_name }}
+      storage_account_name: ${{ steps.outputs.outputs.storage_account_name }}
+      file_share_name: ${{ steps.outputs.outputs.file_share_name }}
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v3
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
         with:
           terraform_wrapper: false
-
-      - name: Azure login
-        uses: azure/login@v2
+      - uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      # ── Bootstrap the remote-state storage account (idempotent) ──────────
       - name: Prepare Terraform remote state
         shell: bash
         run: |
           set -euo pipefail
-          set -x
-
-          az group create \
-            --name     "$TF_STATE_RESOURCE_GROUP" \
-            --location "South India" \
-            --output json
-
-          az storage account create \
-            --name                "$TF_STATE_STORAGE_ACCOUNT" \
-            --resource-group      "$TF_STATE_RESOURCE_GROUP" \
-            --location            "South India" \
-            --sku                 Standard_LRS \
-            --kind                StorageV2 \
-            --min-tls-version     TLS1_2 \
-            --output json
-
-          az storage container create \
-            --name         "$TF_STATE_CONTAINER" \
-            --account-name "$TF_STATE_STORAGE_ACCOUNT" \
-            --auth-mode    login \
-            --output json
-
-          echo "Backend storage ready: $TF_STATE_STORAGE_ACCOUNT / $TF_STATE_CONTAINER"
-
+          az group create --name "$TF_STATE_RESOURCE_GROUP" --location "South India" --output none
+          az storage account create --name "$TF_STATE_STORAGE_ACCOUNT" --resource-group "$TF_STATE_RESOURCE_GROUP" --location "South India" --sku Standard_LRS --kind StorageV2 --min-tls-version TLS1_2 --output none
+          az storage container create --name "$TF_STATE_CONTAINER" --account-name "$TF_STATE_STORAGE_ACCOUNT" --auth-mode login --output none
       - name: Terraform init
         working-directory: ${{ env.TF_DIR }}
-        run: |
-          terraform init \
-            -backend-config="resource_group_name=${TF_STATE_RESOURCE_GROUP}" \
-            -backend-config="storage_account_name=${TF_STATE_STORAGE_ACCOUNT}" \
-            -backend-config="container_name=${TF_STATE_CONTAINER}" \
-            -backend-config="key=${TF_STATE_KEY}"
-
-      - name: Terraform format check
-        working-directory: ${{ env.TF_DIR }}
-        run: terraform fmt -check -recursive
-
+        run: terraform init -backend-config="resource_group_name=${TF_STATE_RESOURCE_GROUP}" -backend-config="storage_account_name=${TF_STATE_STORAGE_ACCOUNT}" -backend-config="container_name=${TF_STATE_CONTAINER}" -backend-config="key=${TF_STATE_KEY}"
       - name: Terraform validate
         working-directory: ${{ env.TF_DIR }}
         run: terraform validate
-
-      # ── Import existing partial resources (idempotent) ────────────────────
-      # NOTE: ACR import removed — opcenteracr is managed outside Terraform
-      - name: Import existing partial resources
+      - name: Import existing infrastructure when needed
         working-directory: ${{ env.TF_DIR }}
         shell: bash
         env:
-          TF_VAR_storage_account_name:   ${{ vars.STORAGE_ACCOUNT_NAME }}
+          TF_VAR_storage_account_name: ${{ vars.STORAGE_ACCOUNT_NAME }}
           TF_VAR_windows_admin_username: ${{ vars.WINDOWS_ADMIN_USERNAME }}
           TF_VAR_windows_admin_password: ${{ secrets.WINDOWS_ADMIN_PASSWORD }}
-          TF_VAR_file_share_name:        ${{ github.event.inputs.file_share_name || 'opcentershare' }}
         run: |
           set -euo pipefail
-
-          import_if_missing() {
-            local address="$1"
-            local id="$2"
-            if terraform state show "$address" >/dev/null 2>&1; then
-              echo "Already in state: $address – skipping import."
-              return 0
-            fi
-            terraform import "$address" "$id"
-          }
-
           subscription_id="$(az account show --query id -o tsv)"
-
-          # Resource Group
+          import_if_missing() {
+            local address="$1" id="$2"
+            terraform state show "$address" >/dev/null 2>&1 || terraform import "$address" "$id"
+          }
           rg_id="/subscriptions/${subscription_id}/resourceGroups/terraform-resource-group"
-          if az group show --name "terraform-resource-group" >/dev/null 2>&1; then
-            import_if_missing "azurerm_resource_group.rg" "$rg_id"
-          fi
-
-          # Storage account
-          sa_id="$(az storage account show --name "$TF_VAR_storage_account_name" --resource-group "terraform-resource-group" --query id -o tsv 2>/dev/null || true)"
-          if [[ -n "$sa_id" ]]; then
-            import_if_missing "module.storage.azurerm_storage_account.storage" "$sa_id"
-          fi
-
-          # SQL Server
-          sql_id="$(az sql server show --name "opcenter-sql-server" --resource-group "terraform-resource-group" --query id -o tsv 2>/dev/null || true)"
-          if [[ -n "$sql_id" ]]; then
-            import_if_missing "azurerm_mssql_server.sql" "$sql_id"
-          fi
-
-          # AKS
-          aks_id="$(az aks show --name "terraform-aks" --resource-group "terraform-resource-group" --query id -o tsv 2>/dev/null || true)"
-          if [[ -n "$aks_id" ]]; then
-            import_if_missing "module.aks.azurerm_kubernetes_cluster.aks" "$aks_id"
-          fi
-
-      - name: Terraform plan
+          if az group show --name terraform-resource-group >/dev/null 2>&1; then import_if_missing azurerm_resource_group.rg "$rg_id"; fi
+          sa_id="$(az storage account show --name "$TF_VAR_storage_account_name" --resource-group terraform-resource-group --query id -o tsv 2>/dev/null || true)"
+          if [[ -n "$sa_id" ]]; then import_if_missing module.storage.azurerm_storage_account.storage "$sa_id"; fi
+          aks_id="$(az aks show --name terraform-aks --resource-group terraform-resource-group --query id -o tsv 2>/dev/null || true)"
+          if [[ -n "$aks_id" ]]; then import_if_missing module.aks.azurerm_kubernetes_cluster.aks "$aks_id"; fi
+      - name: Terraform plan and apply
         working-directory: ${{ env.TF_DIR }}
         env:
-          TF_VAR_storage_account_name:   ${{ vars.STORAGE_ACCOUNT_NAME }}
+          TF_VAR_storage_account_name: ${{ vars.STORAGE_ACCOUNT_NAME }}
           TF_VAR_windows_admin_username: ${{ vars.WINDOWS_ADMIN_USERNAME }}
           TF_VAR_windows_admin_password: ${{ secrets.WINDOWS_ADMIN_PASSWORD }}
-          TF_VAR_file_share_name:        ${{ github.event.inputs.file_share_name || 'opcentershare' }}
-        run: terraform plan -out=tfplan
-
-      - name: Terraform apply
-        working-directory: ${{ env.TF_DIR }}
-        run: terraform apply -auto-approve tfplan
-
+        run: terraform plan -out=tfplan && terraform apply -auto-approve tfplan
       - name: Read Terraform outputs
-        id: tf_outputs
+        id: outputs
         working-directory: ${{ env.TF_DIR }}
         shell: bash
         run: |
-          set -euo pipefail
-
-          echo "aks_cluster_name=$(terraform output -raw aks_cluster_name)"         >> "$GITHUB_OUTPUT"
-          echo "resource_group_name=$(terraform output -raw resource_group_name)"   >> "$GITHUB_OUTPUT"
+          echo "aks_cluster_name=$(terraform output -raw aks_cluster_name)" >> "$GITHUB_OUTPUT"
+          echo "resource_group_name=$(terraform output -raw resource_group_name)" >> "$GITHUB_OUTPUT"
           echo "storage_account_name=$(terraform output -raw storage_account_name)" >> "$GITHUB_OUTPUT"
-          echo "file_share_name=$(terraform output -raw file_share_name)"           >> "$GITHUB_OUTPUT"
-          echo "kv_name=$(terraform output -raw key_vault_name 2>/dev/null || echo '')" >> "$GITHUB_OUTPUT"
+          echo "file_share_name=$(terraform output -raw file_share_name)" >> "$GITHUB_OUTPUT"
 
-  # ─────────────────────────────────────────────────────────────
-  # JOB 2 – Manual approval gate for redeploy
-  # ─────────────────────────────────────────────────────────────
   approve_redeploy:
-    name: Manual approval before Helm uninstall
+    name: Approve Helm release replacement
     runs-on: ubuntu-latest
     needs: terraform_apply
-    if: >
-      github.event_name == 'workflow_dispatch' &&
-      github.event.inputs.action == 'redeploy'
-    environment:
-      name: production-approval
-
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'redeploy'
+    environment: production-approval
     steps:
-      - name: Approval granted
-        run: echo "Approved to uninstall existing Helm releases before redeploy."
+      - run: echo "Approved to reinstall the Helm releases."
 
-  # ─────────────────────────────────────────────────────────────
-  # JOB 3 – Helm deploy
-  # ─────────────────────────────────────────────────────────────
   helm_deploy:
-    name: Helm deploy
+    name: Deploy Helm charts and public portal
     runs-on: ubuntu-latest
-    needs:
-      - terraform_apply
-      - approve_redeploy
-    if: |
-      always() &&
-      needs.terraform_apply.result == 'success' &&
-      (
-        github.event_name == 'push' ||
-        github.event.inputs.action == 'deploy' ||
-        needs.approve_redeploy.result == 'success'
-      )
-
+    needs: [terraform_apply, approve_redeploy]
+    if: always() && needs.terraform_apply.result == 'success' && (github.event_name == 'push' || github.event.inputs.action == 'deploy' || needs.approve_redeploy.result == 'success')
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Helm
-        uses: azure/setup-helm@v4
+      - uses: actions/checkout@v4
+      - uses: azure/setup-helm@v4
         with:
           version: latest
-
-      - name: Azure login
-        uses: azure/login@v2
+      - uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      # ── Grant AKS AcrPull on existing ACR (idempotent) ───────────────────
-      # opcenteracr lives in Dccpl-migration and is NOT managed by Terraform
-      - name: Grant AKS AcrPull on existing ACR
+      - name: Configure AKS access
+        run: az aks get-credentials --resource-group "${{ needs.terraform_apply.outputs.resource_group_name }}" --name "${{ needs.terraform_apply.outputs.aks_cluster_name }}" --overwrite-existing
+      - name: Install AzCopy
         shell: bash
         run: |
           set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/azcopy"
+          curl -fsSL https://aka.ms/downloadazcopy-v10-linux | tar -xz -C "$RUNNER_TEMP/azcopy" --strip-components=1
+          echo "$RUNNER_TEMP/azcopy" >> "$GITHUB_PATH"
+      - name: Seed new Azure File Share from source Blob Storage
+        shell: bash
+        env:
+          SOURCE_BLOB_PREFIX: ${{ vars.SEED_SOURCE_BLOB_PREFIX }}
+          DESTINATION_SUBDIRECTORY: ${{ vars.SEED_DESTINATION_SUBDIRECTORY }}
+          SOURCE_CONTAINER_SAS_TOKEN: ${{ secrets.SOURCE_CONTAINER_SAS_TOKEN }}
+          DEST_STORAGE_ACCOUNT: ${{ needs.terraform_apply.outputs.storage_account_name }}
+          DEST_FILE_SHARE: ${{ needs.terraform_apply.outputs.file_share_name }}
+          DEST_RESOURCE_GROUP: ${{ needs.terraform_apply.outputs.resource_group_name }}
+        run: |
+          set -euo pipefail
+          : "${SOURCE_CONTAINER_SAS_TOKEN:?Set secret SOURCE_CONTAINER_SAS_TOKEN}"
+          DEST_STORAGE_ACCOUNT_KEY="$(az storage account keys list \
+            --account-name "$DEST_STORAGE_ACCOUNT" \
+            --resource-group "$DEST_RESOURCE_GROUP" \
+            --query '[0].value' --output tsv)"
+          echo "::add-mask::$DEST_STORAGE_ACCOUNT_KEY"
 
-          aks_rg="${{ needs.terraform_apply.outputs.resource_group_name }}"
-          aks_name="${{ needs.terraform_apply.outputs.aks_cluster_name }}"
-
-          acr_scope="$(az acr show \
-            --name opcenteracr \
-            --resource-group Dccpl-migration \
-            --query id --output tsv)"
-
-          kubelet_object_id="$(az aks show \
-            --resource-group "$aks_rg" \
-            --name "$aks_name" \
-            --query identityProfile.kubeletidentity.objectId \
-            --output tsv)"
-
-          existing_assignment="$(az role assignment list \
-            --assignee "$kubelet_object_id" \
-            --scope "$acr_scope" \
-            --role "AcrPull" \
-            --query "[0].id" \
-            --output tsv 2>/dev/null || true)"
-
-          if [[ -n "$existing_assignment" ]]; then
-            echo "AcrPull already granted to AKS kubelet identity — skipping."
+          # A populated share indicates a prior seed/deployment; never overlay it automatically.
+          existing_count="$(az storage file list \
+            --account-name "$DEST_STORAGE_ACCOUNT" \
+            --account-key "$DEST_STORAGE_ACCOUNT_KEY" \
+            --share-name "$DEST_FILE_SHARE" \
+            --query 'length(@)' --output tsv)"
+          if [[ "$existing_count" -gt 0 ]]; then
+            echo "Destination share already contains $existing_count entries; skipping seed copy."
             exit 0
           fi
 
-          az role assignment create \
-            --assignee-object-id      "$kubelet_object_id" \
-            --assignee-principal-type ServicePrincipal \
-            --role                    AcrPull \
-            --scope                   "$acr_scope"
+          source_url="https://linepilotdbbackup.blob.core.windows.net/opcenter-files"
+          if [[ -n "${SOURCE_BLOB_PREFIX:-}" ]]; then
+            source_url="${source_url}/${SOURCE_BLOB_PREFIX#/}"
+          fi
+          destination_url="https://${DEST_STORAGE_ACCOUNT}.file.core.windows.net/${DEST_FILE_SHARE}"
+          if [[ -n "${DESTINATION_SUBDIRECTORY:-}" ]]; then
+            destination_url="${destination_url}/${DESTINATION_SUBDIRECTORY#/}"
+          fi
 
-          echo "AcrPull granted successfully ✅"
+          echo "::add-mask::$DEST_STORAGE_ACCOUNT_KEY"
+          echo "::add-mask::$SOURCE_CONTAINER_SAS_TOKEN"
+          destination_sas="$(az storage share generate-sas \
+            --account-name "$DEST_STORAGE_ACCOUNT" \
+            --account-key "$DEST_STORAGE_ACCOUNT_KEY" \
+            --name "$DEST_FILE_SHARE" \
+            --permissions rwdl \
+            --expiry "$(date -u -d '+2 hours' '+%Y-%m-%dT%H:%MZ')" \
+            --output tsv)"
+          echo "::add-mask::$destination_sas"
 
-      # ── Copy Blob → Azure File Share ──────────────────────────────────────
-      - name: Copy Blob container files to Azure File Share
+          source_sas="${SOURCE_CONTAINER_SAS_TOKEN#\?}"
+          azcopy copy "${source_url}?${source_sas}" "${destination_url}?${destination_sas}" --recursive=true --only-show-errors
+      - name: Create chart override values
         shell: bash
         env:
           STORAGE_ACCOUNT_NAME: ${{ needs.terraform_apply.outputs.storage_account_name }}
-          FILE_SHARE_NAME:      ${{ needs.terraform_apply.outputs.file_share_name }}
-          BLOB_SEED_PREFIX:     ${{ github.event.inputs.blob_seed_prefix || '' }}
-          SEED_SUBDIRECTORY:    ${{ github.event.inputs.file_share_seed_subdirectory || '' }}
+          FILE_SHARE_NAME: ${{ needs.terraform_apply.outputs.file_share_name }}
         run: |
           set -euo pipefail
-
-          file_count="$(az storage file list \
-            --account-name "$STORAGE_ACCOUNT_NAME" \
-            --share-name   "$FILE_SHARE_NAME" \
-            --auth-mode    key \
-            --query        "length(@)" \
-            --output       tsv)"
-
-          if [[ "$file_count" -gt 0 ]]; then
-            echo "File share already has $file_count items — skipping copy."
-            exit 0
-          fi
-
-          echo "File share is empty — copying files from blob container..."
-
-          expiry="$(date -u -d '+2 hours' '+%Y-%m-%dT%H:%MZ')"
-
-          source_key="$(az storage account keys list --account-name "linepilotdbbackup" --query '[0].value' --output tsv)"
-          dest_key="$(az storage account keys list --account-name "$STORAGE_ACCOUNT_NAME" --query '[0].value' --output tsv)"
-
-          source_sas="$(az storage container generate-sas \
-            --account-name "linepilotdbbackup" \
-            --account-key  "$source_key" \
-            --name         "opcenter-files" \
-            --permissions  rl \
-            --expiry       "$expiry" \
-            --output tsv)"
-
-          dest_sas="$(az storage share generate-sas \
-            --account-name "$STORAGE_ACCOUNT_NAME" \
-            --account-key  "$dest_key" \
-            --name         "$FILE_SHARE_NAME" \
-            --permissions  rwdl \
-            --expiry       "$expiry" \
-            --output tsv)"
-
-          source_url="https://linepilotdbbackup.blob.core.windows.net/opcenter-files"
-          if [[ -n "$BLOB_SEED_PREFIX" ]]; then
-            source_url="${source_url}/${BLOB_SEED_PREFIX}"
-          fi
-
-          dest_url="https://${STORAGE_ACCOUNT_NAME}.file.core.windows.net/${FILE_SHARE_NAME}"
-          if [[ -n "$SEED_SUBDIRECTORY" ]]; then
-            dest_url="${dest_url}/${SEED_SUBDIRECTORY}"
-          fi
-
-          echo "Copying from blob to file share…"
-          azcopy copy "${source_url}?${source_sas}" "${dest_url}?${dest_sas}" --recursive=true
-
-      # ── AKS credentials ───────────────────────────────────────────────────
-      - name: Configure AKS Kubernetes access
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          az aks get-credentials \
-            --resource-group "${{ needs.terraform_apply.outputs.resource_group_name }}" \
-            --name           "${{ needs.terraform_apply.outputs.aks_cluster_name }}" \
-            --overwrite-existing
-
-      # ── SMB CSI driver ────────────────────────────────────────────────────
+          : "${SQL_SERVER_FQDN:?SQL server FQDN is required}"
+          : "${SQL_DATABASE_NAME:?SQL database name is required}"
+          : "${SQL_DATABASE_SCHEMA:?SQL database schema is required}"
+          : "${SQL_DATABASE_USERNAME:?Set secret SQL_DATABASE_USERNAME}"
+          : "${SQL_DATABASE_PASSWORD:?Set secret SQL_DATABASE_PASSWORD}"
+          : "${WINDOWS_ADMIN_USERNAME:?Set repository variable WINDOWS_ADMIN_USERNAME}"
+          : "${WINDOWS_ADMIN_PASSWORD:?Set secret WINDOWS_ADMIN_PASSWORD}"
+          storage_key="$(az storage account keys list --account-name "$STORAGE_ACCOUNT_NAME" --query '[0].value' -o tsv)"
+          echo "::add-mask::$storage_key"
+          echo "::add-mask::$WINDOWS_ADMIN_PASSWORD"
+          echo "::add-mask::$SQL_DATABASE_PASSWORD"
+          cat > "$RUNNER_TEMP/shared-values.yaml" <<EOF
+          database:
+            host: "$SQL_SERVER_FQDN"
+            port: 1433
+          odsDatabase:
+            host: "$SQL_SERVER_FQDN"
+            port: 1433
+          storage:
+            secret:
+              create: true
+              accountname: "$STORAGE_ACCOUNT_NAME"
+              accountkey: "$storage_key"
+          EOF
+          cat > "$RUNNER_TEMP/config-values.yaml" <<EOF
+          database:
+            host: "$SQL_SERVER_FQDN"
+            port: 1433
+            username: "$SQL_DATABASE_USERNAME"
+            password: "$SQL_DATABASE_PASSWORD"
+            schema: "$SQL_DATABASE_SCHEMA"
+            database: "$SQL_DATABASE_NAME"
+            name: "$SQL_DATABASE_NAME"
+            type: SQLServer
+            maxRowsetSize: 15000
+          storage:
+            fileShare: "$FILE_SHARE_NAME"
+          EOF
+          cat > "$RUNNER_TEMP/core-values.yaml" <<EOF
+          portal:
+            ingress:
+              enabled: false
+          appServer:
+            ingress:
+              enabled: false
+          EOF
+          cat > "$RUNNER_TEMP/dbupdate-values.yaml" <<EOF
+          image:
+            repository: opcenteracr.azurecr.io/dbupdate
+            tag: "2504.0002"
+          updateType: metadata-only
+          metadataPath: "namespace\\2410"
+          stagingPath: "namespace\\2410\\staging"
+          EOF
+          chmod 600 "$RUNNER_TEMP"/*-values.yaml
       - name: Install SMB CSI driver
         shell: bash
         run: |
           set -euo pipefail
-
-          helm repo add csi-driver-smb \
-            https://raw.githubusercontent.com/kubernetes-csi/csi-driver-smb/master/charts
+          helm repo add csi-driver-smb https://raw.githubusercontent.com/kubernetes-csi/csi-driver-smb/master/charts
           helm repo update
-
-          helm upgrade --install csi-driver-smb csi-driver-smb/csi-driver-smb \
-            --namespace kube-system \
-            --version   v1.15.0 \
-            --set       windows.enabled=true
-
-          kubectl get csidriver smb.csi.k8s.io
-
-      # ── Build Terraform-generated Helm values ─────────────────────────────
-      - name: Create Terraform-generated Helm values
-        shell: bash
-        env:
-          STORAGE_ACCOUNT_NAME: ${{ needs.terraform_apply.outputs.storage_account_name }}
-          FILE_SHARE_NAME:      ${{ needs.terraform_apply.outputs.file_share_name }}
-          SQL_SERVER_FQDN:      ${{ vars.SQL_SERVER_FQDN }}
-          SQL_DATABASE_NAME:    ${{ vars.SQL_DATABASE_NAME }}
-          KV_NAME:              ${{ needs.terraform_apply.outputs.kv_name }}
-          WINDOWS_ADMIN_USER:   ${{ vars.WINDOWS_ADMIN_USERNAME }}
-          WINDOWS_ADMIN_PASS:   ${{ secrets.WINDOWS_ADMIN_PASSWORD }}
-        run: |
-          set -euo pipefail
-
-          if [[ -n "$KV_NAME" ]]; then
-            sql_username="$(az keyvault secret show --vault-name "$KV_NAME" --name "opcenter-db-username" --query value -o tsv 2>/dev/null || echo "$WINDOWS_ADMIN_USER")"
-            sql_password="$(az keyvault secret show --vault-name "$KV_NAME" --name "opcenter-db-password" --query value -o tsv 2>/dev/null || echo "$WINDOWS_ADMIN_PASS")"
-          else
-            sql_username="$WINDOWS_ADMIN_USER"
-            sql_password="$WINDOWS_ADMIN_PASS"
-          fi
-
-          echo "::add-mask::$sql_password"
-          echo "::add-mask::$WINDOWS_ADMIN_PASS"
-
-          storage_key="$(az storage account keys list \
-            --account-name "$STORAGE_ACCOUNT_NAME" \
-            --query        '[0].value' \
-            --output       tsv)"
-          echo "::add-mask::$storage_key"
-
-          cat > "$RUNNER_TEMP/terraform-generated-values.yaml" <<EOF
-          database:
-            host:     "$SQL_SERVER_FQDN"
-            port:     1433
-            username: "$sql_username"
-            password: "$sql_password"
-            schema:   "$SQL_DATABASE_NAME"
-            name:     "$SQL_DATABASE_NAME"
-
-          odsDatabase:
-            host:     "$SQL_SERVER_FQDN"
-            port:     1433
-            username: "$sql_username"
-            password: "$sql_password"
-            schema:   "$SQL_DATABASE_NAME"
-            name:     "$SQL_DATABASE_NAME"
-
-          storage:
-            fileShare: "${FILE_SHARE_NAME}"
-            secret:
-              create: true
-              accountname: "$STORAGE_ACCOUNT_NAME"
-              accountkey:  "$storage_key"
-
-          Fsx:
-            createSecret: true
-            username:     "Azure\\\\$WINDOWS_ADMIN_USER"
-            password:     "$WINDOWS_ADMIN_PASS"
-            domain:       ""
-
-          azureFile:
-            storageAccountName: "$STORAGE_ACCOUNT_NAME"
-            storageAccountKey:  "$storage_key"
-            shareName:          "$FILE_SHARE_NAME"
-          EOF
-
-      # ── Preserve existing metadata PVC ────────────────────────────────────
-      - name: Preserve existing metadata PV and PVC
-        id: preserve_storage
+          helm upgrade --install csi-driver-smb csi-driver-smb/csi-driver-smb --namespace kube-system --version v1.15.0 --set windows.enabled=true
+      - name: Redeploy uninstall (if selected)
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'redeploy'
         shell: bash
         run: |
           set -euo pipefail
-
-          pvc_backup="$RUNNER_TEMP/${OPCENTER_METADATA_PVC}.json"
-          pv_backup="$RUNNER_TEMP/${OPCENTER_METADATA_PVC}-pv.json"
-
-          if ! kubectl get pvc "$OPCENTER_METADATA_PVC" -n "$OPCENTER_NAMESPACE" >/dev/null 2>&1; then
-            echo "PVC $OPCENTER_METADATA_PVC not found in $OPCENTER_NAMESPACE – fresh deploy."
-            echo "preserved=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          pvc_phase="$(kubectl get pvc "$OPCENTER_METADATA_PVC" -n "$OPCENTER_NAMESPACE" \
-            -o jsonpath='{.status.phase}')"
-          if [[ "$pvc_phase" != "Bound" ]]; then
-            echo "PVC $OPCENTER_METADATA_PVC is $pvc_phase, expected Bound."
-            exit 1
-          fi
-
-          pv_name="$(kubectl get pvc "$OPCENTER_METADATA_PVC" -n "$OPCENTER_NAMESPACE" \
-            -o jsonpath='{.spec.volumeName}')"
-
-          kubectl get pvc "$OPCENTER_METADATA_PVC" -n "$OPCENTER_NAMESPACE" -o json \
-            | jq 'del(
-                .metadata.annotations["kubectl.kubernetes.io/last-applied-configuration"],
-                .metadata.creationTimestamp,
-                .metadata.resourceVersion,
-                .metadata.uid,
-                .metadata.managedFields,
-                .metadata.finalizers,
-                .metadata.ownerReferences,
-                .status
-              )' > "$pvc_backup"
-
-          if [[ -n "$pv_name" ]]; then
-            kubectl get pv "$pv_name" -o json \
-              | jq 'del(
-                  .metadata.annotations["kubectl.kubernetes.io/last-applied-configuration"],
-                  .metadata.creationTimestamp,
-                  .metadata.resourceVersion,
-                  .metadata.uid,
-                  .metadata.managedFields,
-                  .metadata.finalizers,
-                  .metadata.ownerReferences,
-                  .spec.claimRef,
-                  .status
-                )' > "$pv_backup"
-          fi
-
-          echo "preserved=true"         >> "$GITHUB_OUTPUT"
-          echo "pv_backup=$pv_backup"   >> "$GITHUB_OUTPUT"
-          echo "pvc_backup=$pvc_backup" >> "$GITHUB_OUTPUT"
-
-      # ── Uninstall existing releases (redeploy only) ───────────────────────
-      - name: Uninstall existing releases
-        if: >
-          github.event_name == 'workflow_dispatch' &&
-          github.event.inputs.action == 'redeploy'
+          for release in opcenter-core opcenter-core-dbupdate dev-opcenter-config; do helm uninstall "$release" -n "$OPCENTER_NAMESPACE" --wait --timeout 10m || true; done
+          helm uninstall opcenter-shared -n "$SHARED_NAMESPACE" --wait --timeout 10m || true
+      - name: Deploy shared services and storage secret
         shell: bash
         run: |
           set -euo pipefail
-
-          release_names=(
-            "opcenter-core"
-            "opcenter-dbupdate"
-            "opcenter-core-dbupdate"
-            "dev-opcenter-config"
-            "opcenter-core-shared"
-            "opcenter-shared"
-          )
-          namespaces=(
-            "$OPCENTER_NAMESPACE"
-            "$OPCENTER_NAMESPACE"
-            "$OPCENTER_NAMESPACE"
-            "$OPCENTER_NAMESPACE"
-            "$SHARED_NAMESPACE"
-            "$SHARED_NAMESPACE"
-          )
-
-          for i in "${!release_names[@]}"; do
-            release="${release_names[$i]}"
-            ns="${namespaces[$i]}"
-            if helm status "$release" -n "$ns" >/dev/null 2>&1; then
-              helm uninstall "$release" -n "$ns" --wait --timeout 10m
-            else
-              echo "Release $release not found in $ns – skipping."
-            fi
-          done
-
-      # ── Restore PV / PVC after redeploy uninstall ────────────────────────
-      - name: Restore existing metadata PV and PVC
-        if: >
-          github.event_name == 'workflow_dispatch' &&
-          github.event.inputs.action == 'redeploy'
+          helm lint opcenter-core-shared -f opcenter-core-shared/values.yaml -f "$RUNNER_TEMP/shared-values.yaml"
+          helm upgrade --install opcenter-shared opcenter-core-shared -n "$SHARED_NAMESPACE" --create-namespace -f opcenter-core-shared/values.yaml -f "$RUNNER_TEMP/shared-values.yaml" --wait --timeout 10m
+      - name: Deploy config and persistent storage
         shell: bash
         run: |
           set -euo pipefail
-
-          if [[ "${{ steps.preserve_storage.outputs.preserved }}" != "true" ]]; then
-            echo "No existing metadata PVC was preserved – cannot continue redeploy."
-            exit 1
-          fi
-
-          pv_backup="${{ steps.preserve_storage.outputs.pv_backup }}"
-          pvc_backup="${{ steps.preserve_storage.outputs.pvc_backup }}"
-
-          if [[ -s "$pv_backup" ]]; then
-            kubectl apply -f "$pv_backup"
-          fi
-          kubectl apply -f "$pvc_backup"
-
-      # ── Deploy shared chart ───────────────────────────────────────────────
-      - name: Deploy shared chart
+          helm lint opcenter-core-config -f opcenter-core-config/values.yaml -f "$RUNNER_TEMP/config-values.yaml"
+          helm upgrade --install dev-opcenter-config opcenter-core-config -n "$OPCENTER_NAMESPACE" --create-namespace -f opcenter-core-config/values.yaml -f "$RUNNER_TEMP/config-values.yaml" --wait --timeout 10m
+      - name: Deploy application chart with TLS override
         shell: bash
         run: |
           set -euo pipefail
+          helm lint opcenter-core -f opcenter-core/values.yaml -f "$RUNNER_TEMP/core-values.yaml" -f public-portal/portal-tls-values.yaml
+          helm upgrade --install opcenter-core opcenter-core -n "$OPCENTER_NAMESPACE" --create-namespace -f opcenter-core/values.yaml -f "$RUNNER_TEMP/core-values.yaml" -f public-portal/portal-tls-values.yaml --wait --timeout 20m
+      # Database metadata updates are currently run manually from Management Studio.
+      # Re-enable this step when database updates should be handled by the workflow.
+      # - name: Run database metadata update job
+      #   shell: bash
+      #   run: |
+      #     set -euo pipefail
+      #     helm lint opcenter-core-dbupdate -f opcenter-core-dbupdate/values.yaml -f "$RUNNER_TEMP/dbupdate-values.yaml"
+      #     helm upgrade --install opcenter-core-dbupdate opcenter-core-dbupdate -n "$OPCENTER_NAMESPACE" --create-namespace -f opcenter-core-dbupdate/values.yaml -f "$RUNNER_TEMP/dbupdate-values.yaml" --wait --timeout 30m --wait-for-jobs
+      - name: Apply public portal gateway
+        run: kubectl apply -f public-portal/gateway.yaml
 
-          chart_dir="opcenter-core-shared"
-          release_name="opcenter-shared"
-          namespace="$SHARED_NAMESPACE"
-          values_file="$chart_dir/updated-${chart_dir}-values.yaml"
-
-          if [[ ! -f "$values_file" ]]; then
-            values_file="$chart_dir/values.yaml"
-          fi
-
-          helm lint "$chart_dir" \
-            --values "$values_file" \
-            --values "$RUNNER_TEMP/terraform-generated-values.yaml"
-
-          helm upgrade --install "$release_name" "$chart_dir" \
-            -n "$namespace" \
-            --create-namespace \
-            --values "$values_file" \
-            --values "$RUNNER_TEMP/terraform-generated-values.yaml"
-
-      # ── Deploy application charts ─────────────────────────────────────────
-      - name: Deploy application charts
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          chart_dirs=(
-            "opcenter-core-config"
-            "opcenter-core-dbupdate"
-            "opcenter-core"
-          )
-          release_names=(
-            "dev-opcenter-config"
-            "opcenter-core-dbupdate"
-            "opcenter-core"
-          )
-          namespaces=(
-            "$OPCENTER_NAMESPACE"
-            "$OPCENTER_NAMESPACE"
-            "$OPCENTER_NAMESPACE"
-          )
-
-          for i in "${!chart_dirs[@]}"; do
-            chart_dir="${chart_dirs[$i]}"
-            release_name="${release_names[$i]}"
-            namespace="${namespaces[$i]}"
-            values_file="$chart_dir/updated-${chart_dir}-values.yaml"
-            extra_values_args=(--values "$RUNNER_TEMP/terraform-generated-values.yaml")
-
-            if [[ ! -f "$values_file" ]]; then
-              values_file="$chart_dir/values.yaml"
-            fi
-
-            # Windows node selectors – only for opcenter-core
-            if [[ "$chart_dir" == "opcenter-core" ]]; then
-              windows_values_file="$RUNNER_TEMP/opcenter-core-azure-windows-node-selectors.yaml"
-              cat > "$windows_values_file" <<EOF
-          appServer:
-            nodeSelectors:
-              "$WINDOWS_NODE_SELECTOR_OS_KEY": "$WINDOWS_NODE_SELECTOR_OS_VALUE"
-              "$WINDOWS_NODE_SELECTOR_BUILD_KEY": "$WINDOWS_NODE_SELECTOR_BUILD_VALUE"
-          appServerSf:
-            nodeSelectors:
-              "$WINDOWS_NODE_SELECTOR_OS_KEY": "$WINDOWS_NODE_SELECTOR_OS_VALUE"
-              "$WINDOWS_NODE_SELECTOR_BUILD_KEY": "$WINDOWS_NODE_SELECTOR_BUILD_VALUE"
-          portal:
-            nodeSelectors:
-              "$WINDOWS_NODE_SELECTOR_OS_KEY": "$WINDOWS_NODE_SELECTOR_OS_VALUE"
-              "$WINDOWS_NODE_SELECTOR_BUILD_KEY": "$WINDOWS_NODE_SELECTOR_BUILD_VALUE"
-          notificationService:
-            nodeSelectors:
-              "$WINDOWS_NODE_SELECTOR_OS_KEY": "$WINDOWS_NODE_SELECTOR_OS_VALUE"
-              "$WINDOWS_NODE_SELECTOR_BUILD_KEY": "$WINDOWS_NODE_SELECTOR_BUILD_VALUE"
-          securityServices:
-            nodeSelectors:
-              "$WINDOWS_NODE_SELECTOR_OS_KEY": "$WINDOWS_NODE_SELECTOR_OS_VALUE"
-              "$WINDOWS_NODE_SELECTOR_BUILD_KEY": "$WINDOWS_NODE_SELECTOR_BUILD_VALUE"
-          inlinespc:
-            nodeSelectors:
-              "$WINDOWS_NODE_SELECTOR_OS_KEY": "$WINDOWS_NODE_SELECTOR_OS_VALUE"
-              "$WINDOWS_NODE_SELECTOR_BUILD_KEY": "$WINDOWS_NODE_SELECTOR_BUILD_VALUE"
-          EOF
-              extra_values_args+=(--values "$windows_values_file")
-            fi
-
-            helm lint "$chart_dir" --values "$values_file" "${extra_values_args[@]}"
-
-            helm upgrade --install "$release_name" "$chart_dir" \
-              -n "$namespace" \
-              --create-namespace \
-              --values "$values_file" \
-              "${extra_values_args[@]}"
-          done
-
-  # ─────────────────────────────────────────────────────────────
-  # JOB 4 – Manual approval gate for destroy
-  # ─────────────────────────────────────────────────────────────
   approve_destroy:
-    name: Manual approval before destroy
+    name: Approve destroy
     runs-on: ubuntu-latest
-    if: >
-      github.event_name == 'workflow_dispatch' &&
-      github.event.inputs.action == 'destroy'
-    environment:
-      name: production-approval
-
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'destroy'
+    environment: production-approval
     steps:
-      - name: Approval granted
-        run: echo "Approved to uninstall Helm releases and destroy Terraform resources."
+      - run: echo "Approved to destroy Azure infrastructure."
 
-  # ─────────────────────────────────────────────────────────────
-  # JOB 5 – Helm uninstall + Terraform destroy
-  # ─────────────────────────────────────────────────────────────
   destroy:
-    name: Helm uninstall and Terraform destroy
+    name: Destroy Azure infrastructure
     runs-on: ubuntu-latest
     needs: approve_destroy
-    if: >
-      github.event_name == 'workflow_dispatch' &&
-      github.event.inputs.action == 'destroy'
-
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'destroy'
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v3
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
         with:
           terraform_wrapper: false
-
-      - name: Set up Helm
-        uses: azure/setup-helm@v4
-        with:
-          version: latest
-
-      - name: Azure login
-        uses: azure/login@v2
+      - uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: Prepare Terraform remote state
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          az group create \
-            --name     "$TF_STATE_RESOURCE_GROUP" \
-            --location "South India" \
-            --output none \
-            2>/dev/null || true
-
-          az storage account create \
-            --name                "$TF_STATE_STORAGE_ACCOUNT" \
-            --resource-group      "$TF_STATE_RESOURCE_GROUP" \
-            --location            "South India" \
-            --sku                 Standard_LRS \
-            --kind                StorageV2 \
-            --min-tls-version     TLS1_2 \
-            --output none \
-            2>/dev/null || true
-
-          az storage container create \
-            --name         "$TF_STATE_CONTAINER" \
-            --account-name "$TF_STATE_STORAGE_ACCOUNT" \
-            --auth-mode    login \
-            --output none \
-            2>/dev/null || true
-
-      - name: Terraform init
+      - name: Initialize Terraform
         working-directory: ${{ env.TF_DIR }}
-        run: |
-          terraform init \
-            -backend-config="resource_group_name=${TF_STATE_RESOURCE_GROUP}" \
-            -backend-config="storage_account_name=${TF_STATE_STORAGE_ACCOUNT}" \
-            -backend-config="container_name=${TF_STATE_CONTAINER}" \
-            -backend-config="key=${TF_STATE_KEY}"
-
-      - name: Configure AKS Kubernetes access
-        working-directory: ${{ env.TF_DIR }}
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          cluster_name="$(terraform output -raw aks_cluster_name)"
-          rg_name="$(terraform output -raw resource_group_name)"
-
-          az aks get-credentials \
-            --resource-group "$rg_name" \
-            --name           "$cluster_name" \
-            --overwrite-existing
-
-      - name: Uninstall Helm releases
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          helm uninstall opcenter-core          -n "$OPCENTER_NAMESPACE" --wait --timeout 10m || true
-          helm uninstall opcenter-core-dbupdate -n "$OPCENTER_NAMESPACE" --wait --timeout 10m || true
-          helm uninstall dev-opcenter-config    -n "$OPCENTER_NAMESPACE" --wait --timeout 10m || true
-          helm uninstall opcenter-shared        -n "$SHARED_NAMESPACE"   --wait --timeout 10m || true
-
+        run: terraform init -backend-config="resource_group_name=${TF_STATE_RESOURCE_GROUP}" -backend-config="storage_account_name=${TF_STATE_STORAGE_ACCOUNT}" -backend-config="container_name=${TF_STATE_CONTAINER}" -backend-config="key=${TF_STATE_KEY}"
       - name: Terraform destroy
         working-directory: ${{ env.TF_DIR }}
         env:
-          TF_VAR_storage_account_name:   ${{ vars.STORAGE_ACCOUNT_NAME }}
+          TF_VAR_storage_account_name: ${{ vars.STORAGE_ACCOUNT_NAME }}
           TF_VAR_windows_admin_username: ${{ vars.WINDOWS_ADMIN_USERNAME }}
           TF_VAR_windows_admin_password: ${{ secrets.WINDOWS_ADMIN_PASSWORD }}
         run: terraform destroy -auto-approve

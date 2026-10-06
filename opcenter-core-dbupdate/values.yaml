@@ -96,7 +96,7 @@ resources:
 
 extraEnv:
   - name: OPCORE_DB_NAME
-    value: opcenter-sql
+    value: opcentersql2
   - name: OPCORE_DB_TYPE
     value: "SQLServer"
   - name: OPCORE_DB_HOST
