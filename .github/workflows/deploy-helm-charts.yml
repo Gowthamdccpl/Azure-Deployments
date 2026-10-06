@@ -129,6 +129,24 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Configure AKS access
         run: az aks get-credentials --resource-group "${{ needs.terraform_apply.outputs.resource_group_name }}" --name "${{ needs.terraform_apply.outputs.aks_cluster_name }}" --overwrite-existing
+      - name: Read key for the Terraform-created Storage Account
+        shell: bash
+        env:
+          STORAGE_ACCOUNT_NAME: ${{ needs.terraform_apply.outputs.storage_account_name }}
+          RESOURCE_GROUP_NAME: ${{ needs.terraform_apply.outputs.resource_group_name }}
+        run: |
+          set -euo pipefail
+          storage_key="$(az storage account keys list \
+            --account-name "$STORAGE_ACCOUNT_NAME" \
+            --resource-group "$RESOURCE_GROUP_NAME" \
+            --query '[0].value' --output tsv)"
+          if [[ -z "$storage_key" || "$storage_key" == "null" ]]; then
+            echo "Could not retrieve the destination Storage Account key."
+            exit 1
+          fi
+          echo "::add-mask::$storage_key"
+          printf '%s' "$storage_key" > "$RUNNER_TEMP/destination-storage-key"
+          chmod 600 "$RUNNER_TEMP/destination-storage-key"
       - name: Install AzCopy
         shell: bash
         run: |
@@ -142,13 +160,13 @@ jobs:
           SOURCE_BLOB_PREFIX: ${{ vars.SEED_SOURCE_BLOB_PREFIX }}
           DESTINATION_SUBDIRECTORY: ${{ vars.SEED_DESTINATION_SUBDIRECTORY }}
           SOURCE_CONTAINER_SAS_TOKEN: ${{ secrets.SOURCE_CONTAINER_SAS_TOKEN }}
-          DEST_STORAGE_ACCOUNT_KEY: ${{ secrets.ACCOUNTKEY }}
           DEST_STORAGE_ACCOUNT: ${{ needs.terraform_apply.outputs.storage_account_name }}
           DEST_FILE_SHARE: ${{ needs.terraform_apply.outputs.file_share_name }}
         run: |
           set -euo pipefail
           : "${SOURCE_CONTAINER_SAS_TOKEN:?Set secret SOURCE_CONTAINER_SAS_TOKEN}"
-          : "${DEST_STORAGE_ACCOUNT_KEY:?Set secret ACCOUNTKEY to the destination Storage Account key}"
+          DEST_STORAGE_ACCOUNT_KEY="$(cat "$RUNNER_TEMP/destination-storage-key")"
+          : "${DEST_STORAGE_ACCOUNT_KEY:?Destination Storage Account key was not retrieved from Azure}"
           echo "::add-mask::$DEST_STORAGE_ACCOUNT_KEY"
 
           # A populated share indicates a prior seed/deployment; never overlay it automatically.
@@ -189,7 +207,6 @@ jobs:
         env:
           STORAGE_ACCOUNT_NAME: ${{ needs.terraform_apply.outputs.storage_account_name }}
           FILE_SHARE_NAME: ${{ needs.terraform_apply.outputs.file_share_name }}
-          STORAGE_ACCOUNT_KEY: ${{ secrets.ACCOUNTKEY }}
         run: |
           set -euo pipefail
           : "${SQL_SERVER_FQDN:?SQL server FQDN is required}"
@@ -199,7 +216,8 @@ jobs:
           : "${SQL_DATABASE_PASSWORD:?Set secret SQL_DATABASE_PASSWORD}"
           : "${WINDOWS_ADMIN_USERNAME:?Set repository variable WINDOWS_ADMIN_USERNAME}"
           : "${WINDOWS_ADMIN_PASSWORD:?Set secret WINDOWS_ADMIN_PASSWORD}"
-          : "${STORAGE_ACCOUNT_KEY:?Set secret ACCOUNTKEY to the destination Storage Account key}"
+          STORAGE_ACCOUNT_KEY="$(cat "$RUNNER_TEMP/destination-storage-key")"
+          : "${STORAGE_ACCOUNT_KEY:?Destination Storage Account key was not retrieved from Azure}"
           echo "::add-mask::$STORAGE_ACCOUNT_KEY"
           echo "::add-mask::$WINDOWS_ADMIN_PASSWORD"
           echo "::add-mask::$SQL_DATABASE_PASSWORD"
