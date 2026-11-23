@@ -1,0 +1,49 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48">
+  <defs>
+    <linearGradient id="linear-gradient" x1="22.942" y1="13.463" x2="61.421" y2="51.943" gradientTransform="translate(-22.691 -5.832) scale(.938)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset=".221" stop-color="#f8f8f8"/>
+      <stop offset=".541" stop-color="#e5e5e5"/>
+      <stop offset=".92" stop-color="#c6c6c6"/>
+      <stop offset="1" stop-color="#bebebe"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="25.94" y1="16.462" x2="58.423" y2="48.945" gradientTransform="translate(-22.691 -5.832) scale(.938)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset=".335" stop-color="#f8f8f8"/>
+      <stop offset=".82" stop-color="#e5e5e5"/>
+      <stop offset="1" stop-color="#dcdcdc"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="42.181" y1="15.712" x2="42.181" y2="6.717" gradientTransform="translate(-22.691 -5.832) scale(.938)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#bebebe"/>
+      <stop offset=".045" stop-color="#c4c4c4"/>
+      <stop offset=".268" stop-color="#dedede"/>
+      <stop offset=".497" stop-color="#f0f0f0"/>
+      <stop offset=".736" stop-color="#fbfbfb"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-4" x1="27.868" y1="751.868" x2="44.132" y2="768.132" gradientTransform="translate(0 -724)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7fb8cd"/>
+      <stop offset=".175" stop-color="#72b0c8"/>
+      <stop offset=".457" stop-color="#559eb8"/>
+      <stop offset=".809" stop-color="#2982a1"/>
+      <stop offset="1" stop-color="#0e7191"/>
+    </linearGradient>
+  </defs>
+  <path id="rect13" d="M.469,5.156h32.812v39.375H.469V5.156Z" fill="url(#linear-gradient)" stroke="#464646" stroke-miterlimit="10" stroke-width=".938"/>
+  <path id="rect24" d="M3.281,7.969h27.188v33.75H3.281V7.969Z" fill="url(#linear-gradient-2)" stroke="#bebebe" stroke-miterlimit="10" stroke-width=".938"/>
+  <path id="path39" d="M22.969,4.219h-1.875v-.938c.027-1.526-1.187-2.785-2.713-2.812-.033,0-.067,0-.1,0h-2.812c-1.526-.028-2.785,1.186-2.813,2.712,0,.033,0,.067,0,.1v.938h-1.875c-1.034.003-1.872.841-1.875,1.875v2.812h15.938v-2.812c-.003-1.034-.841-1.872-1.875-1.875Z" fill="url(#linear-gradient-3)" stroke="#464646" stroke-miterlimit="10" stroke-width=".938"/>
+  <path id="circle41" d="M17.813,3.75c0,.518-.42.938-.938.938h0c-.517,0-.937-.42-.937-.937,0,0,0,0,0-.001h0c.017-.518.45-.924.968-.907.494.016.891.413.907.907Z" fill="#464646"/>
+  <path id="rect43" d="M6.094,15.469h21.562v4.687H6.094v-4.687Z" fill="none" stroke="#147391" stroke-width=".938"/>
+  <path id="rect45" d="M6.094,23.906h21.562v4.688H6.094v-4.688Z" fill="none" stroke="#147391" stroke-width=".938"/>
+  <path id="rect47" d="M6.094,32.344h21.562v4.687H6.094v-4.687Z" fill="none" stroke="#147391" stroke-width=".938"/>
+  <g>
+    <g id="g26">
+      <path id="circle22" d="M47.458,35c0,6.88-5.576,12.457-12.456,12.458h-.002c-6.88,0-12.457-5.576-12.458-12.456v-.002h0c0-6.88,5.578-12.458,12.458-12.458s12.458,5.578,12.458,12.458Z" fill="url(#linear-gradient-4)"/>
+      <path id="path24" d="M35,23.083c6.582,0,11.917,5.335,11.917,11.917s-5.335,11.917-11.917,11.917-11.917-5.335-11.917-11.917c0-6.581,5.336-11.916,11.917-11.917M35,22c-7.18,0-13,5.82-13,13s5.82,13,13,13,13-5.82,13-13-5.82-13-13-13Z" fill="#4e4a48"/>
+    </g>
+    <g id="g32">
+      <path id="path28" d="M35,25.656c-5.161,0-9.344,4.183-9.344,9.344s4.183,9.344,9.344,9.344c2.567.005,5.02-1.058,6.771-2.934v2.167h1.038v-4.108h-4.109v1.038h2.523c-3.04,3.44-8.292,3.765-11.733.725-3.44-3.04-3.765-8.292-.725-11.733,3.04-3.44,8.292-3.765,11.733-.725,1.785,1.577,2.807,3.844,2.808,6.226.016,1.031-.163,2.056-.528,3.02l-.046.121.941.418.05-.138c.401-1.096.611-2.254.621-3.421-.007-5.158-4.186-9.337-9.344-9.344Z" fill="#fff"/>
+      <path id="polygon30" d="M35.9,28.725h-1.035v6.14h-4.605v1.035h5.64v-7.175Z" fill="#fff"/>
+    </g>
+  </g>
+</svg>

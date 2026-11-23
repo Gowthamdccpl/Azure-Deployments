@@ -1,0 +1,385 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MOM.CC.QualityStatistics.API</name>
+    </assembly>
+    <members>
+        <member name="T:MOM.CC.QualityStatistics.API.Controllers.BaseController">
+            <summary>
+            The Base Controller
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller" />
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.BaseController.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            Called before the action method is invoked.
+            </summary>
+            <param name="context">The action executing context.</param>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.BaseController.OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)">
+            <summary>
+            Called after the action method is invoked.
+            </summary>
+            <param name="context">The action executed context.</param>
+        </member>
+        <member name="T:MOM.CC.QualityStatistics.API.Controllers.DocsController">
+            <summary>
+            Responsible for providing docs
+            </summary>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.DocsController.#ctor(Microsoft.Extensions.Logging.ILogger{MOM.CC.QualityStatistics.API.Controllers.DocsController})">
+            <summary>
+            CTR
+            </summary>
+            <param name="logger"></param>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.DocsController.Index">
+            <summary>
+            Indexes this instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.MsaStatisticController.#ctor(Microsoft.Extensions.Logging.ILogger{MOM.CC.QualityStatistics.API.Controllers.MsaStatisticController},MOM.CC.Quality.RestCommunication.IRestClient)">
+            <summary>
+            Parameterized Constructor
+            </summary>
+            <param name="logger"></param>
+            <param name="restClient"></param>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.MsaStatisticController.CalculateVariableMsa1Test(MOM.CC.Quality.Public.Model.CalculateVariableMsa1TestRequest)">
+            <summary>
+            Calculates the variable MSA 1 test.
+            </summary>
+            <param name="request">The request.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.MsaStatisticController.CalculateVariableMsa2Test(MOM.CC.Quality.Public.Model.CalculateVariableMsa2TestRequest)">
+            <summary>
+            Calculates the variable MSA 2 test.
+            </summary>
+            <param name="request">The request.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.MsaStatisticController.CalculateVariableMsa3Test(MOM.CC.Quality.Public.Model.CalculateVariableMsa3TestRequest)">
+            <summary>
+            Calculates the variable MSA 3 test.
+            </summary>
+            <param name="request">The request.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.MsaStatisticController.CalculateVariableMsa7Test(MOM.CC.Quality.Public.Model.CalculateVariableMsa7TestRequest)">
+            <summary>
+            Calculates the variable MSA 7 test.
+            </summary>
+            <param name="request">The request.</param>
+            <returns></returns>
+        </member>
+        <member name="T:MOM.CC.QualityStatistics.API.Controllers.StatisticController">
+            <summary>
+            Responsible for providing Statistics calculations
+            </summary>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticController.#ctor(Microsoft.Extensions.Logging.ILogger{MOM.CC.QualityStatistics.API.Controllers.StatisticController},MOM.CC.Quality.RestCommunication.IRestClient)">
+            <summary>
+            CTR
+            </summary>
+            <param name="logger"></param>
+            <param name="restClient"></param>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticController.GetVersion">
+            <summary>
+            Returns the version information of the service.
+            </summary>
+            <returns>This endpoint returns the version information of the service.</returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticController.GetInfo">
+            <summary>
+            Gets the service information.
+            </summary>
+            <returns>Service information.</returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticController.CalculateVariableStatistics(MOM.CC.Quality.Public.Model.CalculateVariableStatisticsRequest)">
+            <summary>
+            This endpoint calculates the input data and returns the response object. Depending on specification and configuration it calculates the subgroups, statistic values, and process violations.
+            Only required properties which have no default will end with an error message. In this case, no calculation is performed. Defaults set by the component typically return warnings. 
+            </summary>
+            <param name="request">Parameter for CalulateVariableStatistics method. It summarizes all measurement data, optional historical data and configuration/specification data of a control chart for a variable characteristic. The content is used for input of CalulateVariableStatistics.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticController.CalculateVariableStatisticsMulti(MOM.CC.Quality.Public.Model.CalculateVariableStatisticsMultiRequest)">
+            <summary>
+            This endpoint calculates the input of a list with several data series and returns the response object. 
+            Depending on specification and configuration it calculates the subgroups, statistic values, and process violations for each seperate data block in the series.
+            Only required properties which have no default will end with an error message. In this case, no calculation is performed. Defaults set by the component typically return warnings. 
+            </summary>
+            <param name="request">Parameter for CalulateVariableStatistics method. It summarizes all measurement data, optional historical data and configuration/specification data of a control chart for a variable characteristic. The content is used for input of CalulateVariableStatistics.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticController.CalculateAttributiveStatistics(MOM.CC.Quality.Public.Model.CalculateAttributiveStatisticsRequest)">
+            <summary>
+            This endpoint calculates the input data and returns the response object. Depending on specification and configuration it enriches the subgroups with calculated data, statistic values, and process violations.
+            </summary>
+            <param name="request">Parameter for CalculateAttributiveStatistics method. It summarizes acquired data, optional historical data and configuration/specification data of a control chart for an attributive characteristic. The content is used for input of CalculateAttributiveStatistics.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticController.CalculateAttributiveStatisticsMulti(MOM.CC.Quality.Public.Model.CalculateAttributiveStatisticsMultiRequest)">
+            <summary>
+            This endpoint calculates the input of a list with several data series and returns the response object. 
+            Depending on specification and configuration it calculates the subgroups, statistic values, and process violations for each seperate data block in the series.
+            Only required properties which have no default will end with an error message. In this case, no calculation is performed. Defaults set by the component typically return warnings. 
+            </summary>
+            <param name="request">Parameter for CalulateVariableStatistics method. It summarizes all measurement data, optional historical data and configuration/specification data of a control chart for a variable characteristic. The content is used for input of CalulateVariableStatistics.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticController.QueryMinimumNumberOfValues(MOM.CC.Quality.Public.Model.QueryMinimumNumberOfValuesRequest)">
+            <summary>
+            This endpoint calculates minimum amount of measurements based on the given parameters like control chart, sample size, and more. It helps the consuming application to control the acquisition process and it can effectively help to avoid running unnecessary requests and process error messages.
+            </summary>
+            <param name="request">Parameter for QueryMinimumCountOfMeasurementsAndSamples method. It summarizes the parameters that in-fluence the number of measurements. The content is used for input of QueryMinimumCountOfMeasurementsAndSamples.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticController.CalculateDeterminationOfVariableDistributions(MOM.CC.Quality.Public.Model.CalculateDeterminationOfVariableDistibutionRequest)">
+            <summary>
+            Determines the distribution of the measured values.
+            </summary>
+            <param name="request">The request.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticController.CalculateVariableTTest(MOM.CC.Quality.Public.Model.CalculateVariableTTestRequest)">
+            <summary>
+            Calculates the variable t test.
+            </summary>
+            <param name="request">The request.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticController.CalculateVariableZTest(MOM.CC.Quality.Public.Model.CalculateVariableZTestRequest)">
+            <summary>
+            Calculates the variable z test.
+            </summary>
+            <param name="request">The request.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticController.CalculateVariableFTest(MOM.CC.Quality.Public.Model.CalculateVariableFTestRequest)">
+            <summary>
+            Calculates the variable f test.
+            </summary>
+            <param name="request">The request.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticController.CalculateVariableUTest(MOM.CC.Quality.Public.Model.CalculateVariableUTestRequest)">
+            <summary>
+            Calculates the variable u test.
+            </summary>
+            <param name="request">The request.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticController.CalculateVariableShapiroWilkTest(MOM.CC.Quality.Public.Model.CalculateVariableShapiroWilkTestRequest)">
+            <summary>
+            Calculates the variable shapiro wilk test.
+            </summary>
+            <param name="request">The request.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticController.CalculateVariableKolmogorowTest(MOM.CC.Quality.Public.Model.CalculateVariableKolmogorowTestRequest)">
+            <summary>
+            Calculates the variable kolmogorow test.
+            </summary>
+            <param name="request">The request.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticController.CalculateVarianceAnalysis(MOM.CC.Quality.Public.Model.CalculateVarianceAnalysisRequest)">
+            <summary>
+            Calculates the variance analysis.
+            </summary>
+            <param name="request">The request.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticController.CalculateVariableIgc(MOM.CC.Quality.Public.Model.CalculateVariableIgcRequest)">
+            <summary>
+            Calculates the variable Igc.
+            </summary>
+            <param name="request">The request.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticController.CalculateIgcSampleSize(MOM.CC.Quality.Public.Model.CalculateIgcSampleSizeRequest)">
+            <summary>
+            Determines the sample size and other results for Igc / OGC.
+            </summary>
+            <param name="request">The request.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticController.CalculateAttributiveIgc(MOM.CC.Quality.Public.Model.CalculateAttributiveIgcRequest)">
+            <summary>
+            Calculates the Attributive Igc.
+            </summary>
+            <param name="request">The request.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticController.CalculateHistogramValues(MOM.CC.Quality.Public.Model.CalculateHistogramValuesRequest)">
+            <summary>
+            Calculates the Histogram values.
+            </summary>
+            <param name="request">The request.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticController.CalculateVariableStatisticsLite(MOM.CC.Quality.Public.Model.CalculateVariableStatisticsLiteRequest)">
+            <summary>
+            Calculates the Mean Value and the Sigma value.
+            </summary>
+            <param name="request">The request.</param>
+            <returns></returns>
+        </member>
+        <member name="T:MOM.CC.QualityStatistics.API.Controllers.StatisticEnumsController">
+            <summary>
+            Responsible for providing Statistics enums
+            </summary>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticEnumsController.#ctor(Microsoft.Extensions.Logging.ILogger{MOM.CC.QualityStatistics.API.Controllers.StatisticEnumsController})">
+            <summary>
+            CTR
+            </summary>
+            <param name="logger"></param>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticEnumsController.Enums">
+            <summary>
+            Enums used in statistic api.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticEnumsController.AverageMovingMeanTypes">
+            <summary>
+            Gets the average moving mean types.
+            </summary>
+            <returns>List of average moving mean types.</returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticEnumsController.EvaluationTypes">
+            <summary>
+            Gets the evaluation types.
+            </summary>
+            <returns>List of evaluation types.</returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticEnumsController.SigmaCalculationTypes">
+            <summary>
+            Gets the σ calculation types.
+            </summary>
+            <returns>List of σ calculation types.</returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticEnumsController.CapabilityStudyTypes">
+            <summary>
+            Gets the capability study types.
+            </summary>
+            <returns>List of capability study types.</returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticEnumsController.ViolationTypes">
+            <summary>
+            Gets the violation types.
+            </summary>
+            <returns>List of violation types.</returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticEnumsController.LimitationTypes">
+            <summary>
+            Gets the limitation types.
+            </summary>
+            <returns>List of limitation types.</returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticEnumsController.IndustryRules">
+            <summary>
+            Gets the industry rules.
+            </summary>
+            <returns>List of industry rules.</returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticEnumsController.AutoDynamicGrouping">
+            <summary>
+            Gets the AutoDynamicGrouping Types.
+            </summary>
+            <returns>List of AutoDynamicGrouping types.</returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticEnumsController.VariableControlChartTypes">
+            <summary>
+            Gets the variable control chart types.
+            </summary>
+            <returns>List of variable control chart types.</returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticEnumsController.AttributiveControlChartTypes">
+            <summary>
+            Gets the attributive control chart types.
+            </summary>
+            <returns>List of attributive control chart types.</returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticEnumsController.DistributionTypes">
+            <summary>
+            Gets the distribution types.
+            </summary>
+            <returns>List of distribution types.</returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticEnumsController.Information">
+            <summary>
+            List of all spc informations
+            </summary>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticEnumsController.Warnings">
+            <summary>
+            List of all spc warnings
+            </summary>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Controllers.StatisticEnumsController.Errors">
+            <summary>
+            List of all spc errors
+            </summary>
+        </member>
+        <member name="T:MOM.CC.QualityStatistics.API.Program">
+            <summary>
+            The Program.
+            </summary>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Program.Main(System.String[])">
+            <summary>
+            Mains the specified arguments.
+            </summary>
+            <param name="args">The arguments.</param>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Program.BuildWebHost(System.String[])">
+            <summary>
+            A builder for IWebHost.
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Program.CreateWebHostBuilder(System.String[])">
+            <summary>
+            A builder for IWebHost.
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MOM.CC.QualityStatistics.API.Startup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:MOM.CC.QualityStatistics.API.Startup.Configuration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:MOM.CC.QualityStatistics.API.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+             <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+             </summary>
+             <param name="app"></param>
+             <param name="env"></param>
+        </member>
+    </members>
+</doc>

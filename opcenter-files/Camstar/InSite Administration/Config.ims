@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<Sites>
+  <Site name="Dev">
+    <InSiteServers>
+      <InSiteServer name="mes-opcenter-op">
+        <Hostname>localhost</Hostname>
+        <Port>443</Port>
+        <DisplayName>mes-opcenter-op</DisplayName>
+      </InSiteServer>
+    </InSiteServers>
+    <Configuration>
+      <Domain>.</Domain>
+      <AllowCaseSensitive>true</AllowCaseSensitive>
+      <AllowXMLSignature>false</AllowXMLSignature>
+      <DataCacheTTL>60</DataCacheTTL>
+      <DataCacheSizeWarningEnabled>true</DataCacheSizeWarningEnabled>
+      <DataCacheUpdateWarningEnabled>true</DataCacheUpdateWarningEnabled>
+      <DataCacheSizeWarningCount>100000</DataCacheSizeWarningCount>
+      <DataCacheUpdateWarningCount>500</DataCacheUpdateWarningCount>
+      <DataCacheSuggestionEnabled>true</DataCacheSuggestionEnabled>
+      <DataCacheSuggestionLoadCount>100</DataCacheSuggestionLoadCount>
+      <SchedPollInterval>10</SchedPollInterval>
+      <SummaryTableLocation>DataStore Database Only</SummaryTableLocation>
+      <EnableCleanup>true</EnableCleanup>
+      <ConnectionTimeout>300</ConnectionTimeout>
+      <LogCleanup>false</LogCleanup>
+      <MaxRowsetSize>15000</MaxRowsetSize>
+      <RBACPasswordExpirationWarning>14</RBACPasswordExpirationWarning>
+      <RBACIdleSessionTimeout>30</RBACIdleSessionTimeout>
+      <AuthenticationType>AD</AuthenticationType>
+      <UseSSLWithLDAP>false</UseSSLWithLDAP>
+      <LDAPServer />
+      <LDAPOrgUnit />
+      <EnableLoginCaching>true</EnableLoginCaching>
+      <NeverFlushLogin>false</NeverFlushLogin>
+      <LoginCacheTTL>60</LoginCacheTTL>
+      <EmailNotificationPollInterval>1</EmailNotificationPollInterval>
+      <EmailNotificationRetryCount>1</EmailNotificationRetryCount>
+      <EmailNotificationFailureRetryWaitTime>10</EmailNotificationFailureRetryWaitTime>
+      <EmailNotificationRetentionPeriod>1</EmailNotificationRetentionPeriod>
+      <EmailNotificationFailureRetentionPeriod>72</EmailNotificationFailureRetentionPeriod>
+      <UserLicenseAllocation>-1</UserLicenseAllocation>
+      <LicenseServer>29000@10.2.0.5</LicenseServer>
+      <AltLicenseServer />
+      <LicExpNotificationsEnabled>false</LicExpNotificationsEnabled>
+      <LicExpEarlyWarningDays>60</LicExpEarlyWarningDays>
+      <LicExpCriticalWarningDays>30</LicExpCriticalWarningDays>
+      <LicExpEmailRecipients />
+      <LicExpEmailSender />
+      <LicenseServerType>SaltServer</LicenseServerType>
+      <LicenseFileType>Ugslmd</LicenseFileType>
+      <RestUserName>Camstaradmin</RestUserName>
+      <RestPassword>4F65677A1DFF59DB2B49A0FD6084CCD5808CE7140B3B96F4EEEEFC7BE57AEBF1</RestPassword>
+      <RestLogsPath>C:\Temp\</RestLogsPath>
+      <RestXmlLogsEnabled>false</RestXmlLogsEnabled>
+      <RestTxnLogsEnabled>false</RestTxnLogsEnabled>
+      <RestErrorLogsEnabled>true</RestErrorLogsEnabled>
+      <CORSWhitelist />
+    </Configuration>
+    <MetadataDBConfig>
+      <MetaFilename>C:\Program Files (x86)\Camstar\InSite Administration\InSite.mdb</MetaFilename>
+      <SiteInfoFilename>C:\Program Files (x86)\Camstar\InSite Administration\SiteInfo.mdb</SiteInfoFilename>
+    </MetadataDBConfig>
+    <TransactionDBConfig>
+      <DSN />
+      <DBName>medi_2504</DBName>
+      <Schema>medi_schema</Schema>
+      <User>medi</User>
+      <Password>1C21094A17A1884A872F8A11A05C62F22D40CC829EF99506B8C97DF9D0D07E5F</Password>
+      <NumSites>1</NumSites>
+      <SiteID>1</SiteID>
+      <WarningRange>500000</WarningRange>
+      <DBType>SQLServer</DBType>
+      <DBHostName>10.2.0.5</DBHostName>
+      <DBPort>1433</DBPort>
+      <ConnectionParameters>Port=1433</ConnectionParameters>
+      <CertHostName />
+      <CertFile />
+      <EncryptConnection>false</EncryptConnection>
+      <ValidateCertificate>false</ValidateCertificate>
+      <ValidateCertificateHostname>false</ValidateCertificateHostname>
+    </TransactionDBConfig>
+  </Site>
+</Sites>

@@ -1,0 +1,18 @@
+2026-02-27T06:56:02  Workspace Replacement commencing with following settings:
+2026-02-27T06:56:02      Use Current MDB as Master: False
+2026-02-27T06:56:02      Start upgrade at new Workspace: True
+2026-02-27T06:56:02      Log file location: C:\Program Files (x86)\Camstar\InSite Administration\Batch Processing\UpgradeLog.log
+2026-02-27T06:56:02      Base Camstar Workspace Data file location: C:\Program Files (x86)\Camstar\InSite Administration\Batch Processing\Base\InSite.mdb
+2026-02-27T06:56:02      New Workspace Data file location: C:\Program Files (x86)\Camstar\InSite Administration\Batch Processing\New\bpInSite.mdb
+2026-02-27T06:56:02          New Workspace Code: 20
+2026-02-27T06:56:02      Current Metadata file location: C:\Program Files (x86)\Camstar\InSite Administration\Batch Processing\Current\InSite.mdb
+2026-02-27T06:56:02          Current Workspace Code: 200
+2026-02-27T06:56:02      Target Metadata file location: C:\Program Files (x86)\Camstar\InSite Administration\Batch Processing\Target\Insite.mdb
+2026-02-27T06:56:02          Target Metadata will not overwrite Current Metadata upon completion.
+2026-02-27T06:56:02  Start replace of workspace: 20 into MDB: C:\Program Files (x86)\Camstar\InSite Administration\Batch Processing\Target\Insite.mdb
+2026-02-27T06:56:51  Process 0 DBColumns to update PrecisionValue to a larger value (Ignore count: 0, Current WS Count: 0)
+2026-02-27T06:56:52  Synchronize persistent fields in 0 CDO's in Workspace 200
+2026-02-27T06:56:52  There were a total of 0 CDOs synchronized in 0 seconds.
+2026-02-27T06:56:52  Synchronize persistent fields in 6 CDO's in Workspace 20
+2026-02-27T06:56:52  There were a total of 0 CDOs synchronized in 0 seconds.
+2026-02-27T06:56:56  Completed replace of workspace: 20 into MDB: C:\Program Files (x86)\Camstar\InSite Administration\Batch Processing\Target\Insite.mdb in 53 seconds

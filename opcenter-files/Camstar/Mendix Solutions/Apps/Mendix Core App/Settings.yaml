@@ -1,0 +1,75 @@
+Service:
+  Account: User
+  UserName: Camstaradmin
+  Password: AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAGGYd9fMEO02/rSt6jPw4lQAAAAACAAAAAAAQZgAAAAEAACAAAABb/Xd9sZs75pGozcWeTHIHBdaDQgj+h+45YiUPtPPdhQAAAAAOgAAAAAIAACAAAABPxAy7lM3q02D/DReuOJbb+vJNasONZblRbbmfmVxDMhAAAADa9wRksITUzcyGkmcy7iOaQAAAAOO4pJjS+PC8SldhF5vEZ5FWFPS2olG3MMCPzTQCyrg5KRG6yYTU0jpYARgoclEP4/Epe4z7goL1MWEkG8ohIzM=
+  ServiceName: Mendix Core App
+  DisplayName: Mendix Core App
+  Description: Mendix Core App
+  StartMode: AUTOMATIC
+Jetty: {}
+Database:
+  DatabaseType: SQLSERVER
+  DatabaseHost: 10.2.0.5
+  DatabaseName: Mendix2510
+  DatabaseUserName: Mendix
+  DatabasePassword: AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAADI71Cb7OhUqIGDqEentN0gAAAAACAAAAAAAQZgAAAAEAACAAAADV+rDyVQ5cttNaUVeRz4kXuhcLTXvRXQirIrGp7pC6xwAAAAAOgAAAAAIAACAAAAAKFztPXPTVRBbFEwvjzJ1CR8AyX8GjQVK4/O5ope/CkRAAAABfz/vh4l8kg4pDuQlCLULeQAAAAJ15i+ct/rMcney1UFBLuWf+e9C65/NCwuQQPnN0B6F89zNDc5OXUbdGBrQaCRR6IP2jGc+DKsSUAkl2ihxRS9g=
+  DatabaseUseIntegratedSecurity: False
+QSlotId: '{46fad86b-84d1-47dd-a99c-222b2c2c0761}.{c46aa9ec-5323-48d0-8c68-04919b0f0cd9}'
+Version: 1.0.0
+Runtime:
+  MendixPath: C:\Program Files (x86)\Camstar\Mendix Solutions\Servers
+  JavaPath: C:\Program Files\Microsoft\jdk-21.0.9.10-hotspot
+  MaxJavaHeapSize: 1024
+  RuntimePortNumber: 8080
+  ServerPortNumber: 8090
+  ServerPassword: OsRA2TY0eXDnjgZIAmKlJU(WOqWq!kQJ
+  ApplicationRootUrl: https://localhost
+  ScheduledEventExecution: ALL
+  DatabaseUseSsl: False
+  http.client.MaxConnectionsPerRoute: 250
+  http.client.MaxConnectionsTotal: 250
+  com.mendix.core.SessionIdCookieName: CoreXASSESSIONID
+  CACertificates: C:\Program Files (x86)\Camstar\Mendix Solutions\Apps\Mendix Core App\Project\OpcenterCer.cer
+Custom:
+  CommunityCommons.MergeMultiplePdfs_MaxAtOnce: 10
+  Core_Delta.core_delta_version: 0.0.1
+  DocumentGeneration.AsyncTimeoutInSeconds: 300
+  DocumentGeneration.CloudEndpoint: https://docgen.home.mendix.com
+  DocumentGeneration.CustomChromePath: C:\Program Files\Google\Chrome\Application\chrome.exe
+  DocumentGeneration.CustomNodePath: C:\Program Files\nodejs\node.exe
+  DocumentGeneration.OverrideServiceType: Local
+  DocumentGeneration.SyncTimeoutInSeconds: 30
+  DocumentGeneration.TokenLifetimeInSeconds: 1800
+  Encryption.EncryptionKey: xSSOEncryptKey01SSOEncryptKey01x
+  Encryption.EncryptionPrefix: '{AES3}'
+  Encryption.LegacyEncryptionKey: xSSOEncryptKey01SSOEncryptKey01x
+  Encryption.LogNode: Encryption
+  EXCR_Authentication.AdminUsername: Camstaradmin
+  EXCR_Authentication.ContainerizationAuthServerUrl: ''
+  EXCR_Authentication.ContainerizationCamstarPortalUrl: ''
+  EXCR_Authentication.ContainerizationMendixPortalPodName: ''
+  EXCR_Authentication.ContainerizationNamespaceName: ''
+  EXCR_Authentication.ContainerizationRestApiFileServerLocation: ''
+  EXCR_Authentication.EnableSSO: False
+  EXCR_Authentication.IdPVerificationKey: OpcenterCore
+  EXCR_Authentication.ServerTimezone: __utcoffset -05:00
+  EXCR_Authentication.ServerURL: https://localhost
+  EXCR_Commons.SuccessMessageFadeoutTime: 6000
+  EXCR_ExtEntityAccess.EntityFactoryURL: http://localhost:8080
+  EXCR_ResourceManagement.SignalRHubName: opcenterHub
+  SAML20.BindingURI_Redirect: False
+  SAML20.DefaultEntity: Administration.Account
+  SAML20.DefaultLoginPage: ''
+  SAML20.DefaultLogoutPage: index.html
+  SAML20.DisableDecoding_Deeplink_URL: False
+  SAML20.IdPAlias: ''
+  SAML20.IdPMetadataURL: ''
+  SAML20.KeystorePassword: R@nd0mP4$$w0rdFOrK3ySt0r3
+  SAML20.Org_DisplayName: Test
+  SAML20.Org_Emailaddress: Test@email.com
+  SAML20.Org_GivenName: Test
+  SAML20.Org_Name: Test Compay
+  SAML20.Org_OrganizationURL: test.com
+  SAML20.Org_Surname: Tester
+  SAML20.SP_Entity: ''
+  SAML20.SSOLandingPage: index.html

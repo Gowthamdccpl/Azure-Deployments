@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?><InSiteMetaData><Header><Version>1.0</Version><Defaults><ExpectedValues><ActionIfDifferent>Prompt</ActionIfDifferent><ActionIfDifferentForDescriptions>Accept</ActionIfDifferentForDescriptions><ActionIfDifferentForQueryText>Prompt</ActionIfDifferentForQueryText><ActionIfDifferentForLabelText>Prompt</ActionIfDifferentForLabelText></ExpectedValues><LabelProcessing><AssignIDs>False</AssignIDs></LabelProcessing></Defaults><WorkspaceCode>10</WorkspaceCode><Versions><Base>10.6.0.0</Base><Modified>10.6.0.0</Modified></Versions><Message>[[_MESSAGE_]]</Message></Header><Import>
+
+<CDODefinitions>
+<CDODefinition Name="Service" Action="Import" ><Attributes></Attributes><EventsAndMethods>
+<Methods>
+<Method Name="CIO_SendCIOMessage_ACE" Action="Import" ><Attributes>
+<Description><![CDATA[CIO_SendCIOMessageWithUpdate_ACE]]></Description><CLFEventMapID><NewValue>673186396</NewValue><ExpectedValue>673186369</ExpectedValue></CLFEventMapID><CLFDefinition Name="CIO_SendCIOMessageWithUpdate_ACE" Action="Import" ><CLFFunctions><CLFFunction Name="if" Action="Create" ><Attributes><Sequence>1</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Condition" Action="Create"><Attributes><Value><![CDATA[GetListCount(CIOMessagesToSend) > 0]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="call" Action="Create" ><Attributes><Sequence>2</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="CDO" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Event" Action="Create"><Attributes><Value><![CDATA[CIO_GetClientGatewayURL]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name1" Action="Create"><Attributes><Value><![CDATA[IsSync]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value1" Action="Create"><Attributes><Value><![CDATA[false]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name2" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value2" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name5" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value5" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="foreach" Action="Create" ><Attributes><Sequence>3</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Var" Action="Create"><Attributes><Value><![CDATA[CLF::Message]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="List" Action="Create"><Attributes><Value><![CDATA[CIOMessagesToSend]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="{" Action="Create" ><Attributes><Sequence>4</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="//" Action="Create" ><Attributes><Sequence>5</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Line1" Action="Create"><Attributes><Value><![CDATA[Setup the Parameters for the]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line2" Action="Create"><Attributes><Value><![CDATA[Send Plugin]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="try" Action="Create" ><Attributes><Sequence>6</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="{" Action="Create" ><Attributes><Sequence>7</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="if" Action="Create" ><Attributes><Sequence>8</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Condition" Action="Create"><Attributes><Value><![CDATA[CLF::Message.CIOOutboundDefinition.EndpointURL <> null and CLF::Message.CIOOutboundDefinition.EndpointURL <>  Transaction::__const.EmptyString ]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="{" Action="Create" ><Attributes><Sequence>9</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="call" Action="Create" ><Attributes><Sequence>10</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="CDO" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Event" Action="Create"><Attributes><Value><![CDATA[CIO_CreateRestApiData]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name1" Action="Create"><Attributes><Value><![CDATA[CIOOutboundDefinition]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value1" Action="Create"><Attributes><Value><![CDATA[CLF::Message.CIOOutboundDefinition]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name2" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value2" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name5" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value5" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="SendMsgToExternalSystem" Action="Create" ><Attributes><Sequence>11</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="EndpointURL" Action="Create"><Attributes><Value><![CDATA[CLF::Message.CIOOutboundDefinition.EndpointURL]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ClassName" Action="Create"><Attributes><Value><![CDATA["Camstar.CustomProc.SendMsgToExternalSystem"]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Message" Action="Create"><Attributes><Value><![CDATA[CLF::Message.Contents]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="CIOContentType" Action="Create"><Attributes><Value><![CDATA[CLF::Message.CIOOutboundDefinition.CIOContentType]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Success" Action="Create"><Attributes><Value><![CDATA[CLF::CIOSendMsgToExternalSystemResult]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="IsSynchronous" Action="Create"><Attributes><Value><![CDATA[CLF::Message.CIOOutboundDefinition.IsSynchronous]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="CIOOutboundAuthenticationData" Action="Create"><Attributes><Value><![CDATA[SerializeObjectAsJSON(CIOOutboundAuthenticationData)]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Result" Action="Create"><Attributes><Value><![CDATA[CLF::PluginResultSet]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="if" Action="Create" ><Attributes><Sequence>12</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Condition" Action="Create"><Attributes><Value><![CDATA[!(CLF::CIOSendMsgToExternalSystemResult)]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="throw" Action="Create" ><Attributes><Sequence>13</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="ErrorId" Action="Create"><Attributes><Value><![CDATA[LabelID::ComExceptionCaughtInExecution]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ParamNames" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ParamValues" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="}" Action="Create" ><Attributes><Sequence>14</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="else" Action="Create" ><Attributes><Sequence>15</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="{" Action="Create" ><Attributes><Sequence>16</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="CIOPluginHandler" Action="Create" ><Attributes><Sequence>17</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="ClassName" Action="Create"><Attributes><Value><![CDATA["Camstar.CustomProc.CIOPluginHandler"]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="InstanceName" Action="Create"><Attributes><Value><![CDATA["Send" + CLF::Message.Dictkey]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="PlugInName" Action="Create"><Attributes><Value><![CDATA["DirectToMIO"]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Input1" Action="Create"><Attributes><Value><![CDATA[CIOClientGatewayURL]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Input2" Action="Create"><Attributes><Value><![CDATA[false]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Input3" Action="Create"><Attributes><Value><![CDATA[CIOClienbtGatewayPostTimeout]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Input4" Action="Create"><Attributes><Value><![CDATA[CLF::Message.Contents]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Input5" Action="Create"><Attributes><Value><![CDATA[CLF::Message.CIOMessageSerialized]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Input6" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Success" Action="Create"><Attributes><Value><![CDATA[CLF::Success]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Result" Action="Create"><Attributes><Value><![CDATA[CLF::PluginResultSet]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="if" Action="Create" ><Attributes><Sequence>18</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Condition" Action="Create"><Attributes><Value><![CDATA[CLF::Success == true]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="call" Action="Create" ><Attributes><Sequence>19</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="CDO" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Event" Action="Create"><Attributes><Value><![CDATA[CIO_UpdateOKToDelete]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name1" Action="Create"><Attributes><Value><![CDATA[DictKey]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value1" Action="Create"><Attributes><Value><![CDATA[CLF::Message.Dictkey]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name2" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value2" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name5" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value5" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="}" Action="Create" ><Attributes><Sequence>20</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="}" Action="Create" ><Attributes><Sequence>21</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="catch" Action="Create" ><Attributes><Sequence>22</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="ErrorMsg" Action="Create"><Attributes><Value><![CDATA[CLF::SendErrorMsg]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorId" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="{" Action="Create" ><Attributes><Sequence>23</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="rethrow" Action="Create" ><Attributes><Sequence>24</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="ParamNames" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ParamValues" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="}" Action="Create" ><Attributes><Sequence>25</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="}" Action="Create" ><Attributes><Sequence>26</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+</CLFFunctions></CLFDefinition>
+</Attributes>
+</Method><Method Name="CIO_ResponseValues" Action="Import" ><Attributes>
+<Description><![CDATA[CIO_ResponseValues]]></Description><CLFEventMapID><NewValue>673186395</NewValue><ExpectedValue>673185982</ExpectedValue></CLFEventMapID><CLFDefinition Name="CIO_ResponseValues" Action="Import" ><CLFFunctions><CLFFunction Name="foreach" Action="Create" ><Attributes><Sequence>1</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Var" Action="Create"><Attributes><Value><![CDATA[CLF::Response]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="List" Action="Create"><Attributes><Value><![CDATA[CIOResponseResults]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="{" Action="Create" ><Attributes><Sequence>2</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="//" Action="Create" ><Attributes><Sequence>3</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Line1" Action="Create"><Attributes><Value><![CDATA[Evaluate the Validations]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line2" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="if" Action="Create" ><Attributes><Sequence>4</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Condition" Action="Create"><Attributes><Value><![CDATA[CLF::Response.ValidateExpression<>null]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="{" Action="Create" ><Attributes><Sequence>5</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="EvalParamIndirect" Action="Create" ><Attributes><Sequence>6</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="ExprLocation" Action="Create"><Attributes><Value><![CDATA[CLF::Response.ValidateExpression]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Context" Action="Create"><Attributes><Value><![CDATA[CLF::__CDOID]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="IgnoreNullObjectReferences" Action="Create"><Attributes><Value><![CDATA[false]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Result" Action="Create"><Attributes><Value><![CDATA[CLF::ValidationResult]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="setfieldex" Action="Create" ><Attributes><Sequence>7</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="From" Action="Create"><Attributes><Value><![CDATA[CLF::ValidationResult]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="To" Action="Create"><Attributes><Value><![CDATA[CLF::Test]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="validateequal" Action="Create" ><Attributes><Sequence>8</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="LeftValue" Action="Create"><Attributes><Value><![CDATA[CLF::ValidationResult]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="RightValue" Action="Create"><Attributes><Value><![CDATA[true]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorID" Action="Create"><Attributes><Value><![CDATA[LabelID::CIOResponseValidationError]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorParmName1" Action="Create"><Attributes><Value><![CDATA[Name]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorParmValue1" Action="Create"><Attributes><Value><![CDATA[CLF::Response.Name]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorParmName2" Action="Create"><Attributes><Value><![CDATA[Name2]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorParmValue2" Action="Create"><Attributes><Value><![CDATA[CLF::Response.ValidateExpression]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorParmName3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorParmValue3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorParmName4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorParmValue4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="}" Action="Create" ><Attributes><Sequence>9</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="//" Action="Create" ><Attributes><Sequence>10</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Line1" Action="Create"><Attributes><Value><![CDATA[Evaluate the Target Expression]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line2" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="if" Action="Create" ><Attributes><Sequence>11</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Condition" Action="Create"><Attributes><Value><![CDATA[CLF::Response.Expression <>null and CLF::Response.TargetExpression <>null]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="EvalParamIndirect" Action="Create" ><Attributes><Sequence>12</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="ExprLocation" Action="Create"><Attributes><Value><![CDATA[CLF::Response.Expression]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Context" Action="Create"><Attributes><Value><![CDATA[CLF::__CDOID]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="IgnoreNullObjectReferences" Action="Create"><Attributes><Value><![CDATA[false]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Result" Action="Create"><Attributes><Value><![CDATA[indirectref(CLF::Response.TargetExpression)]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="}" Action="Create" ><Attributes><Sequence>13</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+</CLFFunctions></CLFDefinition>
+</Attributes>
+</Method></Methods>
+</EventsAndMethods>
+</CDODefinition>
+</CDODefinitions>
+<CLFDefinitions>
+<CLFDefinition Name="CIO_SendCIOMessageWithUpdate_ACE" Action="Import" >
+<Attributes>
+</Attributes>
+<CLFFunctions>
+<BaseCLFFunctions>
+<CLFFunction Name="if" Action="Create" ><Attributes><Sequence>1</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Condition" Action="Create"><Attributes><Value><![CDATA[GetListCount(CIOMessagesToSend) > 0]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="call" Action="Create" ><Attributes><Sequence>2</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="CDO" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Event" Action="Create"><Attributes><Value><![CDATA[CIO_GetClientGatewayURL]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name1" Action="Create"><Attributes><Value><![CDATA[IsSync]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value1" Action="Create"><Attributes><Value><![CDATA[false]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name2" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value2" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name5" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value5" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="foreach" Action="Create" ><Attributes><Sequence>3</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Var" Action="Create"><Attributes><Value><![CDATA[CLF::Message]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="List" Action="Create"><Attributes><Value><![CDATA[CIOMessagesToSend]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="{" Action="Create" ><Attributes><Sequence>4</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="//" Action="Create" ><Attributes><Sequence>5</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Line1" Action="Create"><Attributes><Value><![CDATA[Setup the Parameters for the]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line2" Action="Create"><Attributes><Value><![CDATA[Send Plugin]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="try" Action="Create" ><Attributes><Sequence>6</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="{" Action="Create" ><Attributes><Sequence>7</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="if" Action="Create" ><Attributes><Sequence>8</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Condition" Action="Create"><Attributes><Value><![CDATA[CLF::Message.CIOOutboundDefinition.EndpointURL <> null and CLF::Message.CIOOutboundDefinition.EndpointURL <>  Transaction::__const.EmptyString ]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="{" Action="Create" ><Attributes><Sequence>9</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="call" Action="Create" ><Attributes><Sequence>10</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="CDO" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Event" Action="Create"><Attributes><Value><![CDATA[CIO_CreateRestApiData]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name1" Action="Create"><Attributes><Value><![CDATA[CIOOutboundDefinition]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value1" Action="Create"><Attributes><Value><![CDATA[CLF::Message.CIOOutboundDefinition]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name2" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value2" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name5" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value5" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="SendMsgToExternalSystem" Action="Create" ><Attributes><Sequence>11</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="EndpointURL" Action="Create"><Attributes><Value><![CDATA[CLF::Message.CIOOutboundDefinition.EndpointURL]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ClassName" Action="Create"><Attributes><Value><![CDATA["Camstar.CustomProc.SendMsgToExternalSystem"]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Message" Action="Create"><Attributes><Value><![CDATA[CLF::Message.Contents]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="CIOContentType" Action="Create"><Attributes><Value><![CDATA[CLF::Message.CIOOutboundDefinition.CIOContentType]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Success" Action="Create"><Attributes><Value><![CDATA[CLF::CIOSendMsgToExternalSystemResult]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="IsSynchronous" Action="Create"><Attributes><Value><![CDATA[CLF::Message.CIOOutboundDefinition.IsSynchronous]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="CIOOutboundAuthenticationData" Action="Create"><Attributes><Value><![CDATA[SerializeObjectAsJSON(CIOOutboundAuthenticationData)]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Result" Action="Create"><Attributes><Value><![CDATA[CLF::PluginResultSet]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="if" Action="Create" ><Attributes><Sequence>12</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Condition" Action="Create"><Attributes><Value><![CDATA[!(CLF::CIOSendMsgToExternalSystemResult)]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="throw" Action="Create" ><Attributes><Sequence>13</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="ErrorId" Action="Create"><Attributes><Value><![CDATA[LabelID::ComExceptionCaughtInExecution]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ParamNames" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ParamValues" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="}" Action="Create" ><Attributes><Sequence>14</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="else" Action="Create" ><Attributes><Sequence>15</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="{" Action="Create" ><Attributes><Sequence>16</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="CIOPluginHandler" Action="Create" ><Attributes><Sequence>17</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="ClassName" Action="Create"><Attributes><Value><![CDATA["Camstar.CustomProc.CIOPluginHandler"]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="InstanceName" Action="Create"><Attributes><Value><![CDATA["Send" + CLF::Message.Dictkey]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="PlugInName" Action="Create"><Attributes><Value><![CDATA["DirectToMIO"]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Input1" Action="Create"><Attributes><Value><![CDATA[CIOClientGatewayURL]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Input2" Action="Create"><Attributes><Value><![CDATA[false]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Input3" Action="Create"><Attributes><Value><![CDATA[CIOClienbtGatewayPostTimeout]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Input4" Action="Create"><Attributes><Value><![CDATA[CLF::Message.Contents]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Input5" Action="Create"><Attributes><Value><![CDATA[CLF::Message.CIOMessageSerialized]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Input6" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Success" Action="Create"><Attributes><Value><![CDATA[CLF::Success]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Result" Action="Create"><Attributes><Value><![CDATA[CLF::PluginResultSet]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="if" Action="Create" ><Attributes><Sequence>18</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Condition" Action="Create"><Attributes><Value><![CDATA[CLF::Success == true]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="call" Action="Create" ><Attributes><Sequence>19</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="CDO" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Event" Action="Create"><Attributes><Value><![CDATA[CIO_UpdateOKtoDelete]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name1" Action="Create"><Attributes><Value><![CDATA[DictKey]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value1" Action="Create"><Attributes><Value><![CDATA[CLF::Message.Dictkey]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name2" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value2" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name5" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value5" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="}" Action="Create" ><Attributes><Sequence>20</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="}" Action="Create" ><Attributes><Sequence>21</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="catch" Action="Create" ><Attributes><Sequence>22</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="ErrorMsg" Action="Create"><Attributes><Value><![CDATA[CLF::SendErrorMsg]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorId" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="{" Action="Create" ><Attributes><Sequence>23</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="rethrow" Action="Create" ><Attributes><Sequence>24</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="ParamNames" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ParamValues" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="}" Action="Create" ><Attributes><Sequence>25</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="}" Action="Create" ><Attributes><Sequence>26</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+</BaseCLFFunctions>
+<NewCLFFunctions>
+<CLFFunction Name="if" Action="Create" ><Attributes><Sequence>1</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Condition" Action="Create"><Attributes><Value><![CDATA[GetListCount(CIOMessagesToSend) > 0]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="call" Action="Create" ><Attributes><Sequence>2</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="CDO" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Event" Action="Create"><Attributes><Value><![CDATA[CIO_GetClientGatewayURL]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name1" Action="Create"><Attributes><Value><![CDATA[IsSync]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value1" Action="Create"><Attributes><Value><![CDATA[false]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name2" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value2" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name5" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value5" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="foreach" Action="Create" ><Attributes><Sequence>3</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Var" Action="Create"><Attributes><Value><![CDATA[CLF::Message]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="List" Action="Create"><Attributes><Value><![CDATA[CIOMessagesToSend]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="{" Action="Create" ><Attributes><Sequence>4</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="//" Action="Create" ><Attributes><Sequence>5</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Line1" Action="Create"><Attributes><Value><![CDATA[Setup the Parameters for the]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line2" Action="Create"><Attributes><Value><![CDATA[Send Plugin]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="try" Action="Create" ><Attributes><Sequence>6</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="{" Action="Create" ><Attributes><Sequence>7</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="if" Action="Create" ><Attributes><Sequence>8</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Condition" Action="Create"><Attributes><Value><![CDATA[CLF::Message.CIOOutboundDefinition.EndpointURL <> null and CLF::Message.CIOOutboundDefinition.EndpointURL <>  Transaction::__const.EmptyString ]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="{" Action="Create" ><Attributes><Sequence>9</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="call" Action="Create" ><Attributes><Sequence>10</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="CDO" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Event" Action="Create"><Attributes><Value><![CDATA[CIO_CreateRestApiData]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name1" Action="Create"><Attributes><Value><![CDATA[CIOOutboundDefinition]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value1" Action="Create"><Attributes><Value><![CDATA[CLF::Message.CIOOutboundDefinition]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name2" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value2" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name5" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value5" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="SendMsgToExternalSystem" Action="Create" ><Attributes><Sequence>11</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="EndpointURL" Action="Create"><Attributes><Value><![CDATA[CLF::Message.CIOOutboundDefinition.EndpointURL]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ClassName" Action="Create"><Attributes><Value><![CDATA["Camstar.CustomProc.SendMsgToExternalSystem"]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Message" Action="Create"><Attributes><Value><![CDATA[CLF::Message.Contents]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="CIOContentType" Action="Create"><Attributes><Value><![CDATA[CLF::Message.CIOOutboundDefinition.CIOContentType]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Success" Action="Create"><Attributes><Value><![CDATA[CLF::CIOSendMsgToExternalSystemResult]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="IsSynchronous" Action="Create"><Attributes><Value><![CDATA[CLF::Message.CIOOutboundDefinition.IsSynchronous]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="CIOOutboundAuthenticationData" Action="Create"><Attributes><Value><![CDATA[SerializeObjectAsJSON(CIOOutboundAuthenticationData)]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Result" Action="Create"><Attributes><Value><![CDATA[CLF::PluginResultSet]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="if" Action="Create" ><Attributes><Sequence>12</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Condition" Action="Create"><Attributes><Value><![CDATA[!(CLF::CIOSendMsgToExternalSystemResult)]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="throw" Action="Create" ><Attributes><Sequence>13</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="ErrorId" Action="Create"><Attributes><Value><![CDATA[LabelID::ComExceptionCaughtInExecution]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ParamNames" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ParamValues" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="}" Action="Create" ><Attributes><Sequence>14</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="else" Action="Create" ><Attributes><Sequence>15</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="{" Action="Create" ><Attributes><Sequence>16</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="CIOPluginHandler" Action="Create" ><Attributes><Sequence>17</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="ClassName" Action="Create"><Attributes><Value><![CDATA["Camstar.CustomProc.CIOPluginHandler"]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="InstanceName" Action="Create"><Attributes><Value><![CDATA["Send" + CLF::Message.Dictkey]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="PlugInName" Action="Create"><Attributes><Value><![CDATA["DirectToMIO"]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Input1" Action="Create"><Attributes><Value><![CDATA[CIOClientGatewayURL]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Input2" Action="Create"><Attributes><Value><![CDATA[false]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Input3" Action="Create"><Attributes><Value><![CDATA[CIOClienbtGatewayPostTimeout]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Input4" Action="Create"><Attributes><Value><![CDATA[CLF::Message.Contents]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Input5" Action="Create"><Attributes><Value><![CDATA[CLF::Message.CIOMessageSerialized]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Input6" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Success" Action="Create"><Attributes><Value><![CDATA[CLF::Success]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Result" Action="Create"><Attributes><Value><![CDATA[CLF::PluginResultSet]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="if" Action="Create" ><Attributes><Sequence>18</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Condition" Action="Create"><Attributes><Value><![CDATA[CLF::Success == true]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="call" Action="Create" ><Attributes><Sequence>19</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="CDO" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Event" Action="Create"><Attributes><Value><![CDATA[CIO_UpdateOKToDelete]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name1" Action="Create"><Attributes><Value><![CDATA[DictKey]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value1" Action="Create"><Attributes><Value><![CDATA[CLF::Message.Dictkey]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name2" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value2" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Name5" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Value5" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="}" Action="Create" ><Attributes><Sequence>20</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="}" Action="Create" ><Attributes><Sequence>21</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="catch" Action="Create" ><Attributes><Sequence>22</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="ErrorMsg" Action="Create"><Attributes><Value><![CDATA[CLF::SendErrorMsg]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorId" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="{" Action="Create" ><Attributes><Sequence>23</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="rethrow" Action="Create" ><Attributes><Sequence>24</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="ParamNames" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ParamValues" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="}" Action="Create" ><Attributes><Sequence>25</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="}" Action="Create" ><Attributes><Sequence>26</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+</NewCLFFunctions>
+</CLFFunctions>
+</CLFDefinition>
+<CLFDefinition Name="CIO_ResponseValues" Action="Import" >
+<Attributes>
+</Attributes>
+<CLFFunctions>
+<BaseCLFFunctions>
+<CLFFunction Name="foreach" Action="Create" ><Attributes><Sequence>1</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Var" Action="Create"><Attributes><Value><![CDATA[CLF::Response]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="List" Action="Create"><Attributes><Value><![CDATA[CIOResponseResults]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="{" Action="Create" ><Attributes><Sequence>2</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="//" Action="Create" ><Attributes><Sequence>3</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Line1" Action="Create"><Attributes><Value><![CDATA[Evaluate the Validations]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line2" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="if" Action="Create" ><Attributes><Sequence>4</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Condition" Action="Create"><Attributes><Value><![CDATA[CLF::Response.validateexpression<>null]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="{" Action="Create" ><Attributes><Sequence>5</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="EvalParamIndirect" Action="Create" ><Attributes><Sequence>6</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="ExprLocation" Action="Create"><Attributes><Value><![CDATA[CLF::Response.ValidateExpression]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Context" Action="Create"><Attributes><Value><![CDATA[CLF::__CDOID]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="IgnoreNullObjectReferences" Action="Create"><Attributes><Value><![CDATA[false]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Result" Action="Create"><Attributes><Value><![CDATA[CLF::ValidationResult]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="setfieldex" Action="Create" ><Attributes><Sequence>7</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="From" Action="Create"><Attributes><Value><![CDATA[CLF::ValidationResult]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="To" Action="Create"><Attributes><Value><![CDATA[CLF::Test]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="validateequal" Action="Create" ><Attributes><Sequence>8</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="LeftValue" Action="Create"><Attributes><Value><![CDATA[CLF::ValidationResult]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="RightValue" Action="Create"><Attributes><Value><![CDATA[true]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorID" Action="Create"><Attributes><Value><![CDATA[LabelID::CIOResponseValidationError]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorParmName1" Action="Create"><Attributes><Value><![CDATA[Name]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorParmValue1" Action="Create"><Attributes><Value><![CDATA[CLF::Response.Name]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorParmName2" Action="Create"><Attributes><Value><![CDATA[Name2]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorParmValue2" Action="Create"><Attributes><Value><![CDATA[CLF::Response.ValidateExpression]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorParmName3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorParmValue3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorParmName4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorParmValue4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="}" Action="Create" ><Attributes><Sequence>9</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="//" Action="Create" ><Attributes><Sequence>10</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Line1" Action="Create"><Attributes><Value><![CDATA[Evaluate the Target Expression]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line2" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="if" Action="Create" ><Attributes><Sequence>11</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Condition" Action="Create"><Attributes><Value><![CDATA[CLF::Response.Expression <>null and CLF::Response.TargetExpression <>null]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="EvalParamIndirect" Action="Create" ><Attributes><Sequence>12</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="ExprLocation" Action="Create"><Attributes><Value><![CDATA[CLF::Response.Expression]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Context" Action="Create"><Attributes><Value><![CDATA[CLF::__CDOID]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="IgnoreNullObjectReferences" Action="Create"><Attributes><Value><![CDATA[false]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Result" Action="Create"><Attributes><Value><![CDATA[indirectref(CLF::Response.TargetExpression)]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="}" Action="Create" ><Attributes><Sequence>13</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+</BaseCLFFunctions>
+<NewCLFFunctions>
+<CLFFunction Name="foreach" Action="Create" ><Attributes><Sequence>1</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Var" Action="Create"><Attributes><Value><![CDATA[CLF::Response]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="List" Action="Create"><Attributes><Value><![CDATA[CIOResponseResults]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="{" Action="Create" ><Attributes><Sequence>2</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="//" Action="Create" ><Attributes><Sequence>3</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Line1" Action="Create"><Attributes><Value><![CDATA[Evaluate the Validations]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line2" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="if" Action="Create" ><Attributes><Sequence>4</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Condition" Action="Create"><Attributes><Value><![CDATA[CLF::Response.ValidateExpression<>null]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="{" Action="Create" ><Attributes><Sequence>5</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="EvalParamIndirect" Action="Create" ><Attributes><Sequence>6</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="ExprLocation" Action="Create"><Attributes><Value><![CDATA[CLF::Response.ValidateExpression]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Context" Action="Create"><Attributes><Value><![CDATA[CLF::__CDOID]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="IgnoreNullObjectReferences" Action="Create"><Attributes><Value><![CDATA[false]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Result" Action="Create"><Attributes><Value><![CDATA[CLF::ValidationResult]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="setfieldex" Action="Create" ><Attributes><Sequence>7</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="From" Action="Create"><Attributes><Value><![CDATA[CLF::ValidationResult]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="To" Action="Create"><Attributes><Value><![CDATA[CLF::Test]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="validateequal" Action="Create" ><Attributes><Sequence>8</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="LeftValue" Action="Create"><Attributes><Value><![CDATA[CLF::ValidationResult]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="RightValue" Action="Create"><Attributes><Value><![CDATA[true]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorID" Action="Create"><Attributes><Value><![CDATA[LabelID::CIOResponseValidationError]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorParmName1" Action="Create"><Attributes><Value><![CDATA[Name]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorParmValue1" Action="Create"><Attributes><Value><![CDATA[CLF::Response.Name]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorParmName2" Action="Create"><Attributes><Value><![CDATA[Name2]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorParmValue2" Action="Create"><Attributes><Value><![CDATA[CLF::Response.ValidateExpression]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorParmName3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorParmValue3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorParmName4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="ErrorParmValue4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="}" Action="Create" ><Attributes><Sequence>9</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="//" Action="Create" ><Attributes><Sequence>10</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Line1" Action="Create"><Attributes><Value><![CDATA[Evaluate the Target Expression]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line2" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line3" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Line4" Action="Create"><Attributes><Value><![CDATA[]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="if" Action="Create" ><Attributes><Sequence>11</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="Condition" Action="Create"><Attributes><Value><![CDATA[CLF::Response.Expression <>null and CLF::Response.TargetExpression <>null]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="EvalParamIndirect" Action="Create" ><Attributes><Sequence>12</Sequence><IsActive>True</IsActive><FunctionParameters><FunctionParameter Name="ExprLocation" Action="Create"><Attributes><Value><![CDATA[CLF::Response.Expression]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Context" Action="Create"><Attributes><Value><![CDATA[CLF::__CDOID]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="IgnoreNullObjectReferences" Action="Create"><Attributes><Value><![CDATA[false]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+<FunctionParameter Name="Result" Action="Create"><Attributes><Value><![CDATA[indirectref(CLF::Response.TargetExpression)]]></Value><DynamicParm>False</DynamicParm></Attributes></FunctionParameter>
+</FunctionParameters></Attributes></CLFFunction>
+<CLFFunction Name="}" Action="Create" ><Attributes><Sequence>13</Sequence><IsActive>True</IsActive><FunctionParameters></FunctionParameters></Attributes></CLFFunction>
+</NewCLFFunctions>
+</CLFFunctions>
+</CLFDefinition>
+</CLFDefinitions>
+</Import></InSiteMetaData>

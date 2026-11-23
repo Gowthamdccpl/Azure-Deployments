@@ -1,0 +1,20 @@
+2026-05-25T12:02:14  Workspace Replacement commencing with following settings:
+2026-05-25T12:02:14      Use Current MDB as Master: False
+2026-05-25T12:02:14      Start upgrade at new Workspace: True
+2026-05-25T12:02:14      Log file location: C:\Program Files (x86)\Camstar\InSite Administration\CIO\UpgradeLog.log
+2026-05-25T12:02:14      Base Camstar Workspace Data file location: C:\Program Files (x86)\Camstar\InSite Administration\CIO\Base\InSite.mdb
+2026-05-25T12:02:14      New Workspace Data file location: C:\Program Files (x86)\Camstar\InSite Administration\CIO\New\CIOInSite.mdb
+2026-05-25T12:02:14          New Workspace Code: 10
+2026-05-25T12:02:14      Current Metadata file location: C:\Program Files (x86)\Camstar\InSite Administration\CIO\Current\InSite.mdb
+2026-05-25T12:02:14          Current Workspace Code: 200
+2026-05-25T12:02:14      Target Metadata file location: C:\Program Files (x86)\Camstar\InSite Administration\CIO\Target\Insite.mdb
+2026-05-25T12:02:14          Target Metadata will not overwrite Current Metadata upon completion.
+2026-05-25T12:02:14  Start replace of workspace: 10 into MDB: C:\Program Files (x86)\Camstar\InSite Administration\CIO\Target\Insite.mdb
+2026-05-25T12:03:26  Process 1 DBColumns to update PrecisionValue to a larger value (Ignore count: 0, Current WS Count: 0)
+2026-05-25T12:03:26  Column: Identifier, New Precision: 1000, Old Precision: 512, Workspace: csi, Active Workspace: 200
+2026-05-25T12:03:26  Updated 1 records in table DBColumns for ColumnID: 2935, Name: Identifier, Precision: 1000, Workspace: csi
+2026-05-25T12:03:27  Synchronize persistent fields in 0 CDO's in Workspace 200
+2026-05-25T12:03:27  There were a total of 0 CDOs synchronized in 0 seconds.
+2026-05-25T12:03:27  Synchronize persistent fields in 94 CDO's in Workspace 10
+2026-05-25T12:03:30  There were a total of 0 CDOs synchronized in 2 seconds.
+2026-05-25T12:03:33  Completed replace of workspace: 10 into MDB: C:\Program Files (x86)\Camstar\InSite Administration\CIO\Target\Insite.mdb in 79 seconds

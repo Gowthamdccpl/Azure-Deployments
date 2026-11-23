@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Core</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="stylesheet" href="theme.compiled.css?639129454702981662">
+    <link rel="stylesheet" href="sweetalert2.min.css?639129454702981662"> <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?639129454702981662">
+ <link rel="icon" sizes="32x32" href="icon-32.png?639129454702981662">
+ <link rel="icon" sizes="16x16" href="icon-16.png?639129454702981662"> <link rel="manifest" href="manifest.webmanifest?639129454702981662" crossorigin="use-credentials">
+    <link rel="stylesheet" href="./login.css">
+    <link rel="stylesheet" href="./media-queries.css">
+</head>
+
+<body>
+    <div class="mx-scrollcontainer-wrapper">
+        <div data-mx-placeholder="f24a271c-597d-46a6-b097-7b334b8481c7" class="mx-placeholder">
+            <img class="siemens-logo" src="./img/logoSiemensWhite48.svg" />
+            <div class="version-details">
+                <div class="version-number">Version 2604</div>
+                <br>
+                <div class="version-text">This material contains trade secrets or otherwise confidential information
+                    owned by Siemens Industry Software Inc. or its affiliates (collectively, “Siemens”), or its
+                    licensors. Access to and use of this information is strictly limited as set forth in the Customer’s
+                    applicable agreements with Siemens.
+                </div>
+                <div class="version-copyright">Unpublished Work. &#169 2026 Siemens.</div>
+            </div>
+            <div class="login-background">
+                <div class="mx-layoutgrid mx-layoutgrid-fluid container-fluid">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12 login-left-column ">
+                            <div class="login-left-wrapper">
+                                <div class="login-container">
+                                    <form id="loginForm" autocomplete="off">
+                                        <div class="login-header">
+                                            <div class="product-logo-container">
+                                                <img class="product-logo" src="../img/desktopOcEx48.svg" role="presentation" />
+                                            </div>
+                                            <div>
+                                                <div class="system-name">OPCENTER EXECUTION</div>
+                                                <div class="product-name">Core</div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div id="loginMessage" class="alert alert-danger"></div>
+                                            <div class="form-group">
+                                                <div class="label-container">
+                                                    <div class="teal-asterisk">*</div>
+                                                    <label class="control-label" id="usernameLabel"
+                                                        for="usernameInput"></label>
+                                                </div>
+                                                <div class="inputwrapper">
+                                                    <input id="usernameInput" class="form-control" type="text"
+                                                        autocorrect="off" autocapitalize="none" autocomplete="off" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="label-container">
+                                                    <div class="teal-asterisk">*</div>
+                                                    <label class="control-label" id="passwordLabel"
+                                                        for="passwordInput"></label>
+                                                </div>
+                                                <div class="inputwrapper">
+                                                    <input id="passwordInput" class="form-control" type="password"
+                                                        autocorrect="off" autocapitalize="none" autocomplete="off" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="label-container">
+                                                    <div class="teal-asterisk">*</div>
+                                                    <label class="control-label" id="domainLabel"
+                                                        for="domainInput">Domain</label>
+                                                </div>
+                                                <div class="inputwrapper">
+                                                    <input id="domainInput" class="form-control" type="text"
+                                                        autocorrect="off" autocapitalize="none" autocomplete="off" />
+                                                </div>
+                                            </div>
+                                            <div class="sso-container">
+												<a href="/sso/login" id="ssoLink" class="sso-link">
+													<img src="../img/typeKey48.svg" alt="SSO Key" class="sso-key-icon">
+													Use Single Sign On (SSO)
+												</a>
+											</div>
+											<div class="idp-container">
+												<a href="" id="ssoSAMAuthLink" class="sso-link" style="margin-right: 10px;">
+													<img src="../img/typeKey48.svg" alt="SSO Key" class="sso-key-icon">
+													SSO Log In
+												</a>
+											</div>
+											<div class="form-toolbar">									
+                                                <button id="loginButton1" type="button" class="btn btn-primary"
+                                                    disabled>
+                                                    Log In
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+        let usernameInput = document.getElementById("usernameInput");
+        let passwordInput = document.getElementById("passwordInput");
+        let domainInput = document.getElementById("domainInput");
+        let loginButton = document.getElementById("loginButton1");
+        let usernameLabel = document.getElementById("usernameLabel");
+        let passwordLabel = document.getElementById("passwordLabel");
+        let domainLabel = document.getElementById("domainLabel");
+        let asterisks = document.querySelectorAll('.teal-asterisk');
+		let ssoContainer = document.querySelector('.sso-container');
+		let idpContainer = document.querySelector('.idp-container');
+		
+		// hide SSO container by default
+		ssoContainer.style.display = 'none';
+		// hide IDP container
+		idpContainer.style.display = 'none';
+		
+		async function checkSSOEnabled() {
+			try {
+				const response = await fetch('/rest/getconstant/v1/enableSSO');
+				if (!response.ok) {
+					throw new Error('Failed to fetch EnableSSO constant: ' + response.status);
+				}
+				const text = await response.text();
+				const isSSOEnabled = text.trim().toLowerCase() === 'true';
+				ssoContainer.style.display = isSSOEnabled ? 'block' : 'none';
+				//console.log('SSO Enabled:', isSSOEnabled);
+			} catch (error) {
+				console.error('Error fetching SSO constant:', error);
+			}
+		}
+
+		async function setSAMAuthSSO() {
+			try {
+				const response = await fetch('/rest/getconstant/v1/ssoSAMAuthEnabled');
+				if (!response.ok) {
+					throw new Error('Failed to fetch SAMAuth_Enabled constant: ' + response.status);
+				}
+				const text = await response.text();
+				const isSAMAuthEnabled = text.trim().toLowerCase() === 'true';
+				idpContainer.style.display = isSAMAuthEnabled ? 'block' : 'none';
+				// https://localhost/MxIDPAgent/api/v1/sso-service-provider/idp-agent-login-request
+				
+				const response2 = await fetch('/rest/getconstant/v1/ssoSAMAuthURL');
+				if (!response2.ok) {
+					throw new Error('Failed to fetch SAMAuth_URL constant: ' + response.status);
+				}
+				const text2 = await response2.text();
+				const SAMAuthURL = text2;
+				
+				const response3 = await fetch('/rest/getconstant/v1/ApplicationRootURL');
+				if (!response3.ok) {
+					throw new Error('Failed to fetch ApplicationRootURL constant: ' + response.status);
+				}
+				const text3 = await response3.text();
+				const RedirectURL = text3+ "v1/callback/sam2-auth";
+				
+				const response4 = await fetch('/rest/getconstant/v1/ssoSAMAuthClientID');
+				if (!response4.ok) {
+					throw new Error('Failed to fetch SAMAuthClientID constant: ' + response.status);
+				}
+				const text4 = await response4.text();
+				const ClientID = text4
+				
+				const SAMAuthLink = SAMAuthURL + "/oauth/authorize?response_type=code&client_id=" + ClientID + "&state=MXCoreState&redirect_uri=" + RedirectURL;
+				//const text2 = "https://cloud.sws.siemens.com/oauth/authorize?response_type=code&client_id=testplchat-opcorepprod&state=stateCode&redirect_uri=http://localhost:8080/v1/callback/sam2-auth"
+	
+				const link = document.getElementById('ssoSAMAuthLink');
+				link.href =  SAMAuthLink;
+				
+			} catch (error) {
+				console.error('Error setting SSO_IDPAgent details:', error);
+			}
+		}
+
+		checkSSOEnabled();
+		setSAMAuthSSO();
+			
+        usernameLabel.innerHTML = "User Name";
+        usernameInput.setAttribute("placeholder", "");
+        passwordLabel.innerHTML = "Password";
+        passwordInput.setAttribute("placeholder", "");
+        loginButton.innerHTML = 'Log In';
+
+        function inputChangeHandler() {
+            if (usernameInput.value === '' || passwordInput.value === '' || domainInput.value === '') {
+                loginButton.disabled = true;
+            } else {
+                loginButton.disabled = false;
+            }
+        }
+
+        function usernameInputChangeHandler() {
+            inputChangeHandler();
+            usernameInput.classList.remove('login-error');
+            usernameLabel.classList.remove('login-error');
+            asterisks[0].classList.remove('login-error');
+            usernameLabel.innerHTML = "User Name";
+        }
+
+        function passwordInputChangeHandler() {
+            inputChangeHandler();
+            passwordInput.classList.remove('login-error');
+            passwordLabel.classList.remove('login-error');
+            asterisks[1].classList.remove('login-error');
+            passwordLabel.innerHTML = "Password";
+        }
+
+        function domainInputChangeHandler() {
+            inputChangeHandler();
+            domainInput.classList.remove('login-error');
+            domainLabel.classList.remove('login-error');
+            asterisks[2].classList.remove('login-error');
+            domainLabel.innerHTML = "Domain";
+        }
+
+        usernameInput.addEventListener('input', usernameInputChangeHandler);
+        passwordInput.addEventListener('input', passwordInputChangeHandler);
+        domainInput.addEventListener('input', domainInputChangeHandler);
+
+        function formSubmitHandler() {
+            loginButton.disabled = true;
+            var xhr = new XMLHttpRequest();
+            var url = "/v1/opcenterLogin";
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = opcenterLoginHandler(xhr);
+            var data = JSON.stringify({
+                "Username": usernameInput.value,
+                "Password": passwordInput.value,
+                "Domain": domainInput.value,
+                "ServerURL": ""
+            });
+            xhr.send(data);
+        }
+		
+		
+
+        function loginErrorHandler() {
+            usernameInput.classList.add('login-error');
+            passwordInput.classList.add('login-error');
+            domainInput.classList.add('login-error');
+            usernameLabel.classList.add('login-error');
+            passwordLabel.classList.add('login-error');
+            domainLabel.classList.add('login-error');
+            asterisks.forEach((element) => {
+                element.classList.add('login-error');
+            });
+            usernameLabel.innerHTML = "User Name (Wrong Credentials)"
+            passwordLabel.innerHTML = "Password (Wrong Credentials)";
+            domainLabel.innerHTML = "Domain (Wrong Credentials)";
+            loginButton.disabled = false;
+        }
+
+        function serverErrorHandler(xhr) {
+            window.alert(xhr.response);
+            loginButton.disabled = false;
+        }
+
+        function genericErrorHandler() {
+            window.alert('An error occured, please contact your system administrator.');
+            loginButton.disabled = false;
+        }
+
+        function opcenterLoginHandler(xhr) {
+            return function () {
+                if (xhr.readyState === 4) {
+                    console.log(xhr.response);
+                    if (xhr.status === 200) {
+                        var xhr2 = new XMLHttpRequest();
+                        var url = "/v1/mendixLogin";
+                        xhr2.open("POST", url, true);
+                        xhr2.setRequestHeader("Content-Type", "application/json");
+                        xhr2.onreadystatechange = mendixLoginHandler(xhr2);
+                        var data = JSON.stringify({
+                            "Username": usernameInput.value,
+                            "Password": passwordInput.value,
+                            "Domain": domainInput.value,
+                            "ServerURL": ""
+                        });
+                        xhr2.send(data);
+                    } else if (xhr.status === 401) {
+                        loginErrorHandler();
+                    } else if (xhr.status === 500) {
+                        serverErrorHandler(xhr);
+                    } else {
+                        genericErrorHandler();
+                    }
+                }
+            }
+        };
+
+        function mendixLoginHandler(xhr) {
+            return function () {
+                if (xhr.readyState === 4) {
+                    console.log(xhr.response);
+                    if (xhr.status === 200) {
+                        window.location.replace("./index.html");
+                    } else if (xhr.status === 401) {
+                        loginErrorHandler();
+                    } else {
+                        genericErrorHandler();
+                    }
+                }
+            }
+        };
+
+        loginButton.addEventListener('click', formSubmitHandler);
+    </script>
+</body>
+
+</html>

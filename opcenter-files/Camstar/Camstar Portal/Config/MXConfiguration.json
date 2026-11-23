@@ -1,0 +1,16 @@
+{
+  "mendixApps": [
+    {
+      "id": "MX-Core",
+      "url": "https://localhost"
+    },
+    {
+      "id": "MX-Semi",
+      "url": ""
+    },
+    {
+      "id": "MX-Elec",
+      "url": ""
+    }
+  ]
+}

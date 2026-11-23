@@ -1,0 +1,87 @@
+Service:
+  Account: User
+  UserName: Camstaradmin
+  Password: AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA/1qOKZJfy0OjQ+UcqP1ThwAAAAACAAAAAAAQZgAAAAEAACAAAABsNELbCME2DU4w48hBI3Yhgd6czRVJ+f9RiLsDulYFwQAAAAAOgAAAAAIAACAAAADmY8EiuolH/bomYD6u3zVth3Kb+D1o9rok86eyGbtgWxAAAADijxUnMJ75HyPHYAtC0H6DQAAAAIMTntJ5LGIsQv2rRjhbXZDND509eOnde4JIAM2/nBPsMwLOKPmifQlf7dAUSz8Qn8epp5UMLaftaTm95/sZPDQ=
+  ServiceName: Mendix2604
+  DisplayName: Mendix2604
+  Description: Mendix2604
+  StartMode: AUTOMATIC
+Jetty: {}
+Database:
+  DatabaseType: SQLSERVER
+  DatabaseHost: 10.2.0.5
+  DatabaseName: Mendix_2604
+  DatabaseUserName: Mendix
+  DatabasePassword: AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAABcJxyzQab0OaidnqlwsKWwAAAAACAAAAAAAQZgAAAAEAACAAAABfflpeKpID9gC15VtMlYiX0tPHu+e9X47qj9OImXOqJAAAAAAOgAAAAAIAACAAAACpHcDfCg8KyTmKLo3Ld0a7q2F91aLEhESWwu9ihUyxXxAAAABMyEXqaU+/46mhtLyyoF4oQAAAAL53ndF/Rl20n+uTU06F8VgjnbWDXX2oXwS53U4hkhUZbFzpUQ3Qndvp5yayx+k5+MJ3OohpEEH7X6fqbKibsCo=
+  DatabaseUseIntegratedSecurity: False
+QSlotId: '{46fad86b-84d1-47dd-a99c-222b2c2c0761}.{3ad508d5-090c-433a-acf2-263c6086e752}'
+Version: 1.0.0
+Runtime:
+  MendixPath: C:\Program Files (x86)\Camstar\Mendix Solutions\Servers
+  JavaPath: C:\Program Files\Eclipse Adoptium\jdk-21.0.5.11-hotspot
+  BackupPath: ''
+  MaxJavaHeapSize: 1024
+  OtherVMArguments: -javaagent:"C:\Program Files (x86)\Camstar\Mendix Solutions\Servers\10.24.4.77222\runtime\agents\opentelemetry-javaagent.jar" -Dotel.javaagent.extensions="C:\Program Files (x86)\Camstar\Mendix Solutions\Servers\10.24.4.77222\runtime\agents\mendix-opentelemetry-agent-extension.jar" -Dotel.service.name="Mendix2604" -Dotel.exporter.otlp.traces.endpoint=https://mes-opcenter-op:85/v1/traces
+  RuntimePortNumber: 8080
+  ServerPortNumber: 8090
+  ServerPassword: Kkn?VvQiIiqaJlLScoKO9Pjg6<rCopDv
+  ApplicationRootUrl: https://localhost
+  ScheduledEventExecution: ALL
+  CACertificates: C:\Program Files (x86)\Camstar\Mendix Solutions\Apps\Mendix2604\Project\OpcenterCert.cer
+  DatabaseUseSsl: False
+  http.client.MaxConnectionsPerRoute: 250
+  http.client.MaxConnectionsTotal: 250
+  com.mendix.core.SessionIdCookieName: hR1E09lQnkxD
+Custom:
+  CommunityCommons.MergeMultiplePdfs_MaxAtOnce: 10
+  Core_Delta.core_delta_version: 0.0.1
+  DocumentGeneration.AsyncTimeoutInSeconds: 300
+  DocumentGeneration.CloudEndpoint: https://docgen.home.mendix.com
+  DocumentGeneration.CustomChromePath: C:\Program Files\Google\Chrome\Application\chrome.exe
+  DocumentGeneration.CustomNodePath: C:\Program Files\nodejs\node.exe
+  DocumentGeneration.OverrideServiceType: Local
+  DocumentGeneration.SyncTimeoutInSeconds: 30
+  DocumentGeneration.TokenLifetimeInSeconds: 1800
+  Encryption.EncryptionKey: xSSOEncryptKey01SSOEncryptKey01x
+  Encryption.EncryptionPrefix: '{AES3}'
+  Encryption.LegacyEncryptionKey: xSSOEncryptKey01SSOEncryptKey01x
+  Encryption.LogNode: Encryption
+  EXCR_Authentication.AccessOnlineChat: False
+  EXCR_Authentication.AdminUsername: CamstarAdmin
+  EXCR_Authentication.ContainerizationAuthServerUrl: ''
+  EXCR_Authentication.ContainerizationCamstarPortalUrl: ''
+  EXCR_Authentication.ContainerizationMendixPortalPodName: ''
+  EXCR_Authentication.ContainerizationNamespaceName: ''
+  EXCR_Authentication.ContainerizationRestApiFileServerLocation: ''
+  EXCR_Authentication.EnableSSO: False
+  EXCR_Authentication.PLChat_ProductVersion: V2.0
+  EXCR_Authentication.ServerTimezone: '[+-]HH:MM'
+  EXCR_Authentication.ServerURL: https://localhost
+  EXCR_Authentication.SSO_SAMAuth_ClientID: ''
+  EXCR_Authentication.SSO_SAMAuth_ClientSecret: ''
+  EXCR_Authentication.SSO_SAMAuth_Enabled: False
+  EXCR_Authentication.SSO_SAMAuth_URL: ''
+  EXCR_Authentication.SSO_SAMAuth_VerificationKey: OpcenterCore
+  EXCR_Commons.SuccessMessageFadeoutTime: 6000
+  EXCR_ExtEntityAccess.EntityFactoryURL: http://localhost:8080
+  EXCR_ResourceManagement.SignalRHubName: opcenterHub
+  SAML20.BindingURI_Redirect: False
+  SAML20.DefaultEntity: Administration.Account
+  SAML20.DefaultLoginPage: ''
+  SAML20.DefaultLogoutPage: index.html
+  SAML20.DisableDecoding_Deeplink_URL: False
+  SAML20.IdPAlias: ''
+  SAML20.IdPMetadataURL: ''
+  SAML20.KeystorePassword: R@nd0mP4$$w0rdFOrK3ySt0r3
+  SAML20.Org_DisplayName: Test
+  SAML20.Org_Emailaddress: Test@email.com
+  SAML20.Org_GivenName: Test
+  SAML20.Org_Name: Test Compay
+  SAML20.Org_OrganizationURL: test.com
+  SAML20.Org_Surname: Tester
+  SAML20.SP_Entity: ''
+  SAML20.SSOLandingPage: index.html
+  Viewer3D.Endpoint: visualization
+  Viewer3D.LicenseToken: eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ7XCJzZXJ2aWNlSWRcIjpcIjNEVmlld2VyXCIsXCJjb21wYW55VVVJRFwiOlwiU0lFTUVOUyBPUENFTlRFUlwiLFwiZXhwaXJhdGlvbkRhdGVcIjpcIjIwOTktMDQtMDNUMTY6MDA6MDBaXCJ9In0.PrfejgmTKkNcY06NiL0pKkOtds-RnSXxQR9KhzNBVabW9v44a89e08iWsHRyujgDJfnLnm56JYzd8EqfyWooZnLBjV81Y_WRROk8Ti5xoBdjajHR_oqU10vT1eZVaofKH4cV4jjyE3qqSfnScbU-AxtNJ0rUF_FfIpcKp9M6znGKgfUfV5Fs7c2Hc8ErGkTENXa9jV_SBIhhOoeWXEsqEAsa9PY5gYYqHUsj57lmbpRtEaIRlf4jlWnalAEW40_LirojqgcAuz2S8NxkD8If_h4QkuGQ6RLlO6sb-6k5f8WCtlnDZ1FaePUAHdR_sY4ct2Y3MPayOgyOIO-bnDRFBw
+  Viewer3D.ModelSourceType: Mendix
+  Viewer3D.Version: 6.0.6

@@ -1,0 +1,100 @@
+2026-02-27T06:54:28  Workspace Replacement commencing with following settings:
+2026-02-27T06:54:28      Use Current MDB as Master: False
+2026-02-27T06:54:28      Start upgrade at new Workspace: True
+2026-02-27T06:54:28      Log file location: C:\Program Files (x86)\Camstar\InSite Administration\Industry\UpgradeLog.log
+2026-02-27T06:54:28      Base Camstar Workspace Data file location: C:\Program Files (x86)\Camstar\InSite Administration\Industry\Base\InSite.mdb
+2026-02-27T06:54:28      New Workspace Data file location: C:\Program Files (x86)\Camstar\InSite Administration\Industry\New\isInSite.mdb
+2026-02-27T06:54:28          New Workspace Code: 15
+2026-02-27T06:54:28      Current Metadata file location: C:\Program Files (x86)\Camstar\InSite Administration\Industry\Current\InSite.mdb
+2026-02-27T06:54:28          Current Workspace Code: 200
+2026-02-27T06:54:28      Target Metadata file location: C:\Program Files (x86)\Camstar\InSite Administration\Industry\Target\Insite.mdb
+2026-02-27T06:54:28          Target Metadata will not overwrite Current Metadata upon completion.
+2026-02-27T06:54:28  Start replace of workspace: 15 into MDB: C:\Program Files (x86)\Camstar\InSite Administration\Industry\Target\Insite.mdb
+2026-02-27T06:55:54  Process 41 DBColumns to update PrecisionValue to a larger value (Ignore count: 46, Current WS Count: 0)
+2026-02-27T06:55:54  Column: TriggerType, New Precision: 15, Old Precision: 0, Workspace: 10, Active Workspace: 200
+2026-02-27T06:55:54  Updated 1 records in table DBColumns for ColumnID: 673186261, Name: TriggerType, Precision: 15, Workspace: 10
+2026-02-27T06:55:54  Column: TriggerProperty, New Precision: 15, Old Precision: 0, Workspace: 10, Active Workspace: 200
+2026-02-27T06:55:54  Updated 1 records in table DBColumns for ColumnID: 673186267, Name: TriggerProperty, Precision: 15, Workspace: 10
+2026-02-27T06:55:54  Column: TargetFieldType, New Precision: 15, Old Precision: 0, Workspace: 10, Active Workspace: 200
+2026-02-27T06:55:54  Updated 1 records in table DBColumns for ColumnID: 673185825, Name: TargetFieldType, Precision: 15, Workspace: 10
+2026-02-27T06:55:54  Column: CIOTemplateType, New Precision: 15, Old Precision: 0, Workspace: 10, Active Workspace: 200
+2026-02-27T06:55:54  Updated 1 records in table DBColumns for ColumnID: 673185875, Name: CIOTemplateType, Precision: 15, Workspace: 10
+2026-02-27T06:55:54  Column: OutboundTemplate, New Precision: 2000, Old Precision: 0, Workspace: 10, Active Workspace: 200
+2026-02-27T06:55:54  Updated 1 records in table DBColumns for ColumnID: 673186161, Name: OutboundTemplate, Precision: 2000, Workspace: 10
+2026-02-27T06:55:54  Column: InboundTemplate, New Precision: 2000, Old Precision: 0, Workspace: 10, Active Workspace: 200
+2026-02-27T06:55:54  Updated 1 records in table DBColumns for ColumnID: 673186156, Name: InboundTemplate, Precision: 2000, Workspace: 10
+2026-02-27T06:55:54  Column: CIOJournalType, New Precision: 15, Old Precision: 0, Workspace: 10, Active Workspace: 200
+2026-02-27T06:55:54  Updated 1 records in table DBColumns for ColumnID: 673186195, Name: CIOJournalType, Precision: 15, Workspace: 10
+2026-02-27T06:55:54  Column: CIODispatchRulePlugIn, New Precision: 15, Old Precision: 0, Workspace: 10, Active Workspace: 200
+2026-02-27T06:55:54  Updated 1 records in table DBColumns for ColumnID: 673186113, Name: CIODispatchRulePlugIn, Precision: 15, Workspace: 10
+2026-02-27T06:55:54  Column: CIODPTElementItemName, New Precision: 30, Old Precision: 0, Workspace: 10, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 673186887, Name: CIODPTElementItemName, Precision: 30, Workspace: 10
+2026-02-27T06:55:55  Column: DataType, New Precision: 30, Old Precision: 0, Workspace: 10, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 673186879, Name: DataType, Precision: 30, Workspace: 10
+2026-02-27T06:55:55  Column: DataType, New Precision: 30, Old Precision: 0, Workspace: 10, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 673186906, Name: DataType, Precision: 30, Workspace: 10
+2026-02-27T06:55:55  Column: CIOHttpVerb, New Precision: 30, Old Precision: 0, Workspace: 10, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 673186800, Name: CIOHttpVerb, Precision: 30, Workspace: 10
+2026-02-27T06:55:55  Column: ECOECN, New Precision: 30, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 14606, Name: ECOECN, Precision: 30, Workspace: csi
+2026-02-27T06:55:55  Column: ChangePackageName, New Precision: 30, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 14605, Name: ChangePackageName, Precision: 30, Workspace: csi
+2026-02-27T06:55:55  Column: ChangePackageName, New Precision: 30, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 14598, Name: ChangePackageName, Precision: 30, Workspace: csi
+2026-02-27T06:55:55  Column: ChangePackageName, New Precision: 30, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 14620, Name: ChangePackageName, Precision: 30, Workspace: csi
+2026-02-27T06:55:55  Column: ECOECN, New Precision: 30, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 14621, Name: ECOECN, Precision: 30, Workspace: csi
+2026-02-27T06:55:55  Column: ObjectInstanceId, New Precision: 30, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 14562, Name: ObjectInstanceId, Precision: 30, Workspace: csi
+2026-02-27T06:55:55  Column: ObjectName, New Precision: 255, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 14563, Name: ObjectName, Precision: 255, Workspace: csi
+2026-02-27T06:55:55  Column: ObjectTypeName, New Precision: 32, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 14565, Name: ObjectTypeName, Precision: 32, Workspace: csi
+2026-02-27T06:55:55  Column: Revision, New Precision: 15, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 14566, Name: Revision, Precision: 15, Workspace: csi
+2026-02-27T06:55:55  Column: ChangePackageName, New Precision: 30, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 14584, Name: ChangePackageName, Precision: 30, Workspace: csi
+2026-02-27T06:55:55  Column: ChangePackageName, New Precision: 30, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 14591, Name: ChangePackageName, Precision: 30, Workspace: csi
+2026-02-27T06:55:55  Column: Owner, New Precision: 36, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 14780, Name: Owner, Precision: 36, Workspace: csi
+2026-02-27T06:55:55  Column: ImportName, New Precision: 256, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 14817, Name: ImportName, Precision: 256, Workspace: csi
+2026-02-27T06:55:55  Column: Owner, New Precision: 36, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 14796, Name: Owner, Precision: 36, Workspace: csi
+2026-02-27T06:55:55  Column: ImportSetName, New Precision: 256, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 14816, Name: ImportSetName, Precision: 256, Workspace: csi
+2026-02-27T06:55:55  Column: LabelText, New Precision: 2000, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 13510, Name: LabelText, Precision: 2000, Workspace: csi
+2026-02-27T06:55:55  Column: EntryType, New Precision: 32, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 13787, Name: EntryType, Precision: 32, Workspace: csi
+2026-02-27T06:55:55  Column: ExportImportKey, New Precision: 36, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 16880, Name: ExportImportKey, Precision: 36, Workspace: csi
+2026-02-27T06:55:55  Column: ProcessingFolder, New Precision: 512, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 16538, Name: ProcessingFolder, Precision: 512, Workspace: csi
+2026-02-27T06:55:55  Column: EntryType, New Precision: 32, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 13674, Name: EntryType, Precision: 32, Workspace: csi
+2026-02-27T06:55:55  Column: HistViewDtlName, New Precision: 30, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 8285, Name: HistViewDtlName, Precision: 30, Workspace: csi
+2026-02-27T06:55:55  Column: BriefDescription, New Precision: 100, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:55  Updated 1 records in table DBColumns for ColumnID: 10751, Name: BriefDescription, Precision: 100, Workspace: csi
+2026-02-27T06:55:55  Column: EventName, New Precision: 30, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:56  Updated 1 records in table DBColumns for ColumnID: 10748, Name: EventName, Precision: 30, Workspace: csi
+2026-02-27T06:55:56  Column: SecurityUserName, New Precision: 30, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:56  Updated 1 records in table DBColumns for ColumnID: 9569, Name: SecurityUserName, Precision: 30, Workspace: csi
+2026-02-27T06:55:56  Column: UIVirtualPageName, New Precision: 255, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:56  Updated 1 records in table DBColumns for ColumnID: 11541, Name: UIVirtualPageName, Precision: 255, Workspace: csi
+2026-02-27T06:55:56  Column: MfgOrderMaterialListItemName, New Precision: 30, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:56  Updated 1 records in table DBColumns for ColumnID: 11845, Name: MfgOrderMaterialListItemName, Precision: 30, Workspace: csi
+2026-02-27T06:55:56  Column: BOMMaterialListItemName, New Precision: 30, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:56  Updated 1 records in table DBColumns for ColumnID: 11840, Name: BOMMaterialListItemName, Precision: 30, Workspace: csi
+2026-02-27T06:55:56  Column: ContainerMaterialListItemName, New Precision: 30, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:56  Updated 1 records in table DBColumns for ColumnID: 11839, Name: ContainerMaterialListItemName, Precision: 30, Workspace: csi
+2026-02-27T06:55:56  Column: ProductMaterialListItemName, New Precision: 30, Old Precision: 0, Workspace: csi, Active Workspace: 200
+2026-02-27T06:55:56  Updated 1 records in table DBColumns for ColumnID: 11851, Name: ProductMaterialListItemName, Precision: 30, Workspace: csi
+2026-02-27T06:55:56  Synchronize persistent fields in 0 CDO's in Workspace 200
+2026-02-27T06:55:56  There were a total of 0 CDOs synchronized in 0 seconds.
+2026-02-27T06:55:56  Synchronize persistent fields in 57 CDO's in Workspace 15
+2026-02-27T06:55:58  There were a total of 0 CDOs synchronized in 1 seconds.
+2026-02-27T06:56:01  Completed replace of workspace: 15 into MDB: C:\Program Files (x86)\Camstar\InSite Administration\Industry\Target\Insite.mdb in 93 seconds

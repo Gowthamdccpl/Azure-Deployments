@@ -1,0 +1,78 @@
+2026-05-25T12:05:47  Workspace Replacement commencing with following settings:
+2026-05-25T12:05:47      Use Current MDB as Master: False
+2026-05-25T12:05:47      Start upgrade at new Workspace: True
+2026-05-25T12:05:47      Log file location: C:\Program Files (x86)\Camstar\InSite Administration\Medical Device\UpgradeLog.log
+2026-05-25T12:05:47      Base Camstar Workspace Data file location: C:\Program Files (x86)\Camstar\InSite Administration\Medical Device\Base\InSite.mdb
+2026-05-25T12:05:47      New Workspace Data file location: C:\Program Files (x86)\Camstar\InSite Administration\Medical Device\New\mdInSite.mdb
+2026-05-25T12:05:47          New Workspace Code: 30
+2026-05-25T12:05:47      Current Metadata file location: C:\Program Files (x86)\Camstar\InSite Administration\Medical Device\Current\InSite.mdb
+2026-05-25T12:05:47          Current Workspace Code: 200
+2026-05-25T12:05:47      Target Metadata file location: C:\Program Files (x86)\Camstar\InSite Administration\Medical Device\Target\Insite.mdb
+2026-05-25T12:05:47          Target Metadata will not overwrite Current Metadata upon completion.
+2026-05-25T12:05:47  Start replace of workspace: 30 into MDB: C:\Program Files (x86)\Camstar\InSite Administration\Medical Device\Target\Insite.mdb
+2026-05-25T12:06:33  Process 30 DBColumns to update PrecisionValue to a larger value (Ignore count: 38, Current WS Count: 0)
+2026-05-25T12:06:33  Column: ObjectInstanceId, New Precision: 30, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 14562, Name: ObjectInstanceId, Precision: 30, Workspace: 15
+2026-05-25T12:06:33  Column: ChangePackageName, New Precision: 30, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 14598, Name: ChangePackageName, Precision: 30, Workspace: 15
+2026-05-25T12:06:33  Column: ChangePackageName, New Precision: 30, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 14591, Name: ChangePackageName, Precision: 30, Workspace: 15
+2026-05-25T12:06:33  Column: ECOECN, New Precision: 30, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 14606, Name: ECOECN, Precision: 30, Workspace: 15
+2026-05-25T12:06:33  Column: ChangePackageName, New Precision: 30, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 14584, Name: ChangePackageName, Precision: 30, Workspace: 15
+2026-05-25T12:06:33  Column: ExportImportKey, New Precision: 36, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 16880, Name: ExportImportKey, Precision: 36, Workspace: 15
+2026-05-25T12:06:33  Column: Revision, New Precision: 15, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 14566, Name: Revision, Precision: 15, Workspace: 15
+2026-05-25T12:06:33  Column: ObjectTypeName, New Precision: 32, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 14565, Name: ObjectTypeName, Precision: 32, Workspace: 15
+2026-05-25T12:06:33  Column: ObjectName, New Precision: 255, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 14563, Name: ObjectName, Precision: 255, Workspace: 15
+2026-05-25T12:06:33  Column: Owner, New Precision: 36, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 14796, Name: Owner, Precision: 36, Workspace: 15
+2026-05-25T12:06:33  Column: ProcessingFolder, New Precision: 512, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 16538, Name: ProcessingFolder, Precision: 512, Workspace: 15
+2026-05-25T12:06:33  Column: EntryType, New Precision: 32, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 13674, Name: EntryType, Precision: 32, Workspace: 15
+2026-05-25T12:06:33  Column: Owner, New Precision: 36, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 14780, Name: Owner, Precision: 36, Workspace: 15
+2026-05-25T12:06:33  Column: ChangePackageName, New Precision: 30, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 14605, Name: ChangePackageName, Precision: 30, Workspace: 15
+2026-05-25T12:06:33  Column: EntryType, New Precision: 32, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 13787, Name: EntryType, Precision: 32, Workspace: 15
+2026-05-25T12:06:33  Column: ECOECN, New Precision: 30, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 14621, Name: ECOECN, Precision: 30, Workspace: 15
+2026-05-25T12:06:33  Column: ChangePackageName, New Precision: 30, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 14620, Name: ChangePackageName, Precision: 30, Workspace: 15
+2026-05-25T12:06:33  Column: ImportSetName, New Precision: 256, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 14816, Name: ImportSetName, Precision: 256, Workspace: 15
+2026-05-25T12:06:33  Column: ImportName, New Precision: 256, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 14817, Name: ImportName, Precision: 256, Workspace: 15
+2026-05-25T12:06:33  Column: LabelText, New Precision: 2000, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 13510, Name: LabelText, Precision: 2000, Workspace: 15
+2026-05-25T12:06:33  Column: HistViewDtlName, New Precision: 30, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 8285, Name: HistViewDtlName, Precision: 30, Workspace: 15
+2026-05-25T12:06:33  Column: ContainerMaterialListItemName, New Precision: 30, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 11839, Name: ContainerMaterialListItemName, Precision: 30, Workspace: 15
+2026-05-25T12:06:33  Column: BOMMaterialListItemName, New Precision: 30, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 11840, Name: BOMMaterialListItemName, Precision: 30, Workspace: 15
+2026-05-25T12:06:33  Column: MfgOrderMaterialListItemName, New Precision: 30, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 11845, Name: MfgOrderMaterialListItemName, Precision: 30, Workspace: 15
+2026-05-25T12:06:33  Column: ProductMaterialListItemName, New Precision: 30, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 11851, Name: ProductMaterialListItemName, Precision: 30, Workspace: 15
+2026-05-25T12:06:33  Column: EventName, New Precision: 30, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 10748, Name: EventName, Precision: 30, Workspace: 15
+2026-05-25T12:06:33  Column: UIVirtualPageName, New Precision: 255, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 11541, Name: UIVirtualPageName, Precision: 255, Workspace: 15
+2026-05-25T12:06:33  Column: BriefDescription, New Precision: 100, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 10751, Name: BriefDescription, Precision: 100, Workspace: 15
+2026-05-25T12:06:33  Column: SecurityUserName, New Precision: 30, Old Precision: 0, Workspace: 15, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 9569, Name: SecurityUserName, Precision: 30, Workspace: 15
+2026-05-25T12:06:33  Column: Identifier, New Precision: 1000, Old Precision: 512, Workspace: 10, Active Workspace: 200
+2026-05-25T12:06:33  Updated 0 records in table DBColumns for ColumnID: 2935, Name: Identifier, Precision: 1000, Workspace: 10
+2026-05-25T12:06:34  Synchronize persistent fields in 0 CDO's in Workspace 200
+2026-05-25T12:06:34  There were a total of 0 CDOs synchronized in 0 seconds.
+2026-05-25T12:06:34  Synchronize persistent fields in 9 CDO's in Workspace 30
+2026-05-25T12:06:34  There were a total of 0 CDOs synchronized in 0 seconds.
+2026-05-25T12:06:38  Completed replace of workspace: 30 into MDB: C:\Program Files (x86)\Camstar\InSite Administration\Medical Device\Target\Insite.mdb in 51 seconds

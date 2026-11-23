@@ -1,0 +1,89 @@
+/* colors */
+/* helpers */
+.mx-3d-indent {
+  display: flex;
+}
+.mx-3d-indent-unit {
+  display: inline-block;
+  width: 16px;
+}
+
+.mx-3d-uploader .mx-3d-form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+.mx-3d-uploader .form-control {
+  width: 100%;
+}
+.mx-3d-uploader-file-selector {
+  display: flex;
+  align-items: center;
+}
+.mx-3d-uploader-file-selector input {
+  display: none;
+  width: 0;
+}
+.mx-3d-uploader-file-selector > span {
+  margin-left: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mx-3d-uploader-status-container {
+  margin-left: 6px;
+  width: 100%;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.mx-3d-uploader-status-hint {
+  display: flex;
+  align-items: center;
+}
+.mx-3d-uploader-status-hint > div:nth-child(1) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
+}
+.mx-3d-uploader-progress-wrapper {
+  height: 2px;
+  background-color: #d8d8d8;
+  border-radius: 1px;
+  width: 100%;
+  position: relative;
+  margin-top: 4px;
+}
+.mx-3d-uploader .mx-3d-uploader-progress-value {
+  background-color: #264ae5;
+  border-radius: 1px;
+  height: 2px;
+  position: absolute;
+}
+.mx-3d-uploader-upload-btn-container {
+  padding-top: 8px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.mx-3d-uploader-upload-btn-container span {
+  width: 18px;
+  height: 18px;
+  background-size: cover;
+  margin-left: 8px;
+}
+.mx-3d-uploader-error-msg-container {
+  margin-left: 6px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.mx-3d-uploader-error-msg-container > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+}

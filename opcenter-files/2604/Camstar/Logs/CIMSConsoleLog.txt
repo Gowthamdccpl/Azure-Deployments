@@ -1,0 +1,367 @@
+2025-12-30T04:52:12  CIMS Console Running ...
+2025-12-30T04:52:12  Parsing command line ...
+2025-12-30T04:52:12  Command Line:   /dbupdate -ums -fds -csp -ci -cop -lco -ral
+2025-12-30T04:52:12  DBReset: True, Load Initial: False, Force Update: True, Load Portal: True, Reload Portal: False, Create Procs: True, Create Indexex: True
+2025-12-30T04:52:12  Validating input ...
+2025-12-30T04:52:12  MDB (parameter): C:\Program Files (x86)\Camstar\InSite Administration\InSite.mdb
+2025-12-30T04:52:12  MDB (full path): C:\Program Files (x86)\Camstar\InSite Administration\InSite.mdb
+2025-12-30T04:52:12  SiteMDB (parameter): C:\Program Files (x86)\Camstar\InSite Administration\SiteInfo.mdb
+2025-12-30T04:52:12  SiteMDB (full path): C:\Program Files (x86)\Camstar\InSite Administration\SiteInfo.mdb
+2025-12-30T04:52:12  Loading configuration ...
+2025-12-30T04:52:12  LoadConfiguration() ...
+2025-12-30T04:52:12  Retrieve SiteID from MDB file: C:\Program Files (x86)\Camstar\InSite Administration\SiteInfo.mdb
+2025-12-30T04:52:12  Failed to find Environment Variable: OPCORE_DBID_SITENAME
+2025-12-30T04:52:12  SiteId = Dev
+2025-12-30T04:52:12  Loading configuration from IMS config file: C:\Program Files (x86)\Camstar\InSite Administration\Config.ims
+2025-12-30T04:52:13  Failed to find Environment Variable: OPCORE_ODS_PRESENT
+2025-12-30T04:52:13  Failed to find Environment Variable: OPCORE_DBID_TOTALNUMOFSITES
+2025-12-30T04:52:13  Failed to find Environment Variable: OPCORE_DBID_WARNINGTHRESHOLD
+2025-12-30T04:52:13  Failed to find Environment Variable: OPCORE_DBID_SITEIDENTIFIER
+2025-12-30T04:52:13  DataStorePresent: False
+2025-12-30T04:52:13  DBIDSiteName = Dev
+2025-12-30T04:52:13  DataStorePresent = False
+2025-12-30T04:52:13  DBIDTotalNumOfSites = 1
+2025-12-30T04:52:13  DBIDWarningThreshold = 500000
+2025-12-30T04:52:13  DBIDSiteIdentifier = 1
+2025-12-30T04:52:13  LoadConfiguration() complete.
+2025-12-30T04:52:13  InitializeDatabaseConnections ...
+2025-12-30T04:52:13  Compiling MDB C:\Program Files (x86)\Camstar\InSite Administration\InSite.mdb...
+2025-12-30T04:52:20  Compile MDB complete. New path: C:\Program Files (x86)\Camstar\InSite Administration\InSite_Compiled.mdb
+2025-12-30T04:52:20  Running DB Update for MDB: C:\Program Files (x86)\Camstar\InSite Administration\InSite_Compiled.mdb
+2025-12-30T04:53:34  Running PostDBReset Database Scripts (OLTP)...
+2025-12-30T04:53:34  SQL File:  CreateSystemViews.sql
+2025-12-30T04:53:34  Start executing 6 SQL commands for PostDBReset
+2025-12-30T04:53:34  PostDBReset Database Scripts completed successfully.
+2025-12-30T04:53:34  DB Update complete.
+2025-12-30T04:53:47  Running InstallProcedures Database Scripts (OLTP)...
+2025-12-30T04:53:47  SQL File:  csiBigInttoHex.sql
+2025-12-30T04:53:47  SQL File:  csiHextoDec.sql
+2025-12-30T04:53:47  SQL File:  csiIncrementString64.sql
+2025-12-30T04:53:47  SQL File:  csiReturnTransactionID.sql
+2025-12-30T04:53:47  SQL File:  csiUpdateInstanceID.sql
+2025-12-30T04:53:47  SQL File:  csiGetMaxTxnId.sql
+2025-12-30T04:53:47  SQL File:  csiValidateMaxTxnId.sql
+2025-12-30T04:53:47  SQL File:  csiSetNextTxnId.sql
+2025-12-30T04:53:47  SQL File:  csiresettxnid.sql
+2025-12-30T04:53:47  SQL File:  csiGenTableDDL.sql
+2025-12-30T04:53:47  SQL File:  csiGenStageDDL.sql
+2025-12-30T04:53:47  SQL File:  csiBCPStageTables.sql
+2025-12-30T04:53:47  SQL File:  csiCreateIndexes.sql
+2025-12-30T04:53:47  SQL File:  csiGetPKColumns.sql
+2025-12-30T04:53:47  SQL File:  csiGenStageDDL.sql
+2025-12-30T04:53:47  SQL File:  csiGetColumnList.sql
+2025-12-30T04:53:47  SQL File:  csiCopyTable.sql
+2025-12-30T04:53:47  SQL File:  csiGetDerivedCDOs.sql
+2025-12-30T04:53:47  SQL File:  csiBOMExplosion.sql
+2025-12-30T04:53:47  SQL File:  csiAuthRetrieveUserPermissions.sql
+2025-12-30T04:53:47  SQL File:  csiAuthRetrieveUserRoles.sql
+2025-12-30T04:53:47  SQL File:  csiEmailPurgeQueue.sql
+2025-12-30T04:53:47  SQL File:  UserAccessRolesFunctions.sql
+2025-12-30T04:53:47  SQL File:  csiIDControl.sql
+2025-12-30T04:53:47  SQL File:  csiGetAdjustedTime.sql
+2025-12-30T04:53:47  SQL File:  QualityFunctions.sql
+2025-12-30T04:53:47  SQL File:  csiQualityObjectInquiry.sql
+2025-12-30T04:53:47  SQL File:  CommonFunctions.sql
+2025-12-30T04:53:47  SQL File:  csiSummaryTablesProcs.sql
+2025-12-30T04:53:47  SQL File:  csiGetIssuedHierarchy.sql
+2025-12-30T04:53:47  SQL File:  DimTimeTableAndStoredProc.sql
+2025-12-30T04:53:47  SQL File:  csiFilterTagMatch.sql
+2025-12-30T04:53:47  SQL File:  DBCLFFunctions.sql
+2025-12-30T04:53:47  SQL File:  PopulateExternalPermissionData.sql
+2025-12-30T04:53:47  SQL File:  PopulateReleaseUpdateData.sql
+2025-12-30T04:53:47  Start executing 225 SQL commands for InstallProcedures
+2025-12-30T04:53:49  InstallProcedures Database Scripts completed successfully.
+2025-12-30T04:53:49  Running CreateIndices Database Scripts (OLTP)...
+2025-12-30T04:53:49  SQL File:  CallCreateIndexes.sql
+2025-12-30T04:53:49  Start executing 1 SQL commands for CreateIndices
+2025-12-30T04:53:50  CreateIndices Database Scripts completed successfully.
+2025-12-30T04:53:50  Running CleanUpOrphanedPermissions Database Scripts (OLTP)...
+2025-12-30T04:53:50  SQL File:  CleanupOrphanedPermissions.sql
+2025-12-30T04:53:50  Start executing 4 SQL commands for CleanUpOrphanedPermissions
+2025-12-30T04:53:50  CleanUpOrphanedPermissions Database Scripts completed successfully.
+2025-12-30T04:53:50  Loading Portal Objects from C:\Program Files (x86)\Camstar\InSite Administration\Portal Data ...
+2025-12-30T04:54:05  Load Portal Objects complete.
+2025-12-30T04:54:05  Running UpdatePortalDefaultData Database Scripts (OLTP)...
+2025-12-30T04:54:05  SQL File:  PopulatePortalMenuUpdateData.sql
+2025-12-30T04:54:05  Start executing 31 SQL commands for UpdatePortalDefaultData
+2025-12-30T04:54:06  UpdatePortalDefaultData Database Scripts completed successfully.
+2025-12-30T04:54:06  CIMS Console complete.
+2025-12-30T04:54:06  
+2025-12-30T04:54:08  CIMS Console Running ...
+2025-12-30T04:54:08  Parsing command line ...
+2025-12-30T04:54:08  Command Line:   /dbupdate -ums -gws -ssl -lco
+2025-12-30T04:54:08  DBReset: True, Load Initial: False, Force Update: False, Load Portal: True, Reload Portal: False, Create Procs: False, Create Indexex: False
+2025-12-30T04:54:08  Validating input ...
+2025-12-30T04:54:08  MDB (parameter): C:\Program Files (x86)\Camstar\InSite Administration\InSite.mdb
+2025-12-30T04:54:08  MDB (full path): C:\Program Files (x86)\Camstar\InSite Administration\InSite.mdb
+2025-12-30T04:54:08  SiteMDB (parameter): C:\Program Files (x86)\Camstar\InSite Administration\SiteInfo.mdb
+2025-12-30T04:54:08  SiteMDB (full path): C:\Program Files (x86)\Camstar\InSite Administration\SiteInfo.mdb
+2025-12-30T04:54:08  Loading configuration ...
+2025-12-30T04:54:08  LoadConfiguration() ...
+2025-12-30T04:54:08  Retrieve SiteID from MDB file: C:\Program Files (x86)\Camstar\InSite Administration\SiteInfo.mdb
+2025-12-30T04:54:08  Failed to find Environment Variable: OPCORE_DBID_SITENAME
+2025-12-30T04:54:08  SiteId = Dev
+2025-12-30T04:54:08  Loading configuration from IMS config file: C:\Program Files (x86)\Camstar\InSite Administration\Config.ims
+2025-12-30T04:54:09  Failed to find Environment Variable: OPCORE_ODS_PRESENT
+2025-12-30T04:54:09  Failed to find Environment Variable: OPCORE_DBID_TOTALNUMOFSITES
+2025-12-30T04:54:09  Failed to find Environment Variable: OPCORE_DBID_WARNINGTHRESHOLD
+2025-12-30T04:54:09  Failed to find Environment Variable: OPCORE_DBID_SITEIDENTIFIER
+2025-12-30T04:54:09  DataStorePresent: False
+2025-12-30T04:54:09  DBIDSiteName = Dev
+2025-12-30T04:54:09  DataStorePresent = False
+2025-12-30T04:54:09  DBIDTotalNumOfSites = 1
+2025-12-30T04:54:09  DBIDWarningThreshold = 500000
+2025-12-30T04:54:09  DBIDSiteIdentifier = 1
+2025-12-30T04:54:09  LoadConfiguration() complete.
+2025-12-30T04:54:09  InitializeDatabaseConnections ...
+2025-12-30T04:54:09  Compiling MDB C:\Program Files (x86)\Camstar\InSite Administration\InSite.mdb...
+2025-12-30T04:54:20  Compile MDB complete. New path: C:\Program Files (x86)\Camstar\InSite Administration\Compiled.mdb
+2025-12-30T04:54:20  Running DB Update for MDB: C:\Program Files (x86)\Camstar\InSite Administration\Compiled.mdb
+2025-12-30T04:54:30  Running PostDBReset Database Scripts (OLTP)...
+2025-12-30T04:54:30  SQL File:  CreateSystemViews.sql
+2025-12-30T04:54:30  Start executing 6 SQL commands for PostDBReset
+2025-12-30T04:54:30  PostDBReset Database Scripts completed successfully.
+2025-12-30T04:54:30  DB Update complete.
+2025-12-30T04:54:42  Loading Portal Objects from C:\Program Files (x86)\Camstar\InSite Administration\Portal Data ...
+2025-12-30T04:54:53  Load Portal Objects complete.
+2025-12-30T04:54:53  Running UpdatePortalDefaultData Database Scripts (OLTP)...
+2025-12-30T04:54:53  SQL File:  PopulatePortalMenuUpdateData.sql
+2025-12-30T04:54:53  Start executing 31 SQL commands for UpdatePortalDefaultData
+2025-12-30T04:54:54  UpdatePortalDefaultData Database Scripts completed successfully.
+2025-12-30T04:54:54  Generate WCF Services...
+2025-12-30T04:54:54  Calling WCF Service Generator batch file...
+2025-12-30T04:54:54  Executing batch file: WCFServicesGenerator\GenerateCamstarWCFServices.bat 
+2025-12-30T04:57:45  WCF Service Generator batch file complete.
+2025-12-30T04:57:45  CIMS Console complete.
+2025-12-30T04:57:45  
+2026-02-27T06:57:57  CIMS Console Running ...
+2026-02-27T06:57:57  Parsing command line ...
+2026-02-27T06:57:57  Command Line:   /dbupdate -ums -fds -csp -ci -cop -lco -ral
+2026-02-27T06:57:57  DBReset: True, Load Initial: False, Force Update: True, Load Portal: True, Reload Portal: False, Create Procs: True, Create Indexex: True
+2026-02-27T06:57:57  Validating input ...
+2026-02-27T06:57:57  MDB (parameter): C:\Program Files (x86)\Camstar\InSite Administration\InSite.mdb
+2026-02-27T06:57:57  MDB (full path): C:\Program Files (x86)\Camstar\InSite Administration\InSite.mdb
+2026-02-27T06:57:57  SiteMDB (parameter): C:\Program Files (x86)\Camstar\InSite Administration\SiteInfo.mdb
+2026-02-27T06:57:57  SiteMDB (full path): C:\Program Files (x86)\Camstar\InSite Administration\SiteInfo.mdb
+2026-02-27T06:57:57  Loading configuration ...
+2026-02-27T06:57:57  LoadConfiguration() ...
+2026-02-27T06:57:57  Retrieve SiteID from MDB file: C:\Program Files (x86)\Camstar\InSite Administration\SiteInfo.mdb
+2026-02-27T06:57:57  Failed to find Environment Variable: OPCORE_DBID_SITENAME
+2026-02-27T06:57:57  SiteId = Dev
+2026-02-27T06:57:58  Loading configuration from IMS config file: C:\Program Files (x86)\Camstar\InSite Administration\Config.ims
+2026-02-27T06:57:58  Failed to find Environment Variable: OPCORE_ODS_PRESENT
+2026-02-27T06:57:58  Failed to find Environment Variable: OPCORE_DBID_TOTALNUMOFSITES
+2026-02-27T06:57:58  Failed to find Environment Variable: OPCORE_DBID_WARNINGTHRESHOLD
+2026-02-27T06:57:58  Failed to find Environment Variable: OPCORE_DBID_SITEIDENTIFIER
+2026-02-27T06:57:58  DBIDSiteName = Dev
+2026-02-27T06:57:58  DataStorePresent = False
+2026-02-27T06:57:58  DBIDTotalNumOfSites = 1
+2026-02-27T06:57:58  DBIDWarningThreshold = 500000
+2026-02-27T06:57:58  DBIDSiteIdentifier = 1
+2026-02-27T06:57:58  LoadConfiguration() complete.
+2026-02-27T06:57:58  InitializeDatabaseConnections ...
+2026-02-27T06:57:58  Compiling MDB C:\Program Files (x86)\Camstar\InSite Administration\InSite.mdb...
+2026-02-27T06:58:05  Compile MDB complete. New path: C:\Program Files (x86)\Camstar\InSite Administration\InSite_Compiled.mdb
+2026-02-27T06:58:05  Running DB Update for MDB: C:\Program Files (x86)\Camstar\InSite Administration\InSite_Compiled.mdb
+2026-02-27T06:59:52  Running PostDBReset Database Scripts (OLTP)...
+2026-02-27T06:59:52  SQL File:  CreateSystemViews.sql
+2026-02-27T06:59:52  Start executing 6 SQL commands for PostDBReset
+2026-02-27T06:59:53  PostDBReset Database Scripts completed successfully.
+2026-02-27T06:59:53  DB Update complete.
+2026-02-27T06:59:53  Running InstallProcedures Database Scripts (OLTP)...
+2026-02-27T06:59:53  SQL File:  csiBigInttoHex.sql
+2026-02-27T06:59:53  SQL File:  csiHextoDec.sql
+2026-02-27T06:59:53  SQL File:  csiIncrementString64.sql
+2026-02-27T06:59:53  SQL File:  csiReturnTransactionID.sql
+2026-02-27T06:59:53  SQL File:  csiUpdateInstanceID.sql
+2026-02-27T06:59:53  SQL File:  csiGetMaxTxnId.sql
+2026-02-27T06:59:53  SQL File:  csiValidateMaxTxnId.sql
+2026-02-27T06:59:53  SQL File:  csiSetNextTxnId.sql
+2026-02-27T06:59:53  SQL File:  csiresettxnid.sql
+2026-02-27T06:59:53  SQL File:  csiGenTableDDL.sql
+2026-02-27T06:59:53  SQL File:  csiGenStageDDL.sql
+2026-02-27T06:59:53  SQL File:  csiBCPStageTables.sql
+2026-02-27T06:59:53  SQL File:  csiCreateIndexes.sql
+2026-02-27T06:59:53  SQL File:  csiGetPKColumns.sql
+2026-02-27T06:59:53  SQL File:  csiGenStageDDL.sql
+2026-02-27T06:59:53  SQL File:  csiGetColumnList.sql
+2026-02-27T06:59:53  SQL File:  csiCopyTable.sql
+2026-02-27T06:59:53  SQL File:  csiGetDerivedCDOs.sql
+2026-02-27T06:59:53  SQL File:  csiBOMExplosion.sql
+2026-02-27T06:59:53  SQL File:  csiAuthRetrieveUserPermissions.sql
+2026-02-27T06:59:53  SQL File:  csiAuthRetrieveUserRoles.sql
+2026-02-27T06:59:53  SQL File:  csiEmailPurgeQueue.sql
+2026-02-27T06:59:53  SQL File:  UserAccessRolesFunctions.sql
+2026-02-27T06:59:53  SQL File:  csiIDControl.sql
+2026-02-27T06:59:53  SQL File:  csiGetAdjustedTime.sql
+2026-02-27T06:59:53  SQL File:  QualityFunctions.sql
+2026-02-27T06:59:53  SQL File:  csiQualityObjectInquiry.sql
+2026-02-27T06:59:53  SQL File:  CommonFunctions.sql
+2026-02-27T06:59:53  SQL File:  csiSummaryTablesProcs.sql
+2026-02-27T06:59:53  SQL File:  csiGetIssuedHierarchy.sql
+2026-02-27T06:59:53  SQL File:  DimTimeTableAndStoredProc.sql
+2026-02-27T06:59:53  SQL File:  csiFilterTagMatch.sql
+2026-02-27T06:59:53  SQL File:  DBCLFFunctions.sql
+2026-02-27T06:59:53  SQL File:  PopulateExternalPermissionData.sql
+2026-02-27T06:59:53  SQL File:  PopulateReleaseUpdateData.sql
+2026-02-27T06:59:53  Start executing 227 SQL commands for InstallProcedures
+2026-02-27T06:59:56  InstallProcedures Database Scripts completed successfully.
+2026-02-27T06:59:56  Running CreateIndices Database Scripts (OLTP)...
+2026-02-27T06:59:56  SQL File:  CallCreateIndexes.sql
+2026-02-27T06:59:56  Start executing 1 SQL commands for CreateIndices
+2026-02-27T06:59:57  CreateIndices Database Scripts completed successfully.
+2026-02-27T06:59:57  Running CleanUpOrphanedPermissions Database Scripts (OLTP)...
+2026-02-27T06:59:57  SQL File:  CleanupOrphanedPermissions.sql
+2026-02-27T06:59:57  Start executing 4 SQL commands for CleanUpOrphanedPermissions
+2026-02-27T06:59:57  CleanUpOrphanedPermissions Database Scripts completed successfully.
+2026-02-27T06:59:57  Loading Portal Objects from C:\Program Files (x86)\Camstar\InSite Administration\Portal Data ...
+2026-02-27T07:00:14  Load Portal Objects complete.
+2026-02-27T07:00:14  Running UpdatePortalDefaultData Database Scripts (OLTP)...
+2026-02-27T07:00:14  SQL File:  PopulatePortalMenuUpdateData.sql
+2026-02-27T07:00:14  Start executing 31 SQL commands for UpdatePortalDefaultData
+2026-02-27T07:00:14  UpdatePortalDefaultData Database Scripts completed successfully.
+2026-02-27T07:00:14  CIMS Console complete.
+2026-02-27T07:00:14  
+2026-02-27T07:00:17  CIMS Console Running ...
+2026-02-27T07:00:17  Parsing command line ...
+2026-02-27T07:00:17  Command Line:   /dbupdate -ums -gws -ssl -lco
+2026-02-27T07:00:17  DBReset: True, Load Initial: False, Force Update: False, Load Portal: True, Reload Portal: False, Create Procs: False, Create Indexex: False
+2026-02-27T07:00:17  Validating input ...
+2026-02-27T07:00:17  MDB (parameter): C:\Program Files (x86)\Camstar\InSite Administration\InSite.mdb
+2026-02-27T07:00:17  MDB (full path): C:\Program Files (x86)\Camstar\InSite Administration\InSite.mdb
+2026-02-27T07:00:17  SiteMDB (parameter): C:\Program Files (x86)\Camstar\InSite Administration\SiteInfo.mdb
+2026-02-27T07:00:17  SiteMDB (full path): C:\Program Files (x86)\Camstar\InSite Administration\SiteInfo.mdb
+2026-02-27T07:00:17  Loading configuration ...
+2026-02-27T07:00:17  LoadConfiguration() ...
+2026-02-27T07:00:17  Retrieve SiteID from MDB file: C:\Program Files (x86)\Camstar\InSite Administration\SiteInfo.mdb
+2026-02-27T07:00:17  Failed to find Environment Variable: OPCORE_DBID_SITENAME
+2026-02-27T07:00:17  SiteId = Dev
+2026-02-27T07:00:17  Loading configuration from IMS config file: C:\Program Files (x86)\Camstar\InSite Administration\Config.ims
+2026-02-27T07:00:17  Failed to find Environment Variable: OPCORE_ODS_PRESENT
+2026-02-27T07:00:17  Failed to find Environment Variable: OPCORE_DBID_TOTALNUMOFSITES
+2026-02-27T07:00:17  Failed to find Environment Variable: OPCORE_DBID_WARNINGTHRESHOLD
+2026-02-27T07:00:17  Failed to find Environment Variable: OPCORE_DBID_SITEIDENTIFIER
+2026-02-27T07:00:17  DBIDSiteName = Dev
+2026-02-27T07:00:17  DataStorePresent = False
+2026-02-27T07:00:17  DBIDTotalNumOfSites = 1
+2026-02-27T07:00:17  DBIDWarningThreshold = 500000
+2026-02-27T07:00:17  DBIDSiteIdentifier = 1
+2026-02-27T07:00:17  LoadConfiguration() complete.
+2026-02-27T07:00:18  InitializeDatabaseConnections ...
+2026-02-27T07:00:18  Compiling MDB C:\Program Files (x86)\Camstar\InSite Administration\InSite.mdb...
+2026-02-27T07:00:30  Compile MDB complete. New path: C:\Program Files (x86)\Camstar\InSite Administration\InSite_Compiled.mdb
+2026-02-27T07:00:30  Running DB Update for MDB: C:\Program Files (x86)\Camstar\InSite Administration\InSite_Compiled.mdb
+2026-02-27T07:00:36  Running PostDBReset Database Scripts (OLTP)...
+2026-02-27T07:00:36  SQL File:  CreateSystemViews.sql
+2026-02-27T07:00:36  Start executing 6 SQL commands for PostDBReset
+2026-02-27T07:00:36  PostDBReset Database Scripts completed successfully.
+2026-02-27T07:00:36  DB Update complete.
+2026-02-27T07:00:36  Loading Portal Objects from C:\Program Files (x86)\Camstar\InSite Administration\Portal Data ...
+2026-02-27T07:00:48  Load Portal Objects complete.
+2026-02-27T07:00:48  Running UpdatePortalDefaultData Database Scripts (OLTP)...
+2026-02-27T07:00:48  SQL File:  PopulatePortalMenuUpdateData.sql
+2026-02-27T07:00:48  Start executing 31 SQL commands for UpdatePortalDefaultData
+2026-02-27T07:00:48  UpdatePortalDefaultData Database Scripts completed successfully.
+2026-02-27T07:00:48  Generate WCF Services...
+2026-02-27T07:00:48  Calling WCF Service Generator batch file...
+2026-02-27T07:00:48  Executing batch file: WCFServicesGenerator\GenerateCamstarWCFServices.bat 
+2026-02-27T07:03:43  WCF Service Generator batch file complete.
+2026-02-27T07:03:43  CIMS Console complete.
+2026-02-27T07:03:43  
+2026-04-28T11:08:35  CIMS Console Running ...
+2026-04-28T11:08:35  Parsing command line ...
+2026-04-28T11:08:35  Command Line:   /dbupdate -mdb C:\Amogh\MDB 280422026\Base MDB\InSite.mdb -sitemdb C:\Program Files (x86)\Camstar\InSite Administration\SiteInfo.mdb -ums
+2026-04-28T11:08:35  DBReset: True, Load Initial: False, Force Update: False, Load Portal: False, Reload Portal: False, Create Procs: False, Create Indexex: False
+2026-04-28T11:08:35  Validating input ...
+2026-04-28T11:08:35  MDB (parameter): C:\Amogh\MDB 280422026\Base MDB\InSite.mdb
+2026-04-28T11:08:35  MDB (full path): C:\Amogh\MDB 280422026\Base MDB\InSite.mdb
+2026-04-28T11:08:35  SiteMDB (parameter): C:\Program Files (x86)\Camstar\InSite Administration\SiteInfo.mdb
+2026-04-28T11:08:35  SiteMDB (full path): C:\Program Files (x86)\Camstar\InSite Administration\SiteInfo.mdb
+2026-04-28T11:08:35  Loading configuration ...
+2026-04-28T11:08:35  LoadConfiguration() ...
+2026-04-28T11:08:35  Retrieve SiteID from MDB file: C:\Program Files (x86)\Camstar\InSite Administration\SiteInfo.mdb
+2026-04-28T11:08:35  Failed to find Environment Variable: OPCORE_DBID_SITENAME
+2026-04-28T11:08:35  SiteId = Dev
+2026-04-28T11:08:35  Loading configuration from IMS config file: C:\Program Files (x86)\Camstar\InSite Administration\Config.ims
+2026-04-28T11:08:35  Failed to find Environment Variable: OPCORE_ODS_PRESENT
+2026-04-28T11:08:35  Failed to find Environment Variable: OPCORE_DBID_TOTALNUMOFSITES
+2026-04-28T11:08:35  Failed to find Environment Variable: OPCORE_DBID_WARNINGTHRESHOLD
+2026-04-28T11:08:35  Failed to find Environment Variable: OPCORE_DBID_SITEIDENTIFIER
+2026-04-28T11:08:35  DBIDSiteName = Dev
+2026-04-28T11:08:35  DataStorePresent = False
+2026-04-28T11:08:35  DBIDTotalNumOfSites = 1
+2026-04-28T11:08:35  DBIDWarningThreshold = 500000
+2026-04-28T11:08:35  DBIDSiteIdentifier = 1
+2026-04-28T11:08:35  LoadConfiguration() complete.
+2026-04-28T11:08:35  InitializeDatabaseConnections ...
+2026-04-28T11:08:35  Compiling MDB C:\Amogh\MDB 280422026\Base MDB\InSite.mdb...
+2026-04-28T11:08:43  Compile MDB complete. New path: C:\Amogh\MDB 280422026\Base MDB\InSite_Compiled.mdb
+2026-04-28T11:08:43  Running DB Update for MDB: C:\Amogh\MDB 280422026\Base MDB\InSite_Compiled.mdb
+2026-04-28T11:08:51  Running PostDBReset Database Scripts (OLTP)...
+2026-04-28T11:08:51  SQL File:  CreateSystemViews.sql
+2026-04-28T11:08:51  Start executing 6 SQL commands for PostDBReset
+2026-04-28T11:08:51  PostDBReset Database Scripts completed successfully.
+2026-04-28T11:08:51  DB Update complete.
+2026-04-28T11:08:51  CIMS Console complete.
+2026-04-28T11:08:51  
+2026-05-25T12:06:43  CIMS Console Running ...
+2026-05-25T12:06:43  Parsing command line ...
+2026-05-25T12:06:43  Command Line:   /dbupdate -ums -fds -csp -ci -cop -lco -ral
+2026-05-25T12:06:43  DBReset: True, Load Initial: False, Force Update: True, Load Portal: True, Reload Portal: False, Create Procs: True, Create Indexex: True
+2026-05-25T12:06:43  Validating input ...
+2026-05-25T12:06:43  MDB (parameter): C:\Program Files (x86)\Camstar\InSite Administration\InSite.mdb
+2026-05-25T12:06:43  MDB (full path): C:\Program Files (x86)\Camstar\InSite Administration\InSite.mdb
+2026-05-25T12:06:43  SiteMDB (parameter): C:\Program Files (x86)\Camstar\InSite Administration\SiteInfo.mdb
+2026-05-25T12:06:43  SiteMDB (full path): C:\Program Files (x86)\Camstar\InSite Administration\SiteInfo.mdb
+2026-05-25T12:06:43  Loading configuration ...
+2026-05-25T12:06:43  LoadConfiguration() ...
+2026-05-25T12:06:43  Retrieve SiteID from MDB file: C:\Program Files (x86)\Camstar\InSite Administration\SiteInfo.mdb
+2026-05-25T12:06:43  Failed to find Environment Variable: OPCORE_DBID_SITENAME
+2026-05-25T12:06:43  SiteId = Dev
+2026-05-25T12:06:45  Loading configuration from IMS config file: C:\Program Files (x86)\Camstar\InSite Administration\Config.ims
+2026-05-25T12:06:45  Failed to find Environment Variable: OPCORE_ODS_PRESENT
+2026-05-25T12:06:45  Failed to find Environment Variable: OPCORE_DBID_TOTALNUMOFSITES
+2026-05-25T12:06:45  Failed to find Environment Variable: OPCORE_DBID_WARNINGTHRESHOLD
+2026-05-25T12:06:45  Failed to find Environment Variable: OPCORE_DBID_SITEIDENTIFIER
+2026-05-25T12:06:45  DBIDSiteName = Dev
+2026-05-25T12:06:45  DataStorePresent = False
+2026-05-25T12:06:45  DBIDTotalNumOfSites = 1
+2026-05-25T12:06:45  DBIDWarningThreshold = 500000
+2026-05-25T12:06:45  DBIDSiteIdentifier = 1
+2026-05-25T12:06:45  LoadConfiguration() complete.
+2026-05-25T12:06:45  InitializeDatabaseConnections ...
+2026-05-25T12:06:45  Compiling MDB C:\Program Files (x86)\Camstar\InSite Administration\InSite.mdb...
+2026-05-25T12:06:52  Compile MDB complete. New path: C:\Program Files (x86)\Camstar\InSite Administration\InSite_Compiled.mdb
+2026-05-25T12:06:52  Running DB Update for MDB: C:\Program Files (x86)\Camstar\InSite Administration\InSite_Compiled.mdb
+2026-05-25T12:07:15  CIMS Console Running ...
+2026-05-25T12:07:15  Parsing command line ...
+2026-05-25T12:07:15  Command Line:   /dbupdate -ums -gws -ssl -lco
+2026-05-25T12:07:15  DBReset: True, Load Initial: False, Force Update: False, Load Portal: True, Reload Portal: False, Create Procs: False, Create Indexex: False
+2026-05-25T12:07:15  Validating input ...
+2026-05-25T12:07:15  MDB (parameter): C:\Program Files (x86)\Camstar\InSite Administration\InSite.mdb
+2026-05-25T12:07:15  MDB (full path): C:\Program Files (x86)\Camstar\InSite Administration\InSite.mdb
+2026-05-25T12:07:15  SiteMDB (parameter): C:\Program Files (x86)\Camstar\InSite Administration\SiteInfo.mdb
+2026-05-25T12:07:15  SiteMDB (full path): C:\Program Files (x86)\Camstar\InSite Administration\SiteInfo.mdb
+2026-05-25T12:07:15  Loading configuration ...
+2026-05-25T12:07:15  LoadConfiguration() ...
+2026-05-25T12:07:15  Retrieve SiteID from MDB file: C:\Program Files (x86)\Camstar\InSite Administration\SiteInfo.mdb
+2026-05-25T12:07:15  Failed to find Environment Variable: OPCORE_DBID_SITENAME
+2026-05-25T12:07:15  SiteId = Dev
+2026-05-25T12:07:15  Loading configuration from IMS config file: C:\Program Files (x86)\Camstar\InSite Administration\Config.ims
+2026-05-25T12:07:16  Failed to find Environment Variable: OPCORE_ODS_PRESENT
+2026-05-25T12:07:16  Failed to find Environment Variable: OPCORE_DBID_TOTALNUMOFSITES
+2026-05-25T12:07:16  Failed to find Environment Variable: OPCORE_DBID_WARNINGTHRESHOLD
+2026-05-25T12:07:16  Failed to find Environment Variable: OPCORE_DBID_SITEIDENTIFIER
+2026-05-25T12:07:16  DBIDSiteName = Dev
+2026-05-25T12:07:16  DataStorePresent = False
+2026-05-25T12:07:16  DBIDTotalNumOfSites = 1
+2026-05-25T12:07:16  DBIDWarningThreshold = 500000
+2026-05-25T12:07:16  DBIDSiteIdentifier = 1
+2026-05-25T12:07:16  LoadConfiguration() complete.
+2026-05-25T12:07:16  InitializeDatabaseConnections ...
+2026-05-25T12:07:16  Compiling MDB C:\Program Files (x86)\Camstar\InSite Administration\InSite.mdb...
+2026-05-25T12:07:28  Compile MDB complete. New path: C:\Program Files (x86)\Camstar\InSite Administration\InSite_Compiled.mdb
+2026-05-25T12:07:28  Running DB Update for MDB: C:\Program Files (x86)\Camstar\InSite Administration\InSite_Compiled.mdb
+2026-05-25T12:07:28  DB Update complete.
+2026-05-25T12:07:28  CIMS Console complete.
+2026-05-25T12:07:28  

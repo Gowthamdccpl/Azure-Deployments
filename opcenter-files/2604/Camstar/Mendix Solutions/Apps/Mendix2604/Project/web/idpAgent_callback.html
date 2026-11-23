@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Logging you in…</title>
+</head>
+<body>
+<p>Logging you in, please wait...</p>
+
+<script>
+(async function() {
+    try {
+        // ----------------------------
+        // STEP 1 — Rebuild the Token
+        // ----------------------------
+        // Browser erases POST body when loading HTML. 
+        // So we must retrieve the token from:
+        //  - URL query: ?Token=...
+        //  - OR URL fragment: #Token=...
+        //  - OR IDP preset fields (depends on provider)
+        // ----------------------------
+
+        let params = new URLSearchParams(window.location.search);
+
+        // If empty, try hash fragment (common for OAuth-style flows)
+        if (![...params].length) {
+            params = new URLSearchParams(window.location.hash.slice(1));
+        }
+
+        if (![...params].length) {
+            document.body.innerHTML = "<p>No SSO token received.</p>";
+            return;
+        }
+
+        console.log("Rebuilt parameters:", [...params]);
+
+        // ----------------------------
+        // STEP 2 — POST to Mendix REST Service
+        // ----------------------------
+        const response = await fetch("/v1/callback/core-idp-agent", {
+            method: "POST",
+            headers: { 
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: params.toString()
+        });
+
+        if (!response.ok) {
+            throw new Error("Mendix SSO endpoint returned error " + response.status);
+        }
+
+        // ----------------------------
+        // STEP 3 — Read JSON response
+        // ----------------------------
+        const result = await response.json();
+        console.log("Mendix response:", result);
+
+        const redirectUrl = result.redirect || "/index.html";
+
+        // Small delay so user sees "logging you in"
+        await new Promise(r => setTimeout(r, 500));
+
+        // ----------------------------
+        // STEP 4 — Redirect the browser
+        // ----------------------------
+        window.location.replace(redirectUrl);
+
+    } catch (e) {
+        console.error(e);
+        document.body.innerHTML = "<p>SSO Login Failed.<br>" + e.message + "</p>";
+    }
+})();
+</script>
+
+</body>
+</html>

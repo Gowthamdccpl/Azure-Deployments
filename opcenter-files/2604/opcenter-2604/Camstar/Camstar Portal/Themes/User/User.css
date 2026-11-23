@@ -1,0 +1,22 @@
+/*
+***************************************************************************
+Copyright Siemens 2025  
+This file should include all user-defined CSS classes. 
+Classes defined in this file will over-ride any classes of the
+same name written in any of the Camstar supplied CSS files.
+***************************************************************************
+*/
+
+/*Maintenance Management Formatting*/
+#ctl00_WebPartManager_MaintMgmtSearchResultsWP_GetMaintenanceStatuses_StatusDetails .ui-state-hover {
+    background: linear-gradient(45deg, #daecf0, transparent);
+}
+
+#ctl00_WebPartManager_MaintMgmtSearchResultsWP_GetMaintenanceStatuses_StatusDetails .ui-state-highlight {
+    background: linear-gradient(45deg, #d0e4ec, #d0e4ec);
+}
+
+.custom-status-messagetest {
+    font-size: 14px !important;
+}
+/*Maintenance Management Formatting*/

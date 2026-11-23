@@ -1,0 +1,8761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	
+	<meta charset="utf-8">
+	<title>JSDoc: ControlChart</title>
+
+	<script src="scripts/prettify/prettify.js"></script>
+	<script src="scripts/prettify/lang-css.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<!--[if lt IE 9]>
+	  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link href="https://fonts.googleapis.com/css?family=Muli:100,400,700|Oswald:300|Inconsolata,700" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+	<link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+	<link type="text/css" rel="stylesheet" href="styles/app.min.css">
+
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</head>
+
+<body id="page-top">
+
+	<!-- Page Wrapper -->
+	<div id="wrapper">
+		<ul class="navbar-nav  sidebar sidebar-dark accordion" id="accordionSidebar">
+			<li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home"></i><span>Home</span></a></li><div class="category"><li class="nav-item"><a class="nav-link collapsed" href="#" data-toggle="collapse" data-target=#GetStarted aria-expanded="true" aria-controls=GetStarted><i class="fas fa-fast-forward"></i><span class="localSpan">Get Started</span></a><div id=GetStarted class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar"><div id="navs" class="bg-Siemens-natural-bluelight py-2 collapse-inner rounded "><a class="nav-link collapsed" href="#" data-toggle="collapse" data-target=#intro aria-controls=intro>Introduction</a><div id="intro" class=" submenue bg-Siemens-natural-bluelight collapse"aria-labelledby="headingUtilities" data-parent="#GetStarted"><a id="overview" class="collapse-item" href = "tutorial-overview.html" > Overview</a ><a id="prerequisites" class="collapse-item" href = "tutorial-prerequisites.html" > Prerequisites</a ><a id="notice" class="collapse-item" href = "tutorial-notice.html" > General Notice</a ><a id="systemrequirements" class="collapse-item" href = "tutorial-systemrequirements.html" > System Requirements</a ><a id="security" class="collapse-item" href = "tutorial-security.html" > Security</a ></div><a class="nav-link collapsed" href="#" data-toggle="collapse" data-target=#installation aria-controls=installation>Installation</a><div id="installation" class=" submenue bg-Siemens-natural-bluelight collapse"aria-labelledby="headingUtilities" data-parent="#GetStarted"><a id="iisinstall" class="collapse-item" href = "tutorial-iisinstall.html" > IIS Installation</a ><a id="hostingbundle" class="collapse-item" href = "tutorial-hostingbundle.html" > .NetCore & Hostingbundle Installation</a ></div><a class="nav-link collapsed" href="#" data-toggle="collapse" data-target=#deployment aria-controls=deployment>Deployment</a><div id="deployment" class=" submenue bg-Siemens-natural-bluelight collapse"aria-labelledby="headingUtilities" data-parent="#GetStarted"><a id="applicationpool" class="collapse-item" href = "tutorial-applicationpool.html" > Create the IIS site</a ><a id="virtualdirectory" class="collapse-item" href = "tutorial-virtualdirectory.html" > Virtual Directory For Documentation</a ><a id="addwebsites" class="collapse-item" href = "tutorial-addwebsites.html" > Add additional websites</a ><a id="copypaste" class="collapse-item" href = "tutorial-copypaste.html" > Copy & Paste the webservice files</a ><a id="distdirectory" class="collapse-item" href = "tutorial-distdirectory.html" > Make file listing available for Dist directory</a ></div><a class="nav-link collapsed" href="#" data-toggle="collapse" data-target=#charts aria-controls=charts>Charts</a><div id="charts" class=" submenue bg-Siemens-natural-bluelight collapse"aria-labelledby="headingUtilities" data-parent="#GetStarted"><a id="CreateAttrControlCharts" class="collapse-item" href = "tutorial-CreateAttrControlCharts.html" > Attributive Control Chart</a ><a id="CreateControlCharts" class="collapse-item" href = "tutorial-CreateControlCharts.html" > Control Chart</a ><a id="CreateHistogramChart" class="collapse-item" href = "tutorial-CreateHistogramChart.html" > Histogram Chart</a ><a id="CreatepNetlCharts" class="collapse-item" href = "tutorial-CreatepNetlCharts.html" > Probability Plot</a ><a id="CreateSingleValueChart" class="collapse-item" href = "tutorial-CreateSingleValueChart.html" > Single Value Chart</a ><a id="CreateBarChart" class="collapse-item" href = "tutorial-CreateBarChart.html" > Create Bar Chart</a ><a id="CreatePieChart" class="collapse-item" href = "tutorial-CreatePieChart.html" > Create Pie Chart</a ><a id="CreateCustomLocalization" class="collapse-item" href = "tutorial-CreateCustomLocalization.html" > Custom Localization</a ><a id="ExportChartAsImage" class="collapse-item" href = "tutorial-ExportChartAsImage.html" > Export Chart as Image</a ></div><a id="IE_root" class="nav-link collapsed" href = "tutorial-IE_root.html" > IE Combatibility issue</a ></div></div><li class="nav-item"><a class="nav-link collapsed" href="#" data-toggle="collapse" data-target=#API aria-expanded="true" aria-controls=API><i class="fas fa-server"></i><span class="localSpan">API</span></a><div id=API class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar"><div id="navs" class="bg-Siemens-natural-bluelight py-2 collapse-inner rounded "><a href="module-CalculationAPI.html" class="collapse-item">CalculationAPI</a></div></div><li class="nav-item"><a class="nav-link collapsed" href="#" data-toggle="collapse" data-target=#Charting aria-expanded="true" aria-controls=Charting><i class="fas fa-chart-bar"></i><span class="localSpan">Charting</span></a><div id=Charting class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar"><div id="navs" class="bg-Siemens-natural-bluelight py-2 collapse-inner rounded "><a id="AttributiveControlChart" class="collapse-item" href="AttributiveControlChart.html">AttributiveControlChart</a><a id="BarChart" class="collapse-item" href="BarChart.html">BarChart</a><a id="ControlChart" class="collapse-item" href="ControlChart.html">ControlChart</a><a id="CumulativeCountChart" class="collapse-item" href="CumulativeCountChart.html">CumulativeCountChart</a><a id="CumulativeSumChart" class="collapse-item" href="CumulativeSumChart.html">CumulativeSumChart</a><a id="DefectPareto" class="collapse-item" href="DefectPareto.html">DefectPareto</a><a id="GPlot" class="collapse-item" href="GPlot.html">GPlot</a><a id="GPlot3D" class="collapse-item" href="GPlot3D.html">GPlot3D</a><a id="HistogramChart" class="collapse-item" href="HistogramChart.html">HistogramChart</a><a id="MultiAttDefectPareto" class="collapse-item" href="MultiAttDefectPareto.html">MultiAttDefectPareto</a><a id="MultiStackedVisDefectPareto" class="collapse-item" href="MultiStackedVisDefectPareto.html">MultiStackedVisDefectPareto</a><a id="MultiVarControlChart" class="collapse-item" href="MultiVarControlChart.html">MultiVarControlChart</a><a id="MultiVarSingleValueChart" class="collapse-item" href="MultiVarSingleValueChart.html">MultiVarSingleValueChart</a><a id="pieChart" class="collapse-item" href="pieChart.html">pieChart</a><a id="ProbabilityPlot" class="collapse-item" href="ProbabilityPlot.html">ProbabilityPlot</a><a id="SingleValueChart" class="collapse-item" href="SingleValueChart.html">SingleValueChart</a><a id="StackedPareto" class="collapse-item" href="StackedPareto.html">StackedPareto</a><a id="uCuSumChart" class="collapse-item" href="uCuSumChart.html">uCuSumChart</a></div></div><li class="nav-item"><a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#_appendix" aria-expanded="true" aria-controls="Charting"><i class="fas fa-language"></i><span class="localSpan">Appendix</span></a><div id="_appendix" started="" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar" style=""> <div id="navs" class="bg-Siemens-natural-bluelight py-2 collapse-inner rounded "><a id="Multi-Tenancy" class="collapse-item"  href = "tutorial-Multi-Tenancy.html">Multi-Tenancy</a><a id="Abbreviations" class="collapse-item"  href = "tutorial-Abbreviations.html">Abbreviations</a><a id="Troubleshoot" class="collapse-item"  href = "tutorial-Troubleshoot.html">Troubleshoot</a></div></div></li><li class="nav-item"><a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#_company" aria-expanded="true" aria-controls="Charting"><i class="fas fa-language"></i><span class="localSpan">Company</span></a><div id="_company" started="" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar" style=""> <div id="navs" class="bg-Siemens-natural-bluelight py-2 collapse-inner rounded "><a id="About" class="collapse-item"  href = "tutorial-About.html">About</a><a id="Copyright" class="collapse-item"  href = "tutorial-Copyright.html">Copyright</a><a id="Addresses" class="collapse-item"  href = "tutorial-Addresses.html">Addresses</a></div></div></li><li class="nav-item"><a class="nav-link collapsed" href="global.html"><i class="fas fa-language"></i><span class="localSpan">Global</span></a></li></div>
+			 
+							
+								<li class="nav-item">
+									<a class="nav-link" href="Swagger.html" target="_blank">
+										<i class="fas fa-book"></i>
+										<span>API Documentation</span>
+									</a>
+								</li>
+							
+						
+		</ul>
+		<div id="content-wrapper" class="d-flex flex-column">
+			<div id="content">
+				<nav class="navbar navbar-expand navbar-light  topbar  static-top">
+					<h4 class="demo">Siemens MOM Common Component Documentation</h4>
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item">
+							<div class="logo">
+								<div>
+									<svg class="aw-base-icon" viewBox="0 0 82 16">
+										<path fill-rule="evenodd" clip-rule="evenodd" class="aw-theme-iconLogoColor" d="M2.2,13.8v-2.4C3.6,11.8,4.8,12,5.8,12c1.4,0,2.1-0.4,2.1-1.1 c0-0.3-0.1-0.5-0.3-0.7C7.4,10,6.9,9.7,6,9.4C4.4,8.7,3.4,8.2,2.9,7.7C2.3,7.1,2,6.3,2,5.4c0-1.2,0.5-2.1,1.4-2.7 c0.9-0.6,2-0.9,3.5-0.9c0.8,0,1.9,0.1,3.4,0.4v2.3C9.1,4.1,8.1,3.8,7.2,3.8c-1.3,0-2,0.4-2,1.1c0,0.3,0.1,0.5,0.4,0.7 c0.2,0.1,0.8,0.4,1.9,0.9c1.5,0.6,2.4,1.2,2.9,1.7c0.6,0.6,0.9,1.3,0.9,2.2c0,1.3-0.6,2.3-1.7,3c-0.9,0.6-2.1,0.8-3.5,0.8 C4.7,14.2,3.5,14.1,2.2,13.8"></path>
+										<rect x="13.1" y="2" class="aw-theme-iconLogoColor" width="3.3" height="12"></rect>
+										<polygon fill-rule="evenodd" clip-rule="evenodd" class="aw-theme-iconLogoColor" points="19.5,14 19.5,2 28,2 28,4.2 22.7,4.2 22.7,6.9 27.3,6.9 27.3,8.8 22.7,8.8 22.7,11.7 28.2,11.7 28.2,14 "></polygon>
+										<polygon fill-rule="evenodd" clip-rule="evenodd" class="aw-theme-iconLogoColor" points="30.3,14 30.3,2 34.7,2 37.7,9.6 40.8,2 44.9,2 44.9,14 41.7,14 41.7,5.5 38.2,14.1 36.1,14.1 32.7,5.5 32.7,14 "></polygon>
+										<polygon fill-rule="evenodd" clip-rule="evenodd" class="aw-theme-iconLogoColor" points="47.9,14 47.9,2 56.5,2 56.5,4.2 51.2,4.2 51.2,6.9 55.8,6.9 55.8,8.8 51.2,8.8 51.2,11.7 56.6,11.7 56.6,14 "></polygon>
+										<polygon fill-rule="evenodd" clip-rule="evenodd" class="aw-theme-iconLogoColor" points="58.8,14 58.8,2 62.7,2 66.8,10 66.8,2 69.2,2 69.2,14 65.4,14 61.2,5.9 61.2,14 "></polygon>
+										<path fill-rule="evenodd" clip-rule="evenodd" class="aw-theme-iconLogoColor" d="M71.5,13.8v-2.4c1.3,0.4,2.5,0.6,3.6,0.6c1.4,0,2.1-0.4,2.1-1.1 c0-0.3-0.1-0.5-0.3-0.7c-0.2-0.2-0.8-0.5-1.6-0.8c-1.6-0.6-2.6-1.2-3.1-1.7c-0.6-0.6-0.9-1.4-0.9-2.3c0-1.2,0.4-2.1,1.4-2.7 c0.9-0.6,2-0.9,3.5-0.9c0.8,0,1.8,0.1,3.1,0.4l0.3,0.1v2.3c-1.1-0.4-2.1-0.7-3.1-0.7c-1.3,0-2,0.4-2,1.1c0,0.3,0.1,0.5,0.4,0.7 c0.2,0.1,0.8,0.4,1.9,0.9c1.4,0.6,2.4,1.2,2.9,1.7c0.6,0.6,0.9,1.3,0.9,2.2c0,1.3-0.6,2.3-1.7,3c-0.9,0.6-2.1,0.8-3.6,0.8 C74,14.2,72.8,14.1,71.5,13.8"></path>
+									</svg>
+								</div>
+                       
+							</div>
+						</li>
+					</ul>
+				</nav>
+				<div class="container-fluid">
+					
+
+
+
+
+<section>
+
+<header>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Charts</a></li>
+    <li class="breadcrumb-item active" aria-current="page">ControlChart</li>
+  </ol>
+</nav>
+    
+        <h2>ControlChart</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Provide methods for drawing control chart .</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class='vertical-section'>
+            <h3 class="title"><span>Methods</span></h3>
+            <div class="members">
+            
+                <div class="member">
+
+    
+    <h4 class="name" id=".addPoint">
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            addPoint<span class="signature">(seriesId, newPoint)</span><span class="type-signature"></span>
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Add a new point to a specific series the series is specified by its seriesId. The control chart must be drawn before using <a href="ControlChart.html#.chart">ControlChart.chart</a> method.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>seriesId</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The id of the series that being updated. For IDs of the series please refer <a href="ControlChart.html#.seriesIds">ControlChart.seriesIds</a></p></td>
+</tr>
+
+
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>newPoint</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The value of the point that being added.</p></td>
+</tr>
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>$('#chart').chart('addPoint', 'ucl_1', 19.90);// This will add a new point at the right most side with the value of 19.90 in upper control limit of first series.</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    
+    <h4 class="name" id=".addSubgroup">
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            addSubgroup<span class="signature">(newSubgroup)</span><span class="type-signature"></span>
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Add a new subgroup on the right most side of control chart.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>newSubgroup</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The complete new subgroup which is provided like before to control chart</p></td>
+</tr>
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>$('#chart').chart('addSubgroup', {                         subgroupNumber: 2,                         calculatedS: 0.0106,                         calculatedR: 0.0270,                         calculatedXb: 19.9754,                         statuses:                               [                                 {category: "processViolation_2", viewedPoints: null, points: null, lowerPercentage: null, upperPercentage: null},                                 {category: "middleThird", viewedPoints: null, points: null, lowerPercentage: null, upperPercentage: null},                                 {category: "processViolation_1", viewedPoints: null, points: null, lowerPercentage: null, upperPercentage: null},                                 {category: "ucL_1", viewedPoints: null, points: null, lowerPercentage: null, upperPercentage: null}                               ],                           upperControlLimit1Abs: 20.014,                           lowerControlLimit1Abs: 19.985,                           upperWarnLimit1Abs: null,                           lowerWarnLimit1Abs: null,                           upperControlLimit2Abs: 0.01715,                           lowerControlLimit2Abs: 0.00202,                           upperWarnLimit2Abs: null,                           lowerWarnLimit2Abs: null,                           calculatedProcessMeanValue1: 20.0045,                           calculatedProcessMeanValue2: 0.00835,                           boxPlot: [ 19.958, 19.9655, 19.979, 19.9835, 19.985],                           customInfo: [                                        {                                           label: "Charge Number",                                           value: "CH00304",                                           showInTooltip: true,                                           xAxisLabel: false                                         },                                         {                                            label: "Date",                                            value: "22.1.2020",                                            showInTooltip: true,                                            xAxisLabel: true                                          }                                  ]      });</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    
+    <h4 class="name" id=".chart">
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            chart<span class="signature">(options)</span><span class="type-signature"></span>
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>A new control chart can be drawn using this method.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>options</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type"><a href="ControlChart.html#.options">ControlChart.options</a></span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The chart options parameter</p></td>
+</tr>
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+    <dt class="tag-tutorial">Tutorials:</dt>
+    <dd class="tag-tutorial">
+        <ul>
+            <li><a href="tutorial-CreateControlCharts.html">Control Chart</a></li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <div class="method-parameter columns">
+        <div class="column is-2"><label>Requires:</label></div>
+        <div class="column is-10">
+            <ul>
+                <li>module:highstock.js</li>
+            
+                <li>module:jQuery.js</li>
+            </ul>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>$('#chart').chart({
+                        chartType: data.controlChartType,
+                        locale: locale,
+                        data: data,
+                        chartTitle: 'xb/s Chart',
+                        xAxisTitle: 'Subgroups',
+                        decimalPlaces: 4,
+                        height: '60%',
+                        width: 800,
+                        onSeriesClick: function (data) {
+                            console.log(data);
+                        },
+                        series1yAxisMinValue: 1.20,
+                        series1yAxisMaxValue: 2.20,
+                        series2yAxisMinValue: 0.30,
+                        series2yAxisMaxValue: 0.50,
+                        onLegendClick: function (data) {
+                           console.log(data);
+                        }
+                    });</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    
+    <h4 class="name" id=".createBase64Image">
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            createBase64Image<span class="signature">(options)</span><span class="type-signature"></span>
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <ul>
+<li>Export the chart as base 64 image. Only support the compatible HTML5 browsers. For IE, it requires canvg.js from v3.0.8 to onwards.</li>
+</ul>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>options</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">object</span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last"><p>An object with specified properties</p></td>
+</tr>
+
+  
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>containerId</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last"><p>The id of an html input element e.g. base64Image when a tag is defined like this <input type='hidden' id='base64Image'/></p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>width</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last"><p>The width of chart. By default will take the chart container width where chart is rendered.</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>height</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last"><p>The height of chart. By default will take the chart container height where chart is rendered.</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>success</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">function</span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last"><p>Callback when chart is rendered.</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>error</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">function</span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+
+  <td class="description last"><p>Callback to get error information.</p></td>
+</tr>
+
+  
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <div class="method-parameter columns">
+        <div class="column is-2"><label>Requires:</label></div>
+        <div class="column is-10">
+            <ul>
+                <li>module:exporting.js</li>
+            
+                <li>module:offline-exporting.js</li>
+            
+                <li>module:canvg.js</li>
+            </ul>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>$('#chart').chart('createBase64Image',                                       {                                          containerId : 'sImageBase64',                                           width : 1800,                                           height: 600,                                           success: function(){                                                              console.log(document.getElementById('sImageBase64').value);                                          },                                          error: function(e) {                                                              console.log(e);                                          }                                      });</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    
+    <h4 class="name" id=".exportChart">
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            exportChart<span class="signature">(options)</span><span class="type-signature"></span>
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <ul>
+<li>Export the chart as image. Only support the compatible HTML5 browsers</li>
+</ul>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>options</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>An object with specified properties</p></td>
+</tr>
+
+  
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>type</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The export type. possible values are 'image/png', 'image/jpeg', 'applicaton/pdf' and 'image/svg+xml'. Default 'image/png'</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>filename</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The file name without extension</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>width</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The width of the chart to be exported.</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>height</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The height of the chart to be exported.</p></td>
+</tr>
+
+  
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <div class="method-parameter columns">
+        <div class="column is-2"><label>Requires:</label></div>
+        <div class="column is-10">
+            <ul>
+                <li>module:exporting.js</li>
+            
+                <li>module:offline-exporting.js</li>
+            </ul>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>$('#chart').chart('exportChart', {                                     height:800,                                      width:1600,                                      type : 'image/jpeg',                                      filename: 'myChart'                                 });</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    
+    <h4 class="name" id=".setXAxisRange">
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            setXAxisRange<span class="signature">(minValue, maxValue)</span><span class="type-signature"></span>
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Set the xAxis to a specific Range. The control chart must be drawn before using <a href="ControlChart.html#.chart">ControlChart.chart</a> method.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>minValue</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The minimal Value of the Range to which the xAxis schould be set</p></td>
+</tr>
+
+
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>maxValue</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The maximal Value of the Range to which the xAxis schould be set</p></td>
+</tr>
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>$('#chart').chart('setXAxisRange', 0,10);// This will set the xAxis Range from 0 to 10</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    
+    <h4 class="name" id=".showMeasurements">
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            showMeasurements<span class="signature">(state)</span><span class="type-signature"></span>
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <ul>
+<li>Change the visible state of measurements series.</li>
+</ul>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>state</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">boolean</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>True will display the measurements series and false will hide it.</p></td>
+</tr>
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>$('#chart').chart('showMeasurements', true);</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    
+    <h4 class="name" id=".splitTooltip">
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            splitTooltip<span class="signature">(state)</span><span class="type-signature"></span>
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <ul>
+<li>Tooltip can be switched between combined and individual tooltip</li>
+</ul>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>state</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">boolean</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>True will show the tooltip for each series individually and false will combine the tooltip.</p></td>
+</tr>
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>$('#chart').chart('splitTooltip', true);</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    
+    <h4 class="name" id=".updateColor">
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            updateColor<span class="signature">(colorScheme)</span><span class="type-signature"></span>
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>To update the color of the series and chart background.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>colorScheme</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The new color scheme for series</p></td>
+</tr>
+
+  
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>series1</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The hexadecimal code or color name of main first series e.g. xb.</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>series2</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The hexadecimal code or color name the second main series e.g. Range, s Series.</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>controlLimit</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The hexadecimal code or color name of control limit</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>warningLimit</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The hexadecimal code or color name of warning limit.</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>processMeanValue</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The hexadecimal code or color name of process mean value.</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>toleranceLimit</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The hexadecimal code or color name of tolerance limit.</p></td>
+</tr>
+
+  
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>$('#chart').chart('updateColor', {                                     series1: '#FF35AF',                                     series2: '#FF35DF',                                     controlLimit: 'blue',                                     warningLimit : '#FF3522',                                     processMeanValue : 'white',                                     backgroundColor: 'red',                                     toleranceLimit:'#1E1E1E'                                   });</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    
+    <h4 class="name" id=".updatePoint">
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            updatePoint<span class="signature">(seriesId, sgNum, newValue)</span><span class="type-signature"></span>
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>this function update the value of a proper point, the point can be identified by its seriesID and sortNumber. The control chart must be drawn before using <a href="ControlChart.html#.chart">ControlChart.chart</a> method.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>seriesId</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The id of the series that being updated. For IDs of the series please refer <a href="ControlChart.html#.seriesIds">ControlChart.seriesIds</a></p></td>
+</tr>
+
+
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>sgNum</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The subgroup Number of the point that being updated.</p></td>
+</tr>
+
+
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>newValue</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the new Value of the Point that being updated.</p></td>
+</tr>
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>$('#chart').chart('updatePoint', 'ucl_1', 2,  19.90);// This will update the value of third subgroup with the new given value 19.90. Please remember that subgroup number always start from 0.</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    
+    <h4 class="name" id=".updateSubgroup">
+        
+            
+                <span class='tag'>static</span>
+            
+        
+        <span class="code-name">
+            updateSubgroup<span class="signature">(sgNum, subgroup)</span><span class="type-signature"></span>
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <ul>
+<li>Update a specific subgroup</li>
+</ul>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>sgNum</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The SubGroupNumber which need to be updated</p></td>
+</tr>
+
+
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>subgroup</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The new Subgroup object with or without customInfo object. For details please see the example below</p></td>
+</tr>
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// to leave a value unchanged do not include it in the object$('#chart').chart('updateSubgroup', 79, {	                                         lcl1:		19.98,                                         lcl2:		0.01,                                         lwl1:		19.991,                                         lwl2:		0.02,                                         series1:	19.981,                                         series2:	0.15,                                         ucl1:		20.02,                                         ucl2:		0.2,                                         uwl1:		20.02,                                         uwl2:		0.2,                                         xbP1:		19.998,                                         xbP2:		0.1,                                         custominfo: newCustomInfoObject // see customInfo section                                         });</code></pre>
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+        <div class='vertical-section'>
+            <h3 class="title"><span>Type Definitions</span></h3>
+            <div class="members">
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">object</span>
+
+
+    </span>
+
+<h4 class="name" id=".axis">
+    
+    <span class="code-name">
+        axis
+    </span>
+</h4>
+
+
+
+
+<div class="description">
+    <p>Option to set font, fontsize and color of the axis labels.</p>
+</div>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>fontSize</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"><p>Fontsize for labels.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>font</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"><p>Font for labels.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>color</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"><p>Color for labels.</p></td>
+</tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>xAxis: {     labels: {         fontSize: '10pt',         font: 'Arial',         color: 'red'     } }, yAxis: {     labels: {         fontSize: '8pt',         font: 'Arial',         color: 'black'     } }</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">object</span>
+
+
+    </span>
+
+<h4 class="name" id=".customInfo">
+    
+    <span class="code-name">
+        customInfo
+    </span>
+</h4>
+
+
+
+
+<div class="description">
+    <p>An array of objects with following properties can be injected against each subgroup.</p>
+</div>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>label</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The label to be display in tooltip.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>value</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The value to be used to show in tooltip and for xAxis labels.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>showInTooltip</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">boolean</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>if true, the label and value will also be showin in tooltip for a particular subgrup as 'label: value'</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>xAxisLabel</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">boolean</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>If true then value of will be showin on xAxis labels instead of default labels. e.g. subgroup number</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>isRemark</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">boolean</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>If true then the info on the Custome Info object will be treated as a Remark which will be shown in a Flag series over the series</p></td>
+</tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption">A customInfo can be injected like this, if a data is defined in the given format, please refer <a href="ControlChart.html#.data">ControlChart.data</a></p>
+    
+    <pre class="prettyprint"><code>    data.subgroups[0].customInfo = [
+        {
+            label: 'Charge Number',
+            value: 'CH001',
+            showInTooltip: true,
+            xAxisLabel: false
+        },
+        {
+            label: 'Date',
+            value: '05-01-2020',
+            showInTooltip: true,
+            xAxisLabel: true
+        }
+    ];
+  // Note: If against a subgroup more than one objects have 'xAxisLabel' true then the value by default
+  // of the first object will be taken. e.g. If in the given example both objects have xAxisLabel true
+  // then in chart the value of first object on xAxis label (for subgroup 0) will be displayed.
+  // Which is in this case 'CH001'</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">Object</span>
+
+
+    </span>
+
+<h4 class="name" id=".data">
+    
+    <span class="code-name">
+        data
+    </span>
+</h4>
+
+
+
+
+<div class="description">
+    <p>The input data format for control chart.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// If measurements need not to be display{     specifications: {                         subgroupSize: 5,                         controlChartType : 'xb_s'                                           },     subgroups : [                     {                         subgroupNumber: 0,                         calculatedS: 0.00228,                         calculatedR: 0.00600,                         calculatedXb: 19.9958,                         calculatedMin: 19.993,                         calculatedMax: 19.999,                         statuses: null,                         upperControlLimit1Abs: 20.035,                         lowerControlLimit1Abs: 19.965,                         upperWarnLimit1Abs: 20.035,                         lowerWarnLimit1Abs: 19.975,                         upperControlLimit2Abs: 0.021,                         lowerControlLimit2Abs: 0.0005,                         upperWarnLimit2Abs: 0.018,                         lowerWarnLimit2Abs: 0.0015,                         calculatedProcessMeanValue1: 20.00453,                         calculatedProcessMeanValue2: 0.00835581,                         processSigma: 0.00888916271350903                 }             ] }--------------------------------------------------------------------------------------------------------// If measurements need to be displayed in chart then following is the data format{     specifications: {                         subgroupSize: 5,                         controlChartType : 'xb'                                           },     subgroups : [                     {                         subgroupNumber: 0,                         calculatedS: 0.002280350857290605,                         calculatedR: 0.006000000000000227,                         calculatedXb: 19.9958,                         calculatedMin: 19.993,                         calculatedMax: 19.999,                         statuses: null,                         upperControlLimit1Abs: 20.035,                         lowerControlLimit1Abs: 19.965,                         upperWarnLimit1Abs: 20.035,                         lowerWarnLimit1Abs: 19.975,                         upperControlLimit2Abs: 0.021,                         lowerControlLimit2Abs: 0.0005,                         upperWarnLimit2Abs: 0.018,                         lowerWarnLimit2Abs: 0.0015,                         calculatedProcessMeanValue1: 20.0045318,                         calculatedProcessMeanValue2: 0.008355812950698488,                         processSigma: 0.00888916271350903                     }                 ],     measurements : [                     {                         referenceID: "0",                         measuredValue: 19.993,                         transformedMeasuredValue: 1.3008779659885696,                         valueTimestamp: "0001-01-01T00:00:00",                         statuses: null,                         sequenceID: 0,                         violations: null,                         subgroupNumber: 10 // new subgroup number                     }                 ] }  --------------------------------------------------------------------------------------------------// If additional lines need to be displayed in chart then following is the data format// Remember to check seriesVisibilityObject to make additional lines visible and/or display them in the legende{     specifications: {                         subgroupSize: 5,                         controlChartType : 'xb'                     },     subgroups : [                     {                         subgroupNumber: 0,                         calculatedS: 0.002280350857290605,                         calculatedR: 0.006000000000000227,                         calculatedXb: 19.9958,                         calculatedMin: 19.993,                         calculatedMax: 19.999,                         statuses: null,                         upperControlLimit1Abs: 20.035,                         lowerControlLimit1Abs: 19.965,                         upperWarnLimit1Abs: 20.035,                         lowerWarnLimit1Abs: 19.975,                         upperControlLimit2Abs: 0.021,                         lowerControlLimit2Abs: 0.0005,                         upperWarnLimit2Abs: 0.018,                         lowerWarnLimit2Abs: 0.0015,                         calculatedProcessMeanValue1: 20.0045318,                         calculatedProcessMeanValue2: 0.008355812950698488,                         processSigma: 0.00888916271350903                     }                 ],     measurements : [                     {                         referenceID: "0",                         measuredValue: 19.993,                         transformedMeasuredValue: 1.3008779659885696,                         valueTimestamp: "0001-01-01T00:00:00",                         statuses: null,                         sequenceID: 0,                         violations: null,                         subgroupNumber: 10 // new subgroup number                     }                 ],     AdditionalLines: {                         firstChoiceUpperLimit: 20.01,                         firstChoiceLowerLimit: 19.99,                         secondChoiceUpperLimit: 20.02,                         secondChoiceLowerLimit: 19.98,                         thirdChoiceUpperLimit: 20.04,                         thirdChoiceLowerLimit: 19.96                         },     charts: [        {         controlChart : {           hiddenSeries [              {              seriesId: firstChoiceUpperLimit,				showInChart: true,				showInLegend: true             },             {              seriesId: secondChoiceUpperLimit, 				showInChart: true,				showInLegend: true             }         ]       } }</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">object</span>
+
+
+    </span>
+
+<h4 class="name" id=".fontSize">
+    
+    <span class="code-name">
+        fontSize
+    </span>
+</h4>
+
+
+
+
+<div class="description">
+    <p>Option to set Fontsize of label &amp; title.</p>
+</div>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>title</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"><p>Fontsize for title.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>labels</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"><p>Fontsize for labels.</p></td>
+</tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>fontSize: {
+            title: 20,
+            labels: 15
+    }</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">object</span>
+
+
+    </span>
+
+<h4 class="name" id=".navigator">
+    
+    <span class="code-name">
+        navigator
+    </span>
+</h4>
+
+
+
+
+<div class="description">
+    <p>The navigator object is to define start and end of navigator range as well as the number of selected values</p>
+</div>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>start</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>first value to be selected in the navigator when defined alone then the last n values would be selected.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>end</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>last value to be selected in the navigator when defined alone then the first n values would be selected</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>selected</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            25
+        
+        </td>
+    
+
+    <td class="description last"><p>the number of selected value in the navigator, if start and end are set this value has no effect.</p></td>
+</tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>navigator: {             start: 0,             end: 5,             selected: 5          },</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">object</span>
+
+
+    </span>
+
+<h4 class="name" id=".navigator">
+    
+    <span class="code-name">
+        navigator
+    </span>
+</h4>
+
+
+
+
+<div class="description">
+    <p>The navigator object is to define start and end of navigator range as well as the number of selected values</p>
+</div>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>start</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>first value to be selected in the navigator when defined alone then the last n values would be selected.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>end</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>last value to be selected in the navigator when defined alone then the first n values would be selected</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>selected</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            25
+        
+        </td>
+    
+
+    <td class="description last"><p>the number of selected value in the navigator, if start and end are set this value has no effect.</p></td>
+</tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>navigator: {              start: 0,             end: 5,              selected: 5          },</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    
+    <h4 class="name" id=".onChartLoaded">
+        
+        <span class="code-name">
+            onChartLoaded<span class="signature">(e)</span><span class="type-signature"></span>
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>The callback which is called when a chart is drawn.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>e</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The event object with chart API object</p></td>
+</tr>
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// When a callback is registered with options in single value chart options $('#chart').chart(                 {                     locale: "en",                     data: {                         subgroups: [],  // Array of objects in defined format                     },                     decimalPlaces: 2,                     onChartLoaded : function (data) {                                         console.log(data);                                      }                 }             );</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    
+    <h4 class="name" id=".onFlagSeriesClick">
+        
+        <span class="code-name">
+            onFlagSeriesClick<span class="signature">()</span><span class="type-signature"></span>
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>The callback format which will handle when the User Clicks an a flag Series.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    
+    <h4 class="name" id=".onLegendClick">
+        
+        <span class="code-name">
+            onLegendClick<span class="signature">(data)</span><span class="type-signature"></span>
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>The callback format which will handle the legend click event. The default action is to toggle the visibility of the series. This can be prevented by returning false or calling event.preventDefault().</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>data</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The object hold the information of clicked legend.</p></td>
+</tr>
+
+  
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>seriesId</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The series id of the clicked legend item.</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>isVisible</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">boolean</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Flag to represent the state of series that whether series was visible before click event or not.</p></td>
+</tr>
+
+  
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// When a callback is registered with options in single value chart options $('#chart').chart(                 {                     locale: "en",                     data: {                            subgroups: [],  // Array of objects in defined format                     },                     decimalPlaces: 2,                     onLegendClick : function (data) {                                         console.log(data);                                           //The output will be like this                                           // seriesId: "lcl_1", isVisible: false                                      }                 }             );</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    
+    <h4 class="name" id=".onNavigationChanged">
+        
+        <span class="code-name">
+            onNavigationChanged<span class="signature">()</span><span class="type-signature"></span>
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>The callback format which will handle when the Navigation bar chnages.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>data = { Max: 5, Min: 1 }</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    
+    <h4 class="name" id=".onSeriesClick">
+        
+        <span class="code-name">
+            onSeriesClick<span class="signature">(data)</span><span class="type-signature"></span>
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>The callback format which will handle the series click event.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>data</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>An object with the below mentioned properties will be handed back as parameter.</p></td>
+</tr>
+
+  
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>subgroupNumber</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The subgroup number.</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>seriesName</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The series name.</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>point</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The Y value of this point.</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>seriesId</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The id of the clicked series.</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>referenceId</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The reference id from corresponding first/left measurement.</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>violations</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">array</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The violations if handled for this point in point.</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>customInfo</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">array</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the customInfo object injected against a subgroup.     *</p></td>
+</tr>
+
+  
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>data = { subgroupNumber: 1, seriesName: xb, point: 1, seriesId: ucl__1, violations: ['Run Down'], customInfo : [], referenceId: '1' } * // When a callback is registered with options in single value chart options $('#chart').chart(                 {                     locale: "en",                     data: {                            subgroups: [],  // Array of objects in defined format                     },                     decimalPlaces: 2,                     onSeriesClick : function (data) {                                         console.log(data);                                                                                    }                 }             );</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    
+    <h4 class="name" id=".onSeriesClick">
+        
+        <span class="code-name">
+            onSeriesClick<span class="signature">(data)</span><span class="type-signature"></span>
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>The callback format which will handle the series click event.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>data</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>An object with the below mentioned properties will be handed back as parameter.</p></td>
+</tr>
+
+  
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>subgroupNumber</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The subgroup number.</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>seriesName</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The series name.</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>point</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The Y value of this point.</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>seriesId</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The id of the clicked series.</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>referenceId</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The reference id from corresponding first/left measurement.</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>violations</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">array</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The violations if handled for this point in point.</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>customInfo</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">array</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>the customInfo object injected against a subgroup.     *</p></td>
+</tr>
+
+  
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>data = { subgroupNumber: 1, seriesName: xb, point: 1, seriesId: ucl__1, violations: ['Run Down'], customInfo : [], referenceId: '1' }</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">object</span>
+
+
+    </span>
+
+<h4 class="name" id=".options">
+    
+    <span class="code-name">
+        options
+    </span>
+</h4>
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>legendSettings</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">ControlChart.legendSettings</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>Settings for position, layout and visibility of the chart legend</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>chartType</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            xb_s
+        
+        </td>
+    
+
+    <td class="description last"><p>Enumeration to specifies which chart type should be used see <a href="global.html#chartTypes">chartTypes</a></p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>locale</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            en
+        
+        </td>
+    
+
+    <td class="description last"><p>User locale to display label and violations in a specific language</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>data</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="ControlChart.html#.data">ControlChart.data</a></span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>JSON Array with subgroup in a defined format <a href="ControlChart.html#.data">ControlChart.data</a></p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>chartTitle</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>The Chart title</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>xAxisTitle</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>The xAxis Title</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>xAxisCustomInfoLabel</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">boolean</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            false
+        
+        </td>
+    
+
+    <td class="description last"><p>If true, the default subgroup number label for xAxis will be overriden. by the property of customInfo object. where xAxisLabel is true. For more information  please refer <a href="ControlChart.html#.customInfo">ControlChart.customInfo</a></p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>decimalPlaces</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            4
+        
+        </td>
+    
+
+    <td class="description last"><p>The data of chart will be round based on number of decimal places.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>height</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            null
+        
+        </td>
+    
+
+    <td class="description last"><p>The chart height in pixel unit or as percentage %. An explicit height for the chart. If a number, the height is given in pixels. If given a percentage string (for example '56%'), the height is given as the percentage of the actual chart width. This allows for preserving the aspect ratio across responsive sizes.<br>
+By default (when null) the height is calculated from the offset height of the containing element, or 400 pixels if the containing element's height is 0.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>width</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            null
+        
+        </td>
+    
+
+    <td class="description last"><p>The chart width in pixel. This is an explicit width for the chart. By default (when null) the width is calculated from the offset width of the containing element.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>yAxisSeries1Title</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>A String specifies the yAxisSeries1Title name.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>series1yAxisMinValue</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>A number specifies the min value of the series1 yAxis value.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>series1yAxisMaxValue</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>A number specifies the max value of the series1 yAxis value.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>yAxisSeries2Title</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>A String specifies the yAxisSeries2Title name.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>series2yAxisMinValue</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>A number specifies the min value of the series2 yAxis value.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>series2yAxisMaxValue</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>A number specifies the max value of the series2 yAxis value.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>options.hiddenSeries</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="ControlChart.html#.seriesVisibilityObject">ControlChart.seriesVisibilityObject</a></span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>An array of object which contain the series ID, visibility in the legend and the initial visibility state of the series.
+Remember to add every additional line you want to see, because they are invisible by default.
+The IDs of series can be found here <a href="ControlChart.html#.seriesIds">ControlChart.seriesIds</a> and object format can be seen here <a href="ControlChart.html#.seriesVisibilityObject">ControlChart.seriesVisibilityObject</a></p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>boxplot</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">boolean</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            false
+        
+        </td>
+    
+
+    <td class="description last"><p>If true then box plot will be displayed on control chart. The <b>highcharts-more.js</b> will must be referenced for box plot chart.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>onLegendClick</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="ControlChart.html#.onLegendClick">ControlChart.onLegendClick</a></span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            null
+        
+        </td>
+    
+
+    <td class="description last"><p>A callback can be register which will be fired when the legend item belonging to the series is clicked.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>onSeriesClick</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="ControlChart.html#.onSeriesClick">ControlChart.onSeriesClick</a></span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            null
+        
+        </td>
+    
+
+    <td class="description last"><p>A callback can be register which will be fired when a point on a Series is clicked.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>onChartLoaded</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="ControlChart.html#.onChartLoaded">ControlChart.onChartLoaded</a></span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            null
+        
+        </td>
+    
+
+    <td class="description last"><p>A callback can be register which will be invoked after chart is data is loaded and it is going to render.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>backgroundColor</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            '#FFFFFF'
+        
+        </td>
+    
+
+    <td class="description last"><p>Refer to chart background color</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>series</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="ControlChart.html#.series">ControlChart.series</a></span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>To customize the series related options.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>yAxisUnit</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="ControlChart.html#.yAxisUnit">ControlChart.yAxisUnit</a></span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>The unit of y Axis object.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>showMeasurements</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">boolean</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            false
+        
+        </td>
+    
+
+    <td class="description last"><p>This will display the measurements series in chart, if measurements series is provided along subgroups in data. This will only work for xb, med, mxb_ms and mxb_mR chart types.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>meanValueSeries1Name</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>Mean value series1 name.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>meanValueSeries2Name</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>Mean value series2 name.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>drawSPCZones</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">bool</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>If the value is true, the SPC zone will be drawn on the chart</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>splitTooltip</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">boolean</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            true
+        
+        </td>
+    
+
+    <td class="description last"><p>By default, the tooltip will be shown for each series individually. By setting this to false, each series values will be shown by selecting an individual point.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>enableTolerenceLimits</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">boolean</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            false
+        
+        </td>
+    
+
+    <td class="description last"><p>Enable or disable tolerence limit for specific control chart e.g. xb_ xb_s etc but not for R,s, ms, mR</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>options.yAxisScale</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="ControlChart.html#.yAxisScale">ControlChart.yAxisScale</a></span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>determine the min/max value of the yAxis. If the user provides values for min and max then minScaling and maxScaling does not affect the scaling either the user specifies numeric values for min and max or specifies the scaling behavior according to <a href="global.html#scaling">scaling</a></p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>animation</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">boolean</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            false
+        
+        </td>
+    
+
+    <td class="description last"><p>Enable or disable the initial animation</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>options.titleSettings</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="ControlChart.html#.titleSettings">ControlChart.titleSettings</a></span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>Provides options to position &amp; rotate the chart title</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>options.navigator</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="ControlChart.html#.navigator">ControlChart.navigator</a></span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>The navigator object is to define start and end of navigator range as well as the number of selected values</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>fontSize</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="ControlChart.html#.fontSize">ControlChart.fontSize</a></span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>Option to set Fontsize of label &amp; title.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>xAxisLabelsRotation</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>Rotation of the labels in degrees. When undefined, the engine will try to hide/autorotate lables to avoid overlapping.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>options.xAxis</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="ControlChart.html#.axis">ControlChart.axis</a></span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>Settings for font, fontsize and color of xAxis labels</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>options.yAxis</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="ControlChart.html#.axis">ControlChart.axis</a></span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>Settings for font, fontsize and color of yAxis labels</p></td>
+</tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>$('#chart').chart({     chartType: data.controlChartType,     locale: locale,     data: data,     chartTitle: 'XB/s Chart',     xAxisTitle: 'Subgroups',     decimalPlaces: 4,     height: '60%',     width: undefined,     onSeriesClick: function (data) {                             console.log(data);                             },     series1yAxisMinValue: 1.10,     series1yAxisMaxValue: 2.20,     series2yAxisMinValue: 0.005,     series2yAxisMaxValue: 0.006,     xAxisCustomInfoLabel: true,     onLegendClick: function (data) {                             console.log(data);                              },      boxplot: true,      series: {         color: {          warningLimit: '#FFDFGE',          controlLimit: 'green',          toleranceLimit: '#FFDFGD',          processMeanValue: 'black',          series1: '#FF2233',          series2 : '#435576'        }      },      xAxis: {        labels: {          fontSize: '10pt',          font: 'Arial',          color: 'black'        }      },      yAxis: {        labels: {          fontSize: '10pt',          font: 'Arial',          color: 'red'        }      }            });</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">object</span>
+
+
+    </span>
+
+<h4 class="name" id=".series">
+    
+    <span class="code-name">
+        series
+    </span>
+</h4>
+
+
+
+
+<div class="description">
+    <p>To specify the series related options e.g. color of series.</p>
+</div>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>color</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">object</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>To specify the series colors.</p></td>
+</tr>
+
+  
+      
+<tr class="deep-level-1">
+    
+        <td class="name"><code>series1</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            "#0F789B"
+        
+        </td>
+    
+
+    <td class="description last"><p>It refer to the hexdecimal color or color name of main series of first row. e.g. xb</p></td>
+</tr>
+
+  
+      
+<tr class="deep-level-1">
+    
+        <td class="name"><code>series2</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            "#0F789B"
+        
+        </td>
+    
+
+    <td class="description last"><p>It refer to the hexdecimal color or color name of main series of second row. e.g. xb</p></td>
+</tr>
+
+  
+      
+<tr class="deep-level-1">
+    
+        <td class="name"><code>controlLimit</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            "#DC0000"
+        
+        </td>
+    
+
+    <td class="description last"><p>It refer to the hexdecimal color or color name of both series control limits. e.g. upper control limit 1, upper control limit 2 etc.</p></td>
+</tr>
+
+  
+      
+<tr class="deep-level-1">
+    
+        <td class="name"><code>warningLimit</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            "#FFB900"
+        
+        </td>
+    
+
+    <td class="description last"><p>It refer to the hexdecimal color or color name of warning limit of both series. e.g. upper warn limit 1, lower warn limit 1 etc.</p></td>
+</tr>
+
+  
+      
+<tr class="deep-level-1">
+    
+        <td class="name"><code>processMeanValue</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            "#0A9B00"
+        
+        </td>
+    
+
+    <td class="description last"><p>It refer to the hexdecimal color or color name of process mean value. e.g. xbp1, xbp2 etc.</p></td>
+</tr>
+
+  
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>tooltip</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">array</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>To specify order of series in tooltip. Moreover series can be show or hide in tooltip with this param</p></td>
+</tr>
+
+  
+      
+<tr class="deep-level-1">
+    
+        <td class="name"><code>showInTooltip</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">boolean</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            true
+        
+        </td>
+    
+
+    <td class="description last"><p>To show or hide a series in tooltip</p></td>
+</tr>
+
+  
+      
+<tr class="deep-level-1">
+    
+        <td class="name"><code>seriesId</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>The id of the series</p></td>
+</tr>
+
+  
+      
+<tr class="deep-level-1">
+    
+        <td class="name"><code>order</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>The order in which a series should be displayed in tooltip. Starting from 1.</p></td>
+</tr>
+
+  
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>$('#chart').chart({     chartType: data.controlChartType,     locale: locale,     data: data,     chartTitle: 'XB/s Chart',     xAxisTitle: 'Subgroups',     decimalPlaces: 4,     height: '60%',     width: undefined,     onSeriesClick: function (data) {                             console.log(data);                             },     series1yAxisMinValue: 1.10,     series1yAxisMaxValue: 2.20,     series2yAxisMinValue: 0.005,     series2yAxisMaxValue: 0.006,     xAxisCustomInfoLabel: true,     onLegendClick: function (data) {                             console.log(data);                              },      boxplot: true,      series: {         color: {                 warningLimit: '#FFDFGE',                 controlLimit: 'green',                 toleranceLimit: '#FFDFGD',                 processMeanValue: 'black',                 series1: '#FF2233',                 series2 : '#435576'                 }          },          tooltip: [                     {                         seriesId: 'ltl',                         order: 1,                         showInTooltip: true                     },                     {                         seriesId: 'lcl',                         order: 2,                         showInTooltip: true                     },                     {                         seriesId: 'lwl',                         order: 3,                         showInTooltip: true                     },                     {                         seriesId: 'xbp',                         order: 4,                         showInTooltip: false                     },                     {                         seriesId: 'uwl',                         order: 5,                         showInTooltip: true                     },                     {                         seriesId: 'ucl',                         order: 6,                         showInTooltip: true                     },                     {                         seriesId: 'utl',                         order: 7,                         showInTooltip: true                     },                     {                         seriesId: 'series__1',                         order: 9,                         showInTooltip: true                     }              ]     }</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">string</span>
+
+
+    </span>
+
+<h4 class="name" id=".seriesIds">
+    
+    <span class="code-name">
+        seriesIds
+    </span>
+</h4>
+
+
+
+
+<div class="description">
+    <p>The IDs of the series used in control chart. These can be used in addPoint, updatePoint methods or to hide series.</p>
+</div>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>ucl_1</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Upper control limit id of the first series.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>lcl_1</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Lower control limit id of the first series.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>uwl_1</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Upper warn limit id of the first series.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>lwl_1</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Lower warn limit id of the first series.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>xbp_1</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Process mean value id of the first series.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>series__1</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>XB series id of the first series.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>firstChoiceUpperLimit</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>First Choice upper border series id.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>firstChoiceLowerLimit</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>First Choice lower border series id.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>secondChoiceUpperLimit</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Second Choice upper border series id.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>secondChoiceLowerLimit</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Second Choice lower border series id.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>thirdChoiceUpperLimit</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Third Choice upper border series id.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>thirdChoiceLowerLimit</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Third Choice lower border series id.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>centerOfTolerances</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>center of tolerances series id.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>averageOfAllValues</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>average of all measurements series id.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>oneThirdOfUpperControlLimit</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>one third of upper control limits series id.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>twoThirdsOfUpperControlLimit</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>two thirds of upper control limits series id.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>oneThirdOfLowerControlLimit</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>one third of lower control limits series id.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>twoThirdsOfLowerControlLimit</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>two thirds of lower control limits series id.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>calculatedMax</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>max value of the supgroup series id.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>calculatedMin</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>min value of the supgroup series id.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>ucl_2</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Upper control limit id of the second series.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>lcl_2</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Lower control limit id of the second series.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>uwl_2</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Upper warn limit id of the second series.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>lwl_2</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Lower warn limit id of the second series.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>xbp_2</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Process mean value id of the second series.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>series__2</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>Series id of the second main series. It can be s, r, etc. series.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>boxplot</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The boxplot series id.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>SPC_ZONE_A</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The SPC zone A id.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>SPC_ZONE_B1</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The SPC zone B1,C1 id.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>SPC_ZONE_B2</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The SPC zone B2,C2 id.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>measurement</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The measurment series id.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>utl_1</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The upper tolerance limit id.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>ltl_1</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The upper tolerance limit id.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>utl_2</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The upper tolerance limit id for R/S chart.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>ltl_2</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+
+    
+
+    <td class="description last"><p>The upper tolerance limit id for R/S chart.</p></td>
+</tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+        <p class="code-caption"> The series Id can be use like this add a point in a specific series </p>
+    
+    <pre class="prettyprint"><code>$('#chart').chart('addPoint', 'ucl_1', 19.90);// to hide a series in chart , the series can be used too * $('#chart').chart(     {         locale: "en",         data: {             specifications: {                             subgroupSize : 2,                             controlChartType : 'xb_s',              },         subgroups: [],  // Array of objects in defined format     },     decimalPlaces: 2,     hiddenSeries: [                     {                         "seriesId" : "lcl",                         "showInChart": true,                         "showInLegend": false                     }                 ],     onSeriesClick: function (data) {         console.log(data);     },     onLegendClick : function (data) {         console.log(data);     }     });</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">object</span>
+
+
+    </span>
+
+<h4 class="name" id=".seriesVisibilityObject">
+    
+    <span class="code-name">
+        seriesVisibilityObject
+    </span>
+</h4>
+
+
+
+
+<div class="description">
+    <p>the behaviour of series, wether to hide from legend and / or they are visible initialy.
+Default for all additional lines is invisible and not shown in legend, all others are shown in legend and are visible.</p>
+</div>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>seriesId</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"><p>the seriesId can be seen here <a href="ControlChart.html#.seriesIds">ControlChart.seriesIds</a></p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>showInChart</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">boolean</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"><p>initial show this series or not</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>showInLegend</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">boolean</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+
+    <td class="description last"><p>display this series in the legend</p></td>
+</tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>$('#chart').chart({     chartType: data.controlChartType,     locale: locale,     data: data,     chartTitle: 'XB/s Chart',     xAxisTitle: 'Subgroups',     decimalPlaces: 4,     height: '60%',     width: undefined,     additionalLines: {            "secondChoiceUpperLimit": 20.02,            "secondChoiceLowerLimit": 19.98     },     hiddenSeries: [          {             "seriesId": "lcl_1",             "showInChart": false,             "showInLegend": true          },          {             "seriesId": "secondChoiceUpperLimit",             "showInLegend": true,             "showInChart": false          }     ] });</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">object</span>
+
+
+    </span>
+
+<h4 class="name" id=".titleSettings">
+    
+    <span class="code-name">
+        titleSettings
+    </span>
+</h4>
+
+
+
+
+<div class="description">
+    <p>The titleSettings object is to determine the position and rotation of the chart title</p>
+</div>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>align</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>The horizontal alignment of the title. Can be one of &quot;left&quot;, &quot;center&quot; and &quot;right&quot;.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>rotate</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>The rotation of the text in degrees. 0 is horizontal, 270 is vertical reading from bottom to top.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>x</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            undefind
+        
+        </td>
+    
+
+    <td class="description last"><p>The x position of the title relative to the alignment</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>y</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            undefind
+        
+        </td>
+    
+
+    <td class="description last"><p>The y position of the title relative to the alignment</p></td>
+</tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>titleSettings:{ align: 'left', rotate: '90', x: '35', y:'207'},</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">object</span>
+
+
+    </span>
+
+<h4 class="name" id=".tooltip">
+    
+    <span class="code-name">
+        tooltip
+    </span>
+</h4>
+
+
+
+
+<div class="description">
+    <p>An array of objects with following properties can be injected against each measurements.</p>
+</div>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>showInTooltip</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">boolean</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            true
+        
+        </td>
+    
+
+    <td class="description last"><p>To show or hide a series in tooltip</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>seriesId</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>The id of the series</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>order</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>The order in which a series should be displayed in tooltip. Starting from 1.</p></td>
+</tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>$('#svc').chart(     {         locale: "en",         data: {              specifications :                  {                      subgroupSize : 2,                      controlChartType : 'xb_s',                  }              measurements : [], // Array of objects in defined format              subgroups: [],  // Array of objects in defined format             },          decimalPlaces: 2,          xAxisCustomInfoLabel: true,          series: {              tooltip: [                  {                      seriesId: 'ltl',                      order: 1,                      showInTooltip: true                  },                  {                      seriesId: 'lcl',                      order: 2,                      showInTooltip: true                  },                  {                      seriesId: 'lwl',                      order: 3,                      showInTooltip: true                  },                  {                      seriesId: 'xbp',                      order: 4,                      showInTooltip: false                  },                  {                      seriesId: 'uwl',                      order: 5,                      showInTooltip: true                  },                  {                      seriesId: 'ucl',                      order: 6,                      showInTooltip: true                  },                  {                      seriesId: 'utl',                      order: 7,                      showInTooltip: true                  },                  {                      seriesId: 'series__1',                      order: 9,                      showInTooltip: true                  }              ]          }     });</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">object</span>
+
+
+    </span>
+
+<h4 class="name" id=".yAxisScale">
+    
+    <span class="code-name">
+        yAxisScale
+    </span>
+</h4>
+
+
+
+
+<div class="description">
+    <p>The yAxisScale object is to determine the min/max values for both yAxis. If the user provide values for Min and Max then MinScaling and MaxScaling does not affect the scaling either the user specifies numeric values for min and mix or specifies the scaling behavior according to <a href="global.html#scaling">scaling</a></p>
+</div>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>min</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>The minimum value of the y axis. If null or undefined the minimum value is calculated based on minScaling.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>max</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>The maximum value of the y axis. If null or undefined the maximum value is calculated based on maxScaling.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>minScaling</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="global.html#scaling">scaling</a></span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            scaling.default
+        
+        </td>
+    
+
+    <td class="description last"><p>refer to <a href="global.html#scaling">scaling</a>.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>maxScaling</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="global.html#scaling">scaling</a></span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            scaling.default
+        
+        </td>
+    
+
+    <td class="description last"><p>refer to <a href="global.html#scaling">scaling</a>.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>secondMin</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>The minimum value of the y axis of second chart. If null or undefined the minimum value is calculated based on secondMinScaling.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>secondMax</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+        </td>
+    
+
+    <td class="description last"><p>The maximum value of the y axis. If null or undefined the maximum value is calculated based on maxScaling.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>secondMinScaling</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="global.html#scaling">scaling</a></span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            scaling.default
+        
+        </td>
+    
+
+    <td class="description last"><p>refer to <a href="global.html#scaling">scaling</a>.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>secondMaxScaling:</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type"><a href="global.html#scaling">scaling</a></span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            scaling.default
+        
+        </td>
+    
+
+    <td class="description last"><p>refer to <a href="global.html#scaling">scaling</a>.</p></td>
+</tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>yAxisScale: {  min: undefined,  max: undefined,  minScaling: "controlLimit",  maxScaling: "controlLimit",  secondMin: undefined,  secondMax: undefined,  secondMinScaling: "controlLimit",  secondMaxScaling: "controlLimit"  }</code></pre>
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">object</span>
+
+
+    </span>
+
+<h4 class="name" id=".yAxisUnit">
+    
+    <span class="code-name">
+        yAxisUnit
+    </span>
+</h4>
+
+
+
+
+<div class="description">
+    <p>To specify the series yAxis unit related properities.</p>
+</div>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>text</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            ""
+        
+        </td>
+    
+
+    <td class="description last"><p>To specify the series colors.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>x</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            60
+        
+        </td>
+    
+
+    <td class="description last"><p>x position of the text.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>y</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            null
+        
+        </td>
+    
+
+    <td class="description last"><p>y position of the text.</p></td>
+</tr>
+
+    
+        
+<tr class="deep-level-0">
+    
+        <td class="name"><code>fontSize</code></td>
+    
+
+    <td class="type">
+    
+        
+<span class="param-type">number</span>
+|
+
+<span class="param-type">string</span>
+
+
+    
+    </td>
+
+    
+        <td class="attributes">
+        
+            &lt;optional><br>
+        
+
+        
+        </td>
+    
+
+    
+        <td class="default">
+        
+            null
+        
+        </td>
+    
+
+    <td class="description last"><p>The font size of the text. If as number will be given then unit will be in pixel. As string in points can be size given e.g. '12pt'</p></td>
+</tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>$('#chart').chart({     chartType: data.controlChartType,     locale: locale,     data: data,     chartTitle: 'XB/s Chart',     xAxisTitle: 'Subgroups',     decimalPlaces: 4,     height: '60%',     width: undefined,     additionalLines: {            "secondChoiceUpperLimit": 20.02,            "secondChoiceLowerLimit": 19.98     },     hiddenSeries: [          {               "seriesId": "firstChoiceUpperLimit",             "showInChart": false,             "showInLegend": true          },          {             "seriesId": "secondChoiceUpperLimit",             "showInLegend": true,             "showInChart": false          }     ],     onSeriesClick: function (data) {         console.log(data);     },      onNavigationChanged: function (data) {
+            console.log(data)
+        },
+         onFlagSeriesClick: function (data) {
+             console.log(data)
+                },     series1yAxisMinValue: 1.10,     series1yAxisMaxValue: 2.20,     series2yAxisMinValue: 0.005,     series2yAxisMaxValue: 0.006,     xAxisCustomInfoLabel: true,     onLegendClick: function (data) {                             console.log(data);                              },      boxplot: true,      yAxisUnit: {                 text: 'DW05Unit01',                 x: 100,                 y: -20,                 fontSize: '20pt'                 },      series: {         color: {                 warningLimit: '#FFDFGE',                 controlLimit: 'green',                 toleranceLimit: '#FFDFGD',                 processMeanValue: 'black',                 series1: '#FF2233',                 series2 : '#435576'                 }          } });</code></pre>
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+				</div>
+		    </div>
+			<footer class="sticky-footer">
+				<div class="copyright">&copy; <span id="year"></span>  Siemens.</div>
+			</footer>
+		</div>
+	</div>
+	<!-- Page Wrapper -->	
+	<script>
+		
+		$(function () {
+			prettyPrint();
+			$('#content').click(function (e) {
+				$('.collapse').collapse('hide');
+			});
+			 document.getElementById('year').textContent = new Date().getFullYear();
+		});
+
+	</script>
+	<script src="scripts/app.min.js"></script>
+	<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
